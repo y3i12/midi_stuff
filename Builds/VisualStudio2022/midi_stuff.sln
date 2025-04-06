@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio Version 17
+
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "midi_stuff - Standalone Plugin", "midi_stuff_StandalonePlugin.vcxproj", "{7777BE47-41A3-A290-F71B-E11C819BDB7E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A1378C33-A043-2DD1-27F8-6FF71AC0C69E} = {A1378C33-A043-2DD1-27F8-6FF71AC0C69E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "midi_stuff - VST3", "midi_stuff_VST3.vcxproj", "{18CD3BA1-8F13-BD89-7B64-33E4ACBDF63C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A1378C33-A043-2DD1-27F8-6FF71AC0C69E} = {A1378C33-A043-2DD1-27F8-6FF71AC0C69E}
+		{C24277B7-140E-BA59-C5EF-3941C4BDAA4A} = {C24277B7-140E-BA59-C5EF-3941C4BDAA4A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "midi_stuff - Shared Code", "midi_stuff_SharedCode.vcxproj", "{A1378C33-A043-2DD1-27F8-6FF71AC0C69E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "midi_stuff - VST3 Manifest Helper", "midi_stuff_VST3ManifestHelper.vcxproj", "{C24277B7-140E-BA59-C5EF-3941C4BDAA4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18CD3BA1-8F13-BD89-7B64-33E4ACBDF63C}.Debug|x64.ActiveCfg = Debug|x64
+		{18CD3BA1-8F13-BD89-7B64-33E4ACBDF63C}.Debug|x64.Build.0 = Debug|x64
+		{18CD3BA1-8F13-BD89-7B64-33E4ACBDF63C}.Release|x64.ActiveCfg = Release|x64
+		{18CD3BA1-8F13-BD89-7B64-33E4ACBDF63C}.Release|x64.Build.0 = Release|x64
+		{7777BE47-41A3-A290-F71B-E11C819BDB7E}.Debug|x64.ActiveCfg = Debug|x64
+		{7777BE47-41A3-A290-F71B-E11C819BDB7E}.Debug|x64.Build.0 = Debug|x64
+		{7777BE47-41A3-A290-F71B-E11C819BDB7E}.Release|x64.ActiveCfg = Release|x64
+		{7777BE47-41A3-A290-F71B-E11C819BDB7E}.Release|x64.Build.0 = Release|x64
+		{A1378C33-A043-2DD1-27F8-6FF71AC0C69E}.Debug|x64.ActiveCfg = Debug|x64
+		{A1378C33-A043-2DD1-27F8-6FF71AC0C69E}.Debug|x64.Build.0 = Debug|x64
+		{A1378C33-A043-2DD1-27F8-6FF71AC0C69E}.Release|x64.ActiveCfg = Release|x64
+		{A1378C33-A043-2DD1-27F8-6FF71AC0C69E}.Release|x64.Build.0 = Release|x64
+		{C24277B7-140E-BA59-C5EF-3941C4BDAA4A}.Debug|x64.ActiveCfg = Debug|x64
+		{C24277B7-140E-BA59-C5EF-3941C4BDAA4A}.Debug|x64.Build.0 = Debug|x64
+		{C24277B7-140E-BA59-C5EF-3941C4BDAA4A}.Release|x64.ActiveCfg = Release|x64
+		{C24277B7-140E-BA59-C5EF-3941C4BDAA4A}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

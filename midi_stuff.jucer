@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="IBgTVB" name="midi_stuff" projectType="audioplug" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="y3i12"
+              version="0.0.1" projectLineFeed="&#10;" companyCopyright="Yarp."
+              companyWebsite="y3i12.com" pluginFormats="buildStandalone,buildVST3"
+              pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
+              pluginName="midi_stuff" pluginDesc="does stuff to midi" pluginManufacturer="y3i12"
+              pluginManufacturerCode="y313" pluginVST3Category="Fx,Instrument,Tools"
+              cppLanguageStandard="latest" headerPath="..\..\Source">
+  <MAINGROUP id="mSB3us" name="midi_stuff">
+    <GROUP id="{5FFBD03F-E00E-0E6D-E038-BA7D1B98515B}" name="Source">
+      <FILE id="ahXR8F" name="LICENSE" compile="0" resource="1" file="LICENSE"/>
+      <FILE id="i0lhOp" name="README.md" compile="0" resource="1" file="README.md"/>
+      <GROUP id="{DCEDCCE6-A34C-0008-39F8-0F0FA8E11308}" name="arpligner_ref">
+        <FILE id="GAo9zw" name="chord.hpp" compile="0" resource="0" file="Source/arpligner_ref/chord.hpp"/>
+        <FILE id="ge5sb1" name="chord_db.hpp" compile="0" resource="0" file="Source/arpligner_ref/chord_db.hpp"/>
+        <FILE id="OC6F7G" name="chordcat.hpp" compile="0" resource="0" file="Source/arpligner_ref/chordcat.hpp"/>
+        <FILE id="KEHmrJ" name="chordcat_types.hpp" compile="0" resource="0"
+              file="Source/arpligner_ref/chordcat_types.hpp"/>
+        <FILE id="FNO9D4" name="midi_relativizer.cpp" compile="0" resource="0"
+              file="Source/arpligner_ref/midi_relativizer.cpp"/>
+        <FILE id="nut6Fr" name="midi_relativizer.h" compile="0" resource="0"
+              file="Source/arpligner_ref/midi_relativizer.h"/>
+        <FILE id="M7YjzH" name="note_map.cpp" compile="0" resource="0" file="Source/arpligner_ref/note_map.cpp"/>
+        <FILE id="JkNG6N" name="note_map.h" compile="0" resource="0" file="Source/arpligner_ref/note_map.h"/>
+        <FILE id="qhAKa0" name="PluginEditor.cpp" compile="0" resource="0"
+              file="Source/arpligner_ref/PluginEditor.cpp"/>
+        <FILE id="lhaaSX" name="PluginEditor.h" compile="0" resource="0" file="Source/arpligner_ref/PluginEditor.h"/>
+        <FILE id="a9XxY5" name="PluginProcessor.cpp" compile="0" resource="0"
+              file="Source/arpligner_ref/PluginProcessor.cpp"/>
+        <FILE id="wVz0Or" name="PluginProcessor.h" compile="0" resource="0"
+              file="Source/arpligner_ref/PluginProcessor.h"/>
+        <FILE id="a1VCWy" name="scale_db.hpp" compile="0" resource="0" file="Source/arpligner_ref/scale_db.hpp"/>
+        <FILE id="JCkVs2" name="utils.hpp" compile="0" resource="0" file="Source/arpligner_ref/utils.hpp"/>
+      </GROUP>
+      <GROUP id="{1F535D75-0E7C-68B9-B326-158AA7E364EE}" name="midi_stuff">
+        <GROUP id="{6F33A8C1-C07E-5AD6-6763-5841B98F8DBE}" name="tinyevents">
+          <FILE id="X3oECV" name="tinyevents.h" compile="0" resource="0" file="Source/midi_stuff/tinyevents/tinyevents.h"/>
+        </GROUP>
+        <FILE id="nrzVEN" name="midi_stuff.h" compile="0" resource="0" file="Source/midi_stuff/midi_stuff.h"/>
+        <FILE id="fEAgIo" name="tests.hpp" compile="0" resource="0" file="Source/midi_stuff/tests.hpp"/>
+      </GROUP>
+      <FILE id="QlkUzi" name="midi_stuff_plugin_processor.cpp" compile="1"
+            resource="0" file="Source/midi_stuff_plugin_processor.cpp"/>
+      <FILE id="iXoNfp" name="midi_stuff_plugin_processor.h" compile="0"
+            resource="0" file="Source/midi_stuff_plugin_processor.h"/>
+      <FILE id="dG2N0A" name="midi_stuff_plugin_editor.cpp" compile="1" resource="0"
+            file="Source/midi_stuff_plugin_editor.cpp"/>
+      <FILE id="jMJcyA" name="midi_stuff_plugin_editor.h" compile="0" resource="0"
+            file="Source/midi_stuff_plugin_editor.h"/>
+      <FILE id="bUCBts" name="plugin_editor.cpp" compile="1" resource="0"
+            file="Source/plugin_editor.cpp"/>
+      <FILE id="DF5FVs" name="plugin_editor.h" compile="0" resource="0" file="Source/plugin_editor.h"/>
+      <FILE id="OMlrC4" name="plugin_processor.cpp" compile="1" resource="0"
+            file="Source/plugin_processor.cpp"/>
+      <FILE id="a90Ors" name="plugin_processor.h" compile="0" resource="0"
+            file="Source/plugin_processor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="midi_stuff"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="midi_stuff"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2022>
+  </EXPORTFORMATS>
+</JUCERPROJECT>
