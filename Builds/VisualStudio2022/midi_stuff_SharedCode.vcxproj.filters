@@ -2,9 +2,6 @@
 
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="midi_stuff\Source\arpligner_ref">
-      <UniqueIdentifier>{5E78D2B4-92CE-852C-DBA4-30244C0736F2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="midi_stuff\Source\midi_stuff\tinyevents">
       <UniqueIdentifier>{0001845E-CA96-CDE2-47B9-EFFC9932323C}</UniqueIdentifier>
     </Filter>
@@ -16,6 +13,33 @@
     </Filter>
     <Filter Include="midi_stuff">
       <UniqueIdentifier>{A0234179-D0EC-E2EF-19BE-F29A0153D9B7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\foleys_gui_magic\Editor">
+      <UniqueIdentifier>{40399094-E8DD-BF0B-DB17-065FDD61E368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\foleys_gui_magic\General">
+      <UniqueIdentifier>{B11A9F1E-C13F-8525-C10D-8F375011B382}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\foleys_gui_magic\Helpers">
+      <UniqueIdentifier>{DC96A383-4D0C-ABD3-8AF0-D6B5F45E297E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\foleys_gui_magic\Layout">
+      <UniqueIdentifier>{108CEC83-387C-7CBD-AD19-0FE2C8075C0F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\foleys_gui_magic\LookAndFeels">
+      <UniqueIdentifier>{AFCC23B9-BF88-6DD1-7177-FBD92426EA02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\foleys_gui_magic\State">
+      <UniqueIdentifier>{CCED682D-817C-EF95-0A9A-67D30C8C0FC3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\foleys_gui_magic\Visualisers">
+      <UniqueIdentifier>{82122A46-F1A6-969C-05F7-CF3725A4E459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\foleys_gui_magic\Widgets">
+      <UniqueIdentifier>{BEC0FEE1-21A0-E765-6BCE-7CF16F95B6F2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\foleys_gui_magic">
+      <UniqueIdentifier>{188FBB45-2F7E-C788-A97A-9176154DD34B}</UniqueIdentifier>
     </Filter>
     <Filter Include="JUCE Modules\juce_audio_basics\audio_play_head">
       <UniqueIdentifier>{EB58F05A-A968-CEBE-40C4-107CDD8F240F}</UniqueIdentifier>
@@ -446,6 +470,15 @@
     <Filter Include="JUCE Modules\juce_core">
       <UniqueIdentifier>{BAA582FA-40B7-320E-EE7A-4C3892C7BE72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JUCE Modules\juce_cryptography\encryption">
+      <UniqueIdentifier>{89B3E447-34BE-C691-638E-09796C6B647E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_cryptography\hashing">
+      <UniqueIdentifier>{9BE78436-DBF4-658C-579B-ED19FFD0EB5D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_cryptography">
+      <UniqueIdentifier>{21E7FA61-9E0A-4BA1-04B7-AF47AFA9CB8B}</UniqueIdentifier>
+    </Filter>
     <Filter Include="JUCE Modules\juce_data_structures\app_properties">
       <UniqueIdentifier>{632B4C79-AF7D-BFB5-D006-5AE67F607130}</UniqueIdentifier>
     </Filter>
@@ -457,6 +490,30 @@
     </Filter>
     <Filter Include="JUCE Modules\juce_data_structures">
       <UniqueIdentifier>{911F0159-A7A8-4A43-3FD4-154F62F4A44B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_dsp\containers">
+      <UniqueIdentifier>{53CF03D3-988B-CD28-9130-CE08FDCEF7E9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_dsp\filter_design">
+      <UniqueIdentifier>{29C6FE02-507E-F3FE-16CD-74D84842C1EA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_dsp\frequency">
+      <UniqueIdentifier>{8001BD68-125B-E392-8D3B-1F9C9520A65A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_dsp\maths">
+      <UniqueIdentifier>{EDC17061-CFA0-8EA0-0ADA-90F31C2FB0F2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_dsp\native">
+      <UniqueIdentifier>{B813BD14-6565-2525-9AC3-E3AA48EDDA85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_dsp\processors">
+      <UniqueIdentifier>{DDF4BA73-8578-406D-21F8-06B9BC70BFEA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_dsp\widgets">
+      <UniqueIdentifier>{73374573-0194-9A6E-461A-A81EEB511C26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JUCE Modules\juce_dsp">
+      <UniqueIdentifier>{5DD60D0E-B16A-0BED-EDC4-C56E6960CA9E}</UniqueIdentifier>
     </Filter>
     <Filter Include="JUCE Modules\juce_events\broadcasters">
       <UniqueIdentifier>{9D5816C2-E2B2-2E3F-B095-AC8BD1100D29}</UniqueIdentifier>
@@ -679,29 +736,140 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\arpligner_ref\midi_relativizer.cpp">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\arpligner_ref\note_map.cpp">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\arpligner_ref\PluginEditor.cpp">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\arpligner_ref\PluginProcessor.cpp">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\midi_stuff_plugin_processor.cpp">
-      <Filter>midi_stuff\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\midi_stuff_plugin_editor.cpp">
-      <Filter>midi_stuff\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\plugin_editor.cpp">
       <Filter>midi_stuff\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\plugin_processor.cpp">
       <Filter>midi_stuff\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_GUITreeEditor.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_MultiListPropertyComponent.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_Palette.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_PropertiesEditor.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleBoolPropertyComponent.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleChoicePropertyComponent.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleColourPropertyComponent.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleGradientPropertyComponent.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StylePropertyComponent.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleTextPropertyComponent.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_ToolBox.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_ApplicationSettings.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_MagicGUIBuilder.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_MagicJUCEFactories.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_MagicPluginEditor.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_MagicProcessor.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_Resources.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Helpers\foleys_DefaultGuiTrees.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_Container.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_Decorator.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_GradientBackground.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_GuiItem.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_RootItem.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_Stylesheet.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_JuceLookAndFeels.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\LookAndFeels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_LookAndFeel.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\LookAndFeels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_Skeuomorphic.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\LookAndFeels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_MagicGUIState.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_MagicProcessorState.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_MidiParameterMapper.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_ParameterManager.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_RadioButtonManager.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicAnalyser.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicFilterPlot.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicLevelSource.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicOscilloscope.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_FileBrowserDialog.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_MagicLevelMeter.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_MagicPlotComponent.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_MidiDrumpadComponent.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_MidiLearnComponent.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_XYDragComponent.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\foleys_gui_magic.cpp">
+      <Filter>JUCE Modules\foleys_gui_magic</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.cpp">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>
@@ -2104,6 +2272,30 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_core\juce_core_CompilationTime.cpp">
       <Filter>JUCE Modules\juce_core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\encryption\juce_BlowFish.cpp">
+      <Filter>JUCE Modules\juce_cryptography\encryption</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\encryption\juce_Primes.cpp">
+      <Filter>JUCE Modules\juce_cryptography\encryption</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\encryption\juce_RSAKey.cpp">
+      <Filter>JUCE Modules\juce_cryptography\encryption</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\hashing\juce_MD5.cpp">
+      <Filter>JUCE Modules\juce_cryptography\hashing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\hashing\juce_SHA256.cpp">
+      <Filter>JUCE Modules\juce_cryptography\hashing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\hashing\juce_Whirlpool.cpp">
+      <Filter>JUCE Modules\juce_cryptography\hashing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\juce_cryptography.cpp">
+      <Filter>JUCE Modules\juce_cryptography</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\juce_cryptography.mm">
+      <Filter>JUCE Modules\juce_cryptography</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_data_structures\app_properties\juce_ApplicationProperties.cpp">
       <Filter>JUCE Modules\juce_data_structures\app_properties</Filter>
     </ClCompile>
@@ -2136,6 +2328,114 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_data_structures\juce_data_structures.mm">
       <Filter>JUCE Modules\juce_data_structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\containers\juce_AudioBlock_test.cpp">
+      <Filter>JUCE Modules\juce_dsp\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\containers\juce_SIMDRegister_test.cpp">
+      <Filter>JUCE Modules\juce_dsp\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\filter_design\juce_FilterDesign.cpp">
+      <Filter>JUCE Modules\juce_dsp\filter_design</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_Convolution.cpp">
+      <Filter>JUCE Modules\juce_dsp\frequency</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_Convolution_test.cpp">
+      <Filter>JUCE Modules\juce_dsp\frequency</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_FFT.cpp">
+      <Filter>JUCE Modules\juce_dsp\frequency</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_FFT_test.cpp">
+      <Filter>JUCE Modules\juce_dsp\frequency</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_Windowing.cpp">
+      <Filter>JUCE Modules\juce_dsp\frequency</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_LogRampedValue_test.cpp">
+      <Filter>JUCE Modules\juce_dsp\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_LookupTable.cpp">
+      <Filter>JUCE Modules\juce_dsp\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_Matrix.cpp">
+      <Filter>JUCE Modules\juce_dsp\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_Matrix_test.cpp">
+      <Filter>JUCE Modules\juce_dsp\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_SpecialFunctions.cpp">
+      <Filter>JUCE Modules\juce_dsp\maths</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_avx.cpp">
+      <Filter>JUCE Modules\juce_dsp\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_neon.cpp">
+      <Filter>JUCE Modules\juce_dsp\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_sse.cpp">
+      <Filter>JUCE Modules\juce_dsp\native</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_BallisticsFilter.cpp">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_DelayLine.cpp">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_DryWetMixer.cpp">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_FIRFilter.cpp">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_FIRFilter_test.cpp">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_FirstOrderTPTFilter.cpp">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_IIRFilter.cpp">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_LinkwitzRileyFilter.cpp">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_Oversampling.cpp">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_Panner.cpp">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_ProcessorChain_test.cpp">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_StateVariableTPTFilter.cpp">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Chorus.cpp">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Compressor.cpp">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_LadderFilter.cpp">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Limiter.cpp">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_NoiseGate.cpp">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Phaser.cpp">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\juce_dsp.cpp">
+      <Filter>JUCE Modules\juce_dsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\juce_dsp.mm">
+      <Filter>JUCE Modules\juce_dsp</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_events\broadcasters\juce_ActionBroadcaster.cpp">
       <Filter>JUCE Modules\juce_events\broadcasters</Filter>
@@ -2227,7 +2527,16 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\contexts\juce_LowLevelGraphicsSoftwareRenderer.cpp">
       <Filter>JUCE Modules\juce_graphics\contexts</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_JustifiedText.cpp">
+      <Filter>JUCE Modules\juce_graphics\detail</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_Ranges.cpp">
+      <Filter>JUCE Modules\juce_graphics\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_ShapedText.cpp">
+      <Filter>JUCE Modules\juce_graphics\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_SimpleShapedText.cpp">
       <Filter>JUCE Modules\juce_graphics\detail</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\effects\juce_DropShadowEffect.cpp">
@@ -2480,15 +2789,6 @@
       <Filter>JUCE Modules\juce_graphics\fonts</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\fonts\juce_GlyphArrangement.cpp">
-      <Filter>JUCE Modules\juce_graphics\fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\fonts\juce_JustifiedText.cpp">
-      <Filter>JUCE Modules\juce_graphics\fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\fonts\juce_ShapedText.cpp">
-      <Filter>JUCE Modules\juce_graphics\fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\fonts\juce_SimpleShapedText.cpp">
       <Filter>JUCE Modules\juce_graphics\fonts</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\fonts\juce_TextLayout.cpp">
@@ -2938,6 +3238,9 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_AccessibilityHelpers.cpp">
       <Filter>JUCE Modules\juce_gui_basics\detail</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_ComponentPeerHelpers.cpp">
+      <Filter>JUCE Modules\juce_gui_basics\detail</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\drawables\juce_Drawable.cpp">
       <Filter>JUCE Modules\juce_gui_basics\drawables</Filter>
     </ClCompile>
@@ -3328,6 +3631,9 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\widgets\juce_TextEditor.cpp">
       <Filter>JUCE Modules\juce_gui_basics\widgets</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\widgets\juce_TextEditorModel.cpp">
+      <Filter>JUCE Modules\juce_gui_basics\widgets</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\widgets\juce_Toolbar.cpp">
       <Filter>JUCE Modules\juce_gui_basics\widgets</Filter>
     </ClCompile>
@@ -3502,6 +3808,9 @@
     <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\include_foleys_gui_magic.cpp">
+      <Filter>JUCE Library Code</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
@@ -3532,7 +3841,13 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_core_CompilationTime.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\include_juce_cryptography.cpp">
+      <Filter>JUCE Library Code</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_data_structures.cpp">
+      <Filter>JUCE Library Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\JuceLibraryCode\include_juce_dsp.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_events.cpp">
@@ -3555,36 +3870,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\arpligner_ref\chord.hpp">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\arpligner_ref\chord_db.hpp">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\arpligner_ref\chordcat.hpp">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\arpligner_ref\chordcat_types.hpp">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\arpligner_ref\midi_relativizer.h">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\arpligner_ref\note_map.h">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\arpligner_ref\PluginEditor.h">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\arpligner_ref\PluginProcessor.h">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\arpligner_ref\scale_db.hpp">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\arpligner_ref\utils.hpp">
-      <Filter>midi_stuff\Source\arpligner_ref</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\midi_stuff\tinyevents\tinyevents.h">
       <Filter>midi_stuff\Source\midi_stuff\tinyevents</Filter>
     </ClInclude>
@@ -3597,14 +3882,167 @@
     <ClInclude Include="..\..\Source\midi_stuff_plugin_processor.h">
       <Filter>midi_stuff\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\midi_stuff_plugin_editor.h">
-      <Filter>midi_stuff\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\plugin_editor.h">
-      <Filter>midi_stuff\Source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\plugin_processor.h">
       <Filter>midi_stuff\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_GUITreeEditor.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_MultiListPropertyComponent.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_Palette.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_PropertiesEditor.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleBoolPropertyComponent.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleChoicePropertyComponent.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleColourPropertyComponent.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleGradientPropertyComponent.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StylePropertyComponent.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleTextPropertyComponent.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_ToolBox.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_ApplicationSettings.h">
+      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_MagicGUIBuilder.h">
+      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_MagicPluginEditor.h">
+      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_MagicProcessor.h">
+      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_Resources.h">
+      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_SettableProperties.h">
+      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_StringDefinitions.h">
+      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_AtomicValueAttachment.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_Conversions.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_DefaultGuiTrees.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_MouseLambdas.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_ParameterAttachment.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_PopupMenuHelper.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_ScopedInterProcessLock.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_BoxModel.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_Container.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_Decorator.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_GradientBackground.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_GuiItem.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_RootItem.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_Stylesheet.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_JuceLookAndFeels.h">
+      <Filter>JUCE Modules\foleys_gui_magic\LookAndFeels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_LookAndFeel.h">
+      <Filter>JUCE Modules\foleys_gui_magic\LookAndFeels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_Skeuomorphic.h">
+      <Filter>JUCE Modules\foleys_gui_magic\LookAndFeels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_MagicGUIState.h">
+      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_MagicProcessorState.h">
+      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_MidiParameterMapper.h">
+      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_ParameterManager.h">
+      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_RadioButtonManager.h">
+      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicAnalyser.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicFilterPlot.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicLevelSource.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicOscilloscope.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicPlotSource.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_AutoOrientationSlider.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_FileBrowserDialog.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_MagicLevelMeter.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_MagicPlotComponent.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_MidiDrumpadComponent.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_MidiLearnComponent.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_XYDragComponent.h">
+      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\foleys_gui_magic\foleys_gui_magic.h">
+      <Filter>JUCE Modules\foleys_gui_magic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>
@@ -5097,6 +5535,9 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\detail\juce_CallbackListenerList.h">
       <Filter>JUCE Modules\juce_core\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\detail\juce_NativeFileHandle.h">
+      <Filter>JUCE Modules\juce_core\detail</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\files\juce_AndroidDocument.h">
       <Filter>JUCE Modules\juce_core\files</Filter>
     </ClInclude>
@@ -5466,6 +5907,9 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\deflate.h">
       <Filter>JUCE Modules\juce_core\zip\zlib</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\gzguts.h">
+      <Filter>JUCE Modules\juce_core\zip\zlib</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\inffast.h">
       <Filter>JUCE Modules\juce_core\zip\zlib</Filter>
     </ClInclude>
@@ -5484,9 +5928,6 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\zconf.h">
       <Filter>JUCE Modules\juce_core\zip\zlib</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\zconf.in.h">
-      <Filter>JUCE Modules\juce_core\zip\zlib</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\zlib.h">
       <Filter>JUCE Modules\juce_core\zip\zlib</Filter>
     </ClInclude>
@@ -5502,8 +5943,32 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\juce_ZipFile.h">
       <Filter>JUCE Modules\juce_core\zip</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\juce_zlib.h">
+      <Filter>JUCE Modules\juce_core\zip</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\juce_core.h">
       <Filter>JUCE Modules\juce_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\encryption\juce_BlowFish.h">
+      <Filter>JUCE Modules\juce_cryptography\encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\encryption\juce_Primes.h">
+      <Filter>JUCE Modules\juce_cryptography\encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\encryption\juce_RSAKey.h">
+      <Filter>JUCE Modules\juce_cryptography\encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\hashing\juce_MD5.h">
+      <Filter>JUCE Modules\juce_cryptography\hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\hashing\juce_SHA256.h">
+      <Filter>JUCE Modules\juce_cryptography\hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\hashing\juce_Whirlpool.h">
+      <Filter>JUCE Modules\juce_cryptography\hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\juce_cryptography.h">
+      <Filter>JUCE Modules\juce_cryptography</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_data_structures\app_properties\juce_ApplicationProperties.h">
       <Filter>JUCE Modules\juce_data_structures\app_properties</Filter>
@@ -5534,6 +5999,144 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_data_structures\juce_data_structures.h">
       <Filter>JUCE Modules\juce_data_structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\containers\juce_AudioBlock.h">
+      <Filter>JUCE Modules\juce_dsp\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\containers\juce_SIMDRegister.h">
+      <Filter>JUCE Modules\juce_dsp\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\containers\juce_SIMDRegister_Impl.h">
+      <Filter>JUCE Modules\juce_dsp\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\filter_design\juce_FilterDesign.h">
+      <Filter>JUCE Modules\juce_dsp\filter_design</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_Convolution.h">
+      <Filter>JUCE Modules\juce_dsp\frequency</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_FFT.h">
+      <Filter>JUCE Modules\juce_dsp\frequency</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_Windowing.h">
+      <Filter>JUCE Modules\juce_dsp\frequency</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_FastMathApproximations.h">
+      <Filter>JUCE Modules\juce_dsp\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_LogRampedValue.h">
+      <Filter>JUCE Modules\juce_dsp\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_LookupTable.h">
+      <Filter>JUCE Modules\juce_dsp\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_Matrix.h">
+      <Filter>JUCE Modules\juce_dsp\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_Phase.h">
+      <Filter>JUCE Modules\juce_dsp\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_Polynomial.h">
+      <Filter>JUCE Modules\juce_dsp\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_SpecialFunctions.h">
+      <Filter>JUCE Modules\juce_dsp\maths</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_avx.h">
+      <Filter>JUCE Modules\juce_dsp\native</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_fallback.h">
+      <Filter>JUCE Modules\juce_dsp\native</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_neon.h">
+      <Filter>JUCE Modules\juce_dsp\native</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_sse.h">
+      <Filter>JUCE Modules\juce_dsp\native</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_BallisticsFilter.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_DelayLine.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_DryWetMixer.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_FIRFilter.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_FirstOrderTPTFilter.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_IIRFilter.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_IIRFilter_Impl.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_LinkwitzRileyFilter.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_Oversampling.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_Panner.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_ProcessContext.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_ProcessorChain.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_ProcessorDuplicator.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_ProcessorWrapper.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_StateVariableFilter.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_StateVariableTPTFilter.h">
+      <Filter>JUCE Modules\juce_dsp\processors</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Bias.h">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Chorus.h">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Compressor.h">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Gain.h">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_LadderFilter.h">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Limiter.h">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_NoiseGate.h">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Oscillator.h">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Phaser.h">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Reverb.h">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_WaveShaper.h">
+      <Filter>JUCE Modules\juce_dsp\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\juce_dsp.h">
+      <Filter>JUCE Modules\juce_dsp</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_events\broadcasters\juce_ActionBroadcaster.h">
       <Filter>JUCE Modules\juce_events\broadcasters</Filter>
@@ -5652,7 +6255,19 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\contexts\juce_LowLevelGraphicsSoftwareRenderer.h">
       <Filter>JUCE Modules\juce_graphics\contexts</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_JustifiedText.h">
+      <Filter>JUCE Modules\juce_graphics\detail</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_Ranges.h">
+      <Filter>JUCE Modules\juce_graphics\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_ShapedText.h">
+      <Filter>JUCE Modules\juce_graphics\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_SimpleShapedText.h">
+      <Filter>JUCE Modules\juce_graphics\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_Unicode.h">
       <Filter>JUCE Modules\juce_graphics\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\effects\juce_DropShadowEffect.h">
@@ -6645,6 +7260,9 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_Direct2DMetrics_windows.h">
       <Filter>JUCE Modules\juce_graphics\native</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_Direct2DPixelDataPage_windows.h">
+      <Filter>JUCE Modules\juce_graphics\native</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_DirectX_windows.h">
       <Filter>JUCE Modules\juce_graphics\native</Filter>
     </ClInclude>
@@ -6880,6 +7498,9 @@
       <Filter>JUCE Modules\juce_gui_basics\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_ComponentHelpers.h">
+      <Filter>JUCE Modules\juce_gui_basics\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_ComponentPeerHelpers.h">
       <Filter>JUCE Modules\juce_gui_basics\detail</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_CustomMouseCursorInfo.h">
@@ -7487,6 +8108,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\midi_stuff.xml">
+      <Filter>midi_stuff\Source</Filter>
+    </None>
     <None Include="..\..\LICENSE">
       <Filter>midi_stuff\Source</Filter>
     </None>
@@ -7552,6 +8176,9 @@
     </None>
     <None Include="..\..\..\..\JUCE\modules\juce_core\native\java\README.txt">
       <Filter>JUCE Modules\juce_core\native\java</Filter>
+    </None>
+    <None Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\JUCE_CHANGES.txt">
+      <Filter>JUCE Modules\juce_core\zip\zlib</Filter>
     </None>
     <None Include="..\..\..\..\JUCE\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt">
       <Filter>JUCE Modules\juce_graphics\image_formats\jpglib</Filter>

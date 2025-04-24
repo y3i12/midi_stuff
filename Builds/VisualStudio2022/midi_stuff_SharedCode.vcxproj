@@ -66,9 +66,9 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>D:\Workspace\Code\VST\JUCE\modules\juce_audio_processors\format_types\VST3_SDK;D:\Workspace\Code\VST\VST_SDK;..\..\JuceLibraryCode;D:\Workspace\Code\VST\JUCE\modules;..\..\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCE_PROJUCER_VERSION=0x80006;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=&quot;midi_stuff&quot;;JucePlugin_Desc=&quot;does stuff to midi&quot;;JucePlugin_Manufacturer=&quot;y3i12&quot;;JucePlugin_ManufacturerWebsite=&quot;y3i12.com&quot;;JucePlugin_ManufacturerEmail=&quot;&quot;;JucePlugin_ManufacturerCode=0x79333133;JucePlugin_PluginCode=0x49626774;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=1;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=0.0.1;JucePlugin_VersionCode=0x1;JucePlugin_VersionString=&quot;0.0.1&quot;;JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=&quot;Fx|Instrument|Tools&quot;;JucePlugin_AUMainType='aumu';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=midi_stuffAU;JucePlugin_AUExportPrefixQuoted=&quot;midi_stuffAU&quot;;JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=&quot;y3i12: midi_stuff&quot;;JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=&quot;com.y3i12.midi_stuff.factory&quot;;JucePlugin_ARADocumentArchiveID=&quot;com.y3i12.midi_stuff.aradocumentarchive.0.0.1&quot;;JucePlugin_ARACompatibleArchiveIDs=&quot;&quot;;JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=0.0.1;JUCE_APP_VERSION_HEX=0x1;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <AdditionalIncludeDirectories>D:\Workspace\Code\VST\JUCE\modules\juce_audio_processors\format_types\VST3_SDK;D:\Workspace\Code\VST\VST_SDK;..\..\JuceLibraryCode;..\..\..\..\juce_modules;D:\Workspace\Code\VST\JUCE\modules;..\..\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCE_PROJUCER_VERSION=0x80007;JUCE_MODULE_AVAILABLE_foleys_gui_magic=1;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_cryptography=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_dsp=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=&quot;midi_stuff&quot;;JucePlugin_Desc=&quot;does stuff to midi&quot;;JucePlugin_Manufacturer=&quot;y3i12&quot;;JucePlugin_ManufacturerWebsite=&quot;y3i12.com&quot;;JucePlugin_ManufacturerEmail=&quot;&quot;;JucePlugin_ManufacturerCode=0x79333133;JucePlugin_PluginCode=0x49626774;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=1;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=0.0.1;JucePlugin_VersionCode=0x1;JucePlugin_VersionString=&quot;0.0.1&quot;;JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=&quot;Fx|Instrument|Tools&quot;;JucePlugin_AUMainType='aumu';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=midi_stuffAU;JucePlugin_AUExportPrefixQuoted=&quot;midi_stuffAU&quot;;JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=&quot;y3i12: midi_stuff&quot;;JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=&quot;com.y3i12.midi_stuff.factory&quot;;JucePlugin_ARADocumentArchiveID=&quot;com.y3i12.midi_stuff.aradocumentarchive.0.0.1&quot;;JucePlugin_ARACompatibleArchiveIDs=&quot;&quot;;JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=0.0.1;JUCE_APP_VERSION_HEX=0x1;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -81,8 +81,8 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
-      <AdditionalIncludeDirectories>D:\Workspace\Code\VST\JUCE\modules\juce_audio_processors\format_types\VST3_SDK;D:\Workspace\Code\VST\VST_SDK;..\..\JuceLibraryCode;D:\Workspace\Code\VST\JUCE\modules;..\..\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCE_PROJUCER_VERSION=0x80006;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=\&quot;midi_stuff\&quot;;JucePlugin_Desc=\&quot;does stuff to midi\&quot;;JucePlugin_Manufacturer=\&quot;y3i12\&quot;;JucePlugin_ManufacturerWebsite=\&quot;y3i12.com\&quot;;JucePlugin_ManufacturerEmail=\&quot;\&quot;;JucePlugin_ManufacturerCode=0x79333133;JucePlugin_PluginCode=0x49626774;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=1;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=0.0.1;JucePlugin_VersionCode=0x1;JucePlugin_VersionString=\&quot;0.0.1\&quot;;JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=\&quot;Fx|Instrument|Tools\&quot;;JucePlugin_AUMainType='aumu';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=midi_stuffAU;JucePlugin_AUExportPrefixQuoted=\&quot;midi_stuffAU\&quot;;JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=\&quot;y3i12: midi_stuff\&quot;;JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=\&quot;com.y3i12.midi_stuff.factory\&quot;;JucePlugin_ARADocumentArchiveID=\&quot;com.y3i12.midi_stuff.aradocumentarchive.0.0.1\&quot;;JucePlugin_ARACompatibleArchiveIDs=\&quot;\&quot;;JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=0.0.1;JUCE_APP_VERSION_HEX=0x1;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Workspace\Code\VST\JUCE\modules\juce_audio_processors\format_types\VST3_SDK;D:\Workspace\Code\VST\VST_SDK;..\..\JuceLibraryCode;..\..\..\..\juce_modules;D:\Workspace\Code\VST\JUCE\modules;..\..\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;DEBUG;_DEBUG;JUCE_PROJUCER_VERSION=0x80007;JUCE_MODULE_AVAILABLE_foleys_gui_magic=1;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_cryptography=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_dsp=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=\&quot;midi_stuff\&quot;;JucePlugin_Desc=\&quot;does stuff to midi\&quot;;JucePlugin_Manufacturer=\&quot;y3i12\&quot;;JucePlugin_ManufacturerWebsite=\&quot;y3i12.com\&quot;;JucePlugin_ManufacturerEmail=\&quot;\&quot;;JucePlugin_ManufacturerCode=0x79333133;JucePlugin_PluginCode=0x49626774;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=1;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=0.0.1;JucePlugin_VersionCode=0x1;JucePlugin_VersionString=\&quot;0.0.1\&quot;;JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=\&quot;Fx|Instrument|Tools\&quot;;JucePlugin_AUMainType='aumu';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=midi_stuffAU;JucePlugin_AUExportPrefixQuoted=\&quot;midi_stuffAU\&quot;;JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=\&quot;y3i12: midi_stuff\&quot;;JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=\&quot;com.y3i12.midi_stuff.factory\&quot;;JucePlugin_ARADocumentArchiveID=\&quot;com.y3i12.midi_stuff.aradocumentarchive.0.0.1\&quot;;JucePlugin_ARACompatibleArchiveIDs=\&quot;\&quot;;JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=0.0.1;JUCE_APP_VERSION_HEX=0x1;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
       <OutputFile>$(OutDir)\midi_stuff.lib</OutputFile>
@@ -108,8 +108,9 @@
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>D:\Workspace\Code\VST\JUCE\modules\juce_audio_processors\format_types\VST3_SDK;D:\Workspace\Code\VST\VST_SDK;..\..\JuceLibraryCode;D:\Workspace\Code\VST\JUCE\modules;..\..\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCE_PROJUCER_VERSION=0x80006;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=&quot;midi_stuff&quot;;JucePlugin_Desc=&quot;does stuff to midi&quot;;JucePlugin_Manufacturer=&quot;y3i12&quot;;JucePlugin_ManufacturerWebsite=&quot;y3i12.com&quot;;JucePlugin_ManufacturerEmail=&quot;&quot;;JucePlugin_ManufacturerCode=0x79333133;JucePlugin_PluginCode=0x49626774;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=1;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=0.0.1;JucePlugin_VersionCode=0x1;JucePlugin_VersionString=&quot;0.0.1&quot;;JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=&quot;Fx|Instrument|Tools&quot;;JucePlugin_AUMainType='aumu';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=midi_stuffAU;JucePlugin_AUExportPrefixQuoted=&quot;midi_stuffAU&quot;;JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=&quot;y3i12: midi_stuff&quot;;JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=&quot;com.y3i12.midi_stuff.factory&quot;;JucePlugin_ARADocumentArchiveID=&quot;com.y3i12.midi_stuff.aradocumentarchive.0.0.1&quot;;JucePlugin_ARACompatibleArchiveIDs=&quot;&quot;;JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=0.0.1;JUCE_APP_VERSION_HEX=0x1;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <AdditionalIncludeDirectories>D:\Workspace\Code\VST\JUCE\modules\juce_audio_processors\format_types\VST3_SDK;D:\Workspace\Code\VST\VST_SDK;..\..\JuceLibraryCode;..\..\..\..\juce_modules;D:\Workspace\Code\VST\JUCE\modules;..\..\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCE_PROJUCER_VERSION=0x80007;JUCE_MODULE_AVAILABLE_foleys_gui_magic=1;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_cryptography=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_dsp=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=&quot;midi_stuff&quot;;JucePlugin_Desc=&quot;does stuff to midi&quot;;JucePlugin_Manufacturer=&quot;y3i12&quot;;JucePlugin_ManufacturerWebsite=&quot;y3i12.com&quot;;JucePlugin_ManufacturerEmail=&quot;&quot;;JucePlugin_ManufacturerCode=0x79333133;JucePlugin_PluginCode=0x49626774;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=1;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=0.0.1;JucePlugin_VersionCode=0x1;JucePlugin_VersionString=&quot;0.0.1&quot;;JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=&quot;Fx|Instrument|Tools&quot;;JucePlugin_AUMainType='aumu';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=midi_stuffAU;JucePlugin_AUExportPrefixQuoted=&quot;midi_stuffAU&quot;;JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=&quot;y3i12: midi_stuff&quot;;JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=&quot;com.y3i12.midi_stuff.factory&quot;;JucePlugin_ARADocumentArchiveID=&quot;com.y3i12.midi_stuff.aradocumentarchive.0.0.1&quot;;JucePlugin_ARACompatibleArchiveIDs=&quot;&quot;;JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=0.0.1;JUCE_APP_VERSION_HEX=0x1;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -122,14 +123,14 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
-      <AdditionalIncludeDirectories>D:\Workspace\Code\VST\JUCE\modules\juce_audio_processors\format_types\VST3_SDK;D:\Workspace\Code\VST\VST_SDK;..\..\JuceLibraryCode;D:\Workspace\Code\VST\JUCE\modules;..\..\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCE_PROJUCER_VERSION=0x80006;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=\&quot;midi_stuff\&quot;;JucePlugin_Desc=\&quot;does stuff to midi\&quot;;JucePlugin_Manufacturer=\&quot;y3i12\&quot;;JucePlugin_ManufacturerWebsite=\&quot;y3i12.com\&quot;;JucePlugin_ManufacturerEmail=\&quot;\&quot;;JucePlugin_ManufacturerCode=0x79333133;JucePlugin_PluginCode=0x49626774;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=1;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=0.0.1;JucePlugin_VersionCode=0x1;JucePlugin_VersionString=\&quot;0.0.1\&quot;;JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=\&quot;Fx|Instrument|Tools\&quot;;JucePlugin_AUMainType='aumu';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=midi_stuffAU;JucePlugin_AUExportPrefixQuoted=\&quot;midi_stuffAU\&quot;;JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=\&quot;y3i12: midi_stuff\&quot;;JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=\&quot;com.y3i12.midi_stuff.factory\&quot;;JucePlugin_ARADocumentArchiveID=\&quot;com.y3i12.midi_stuff.aradocumentarchive.0.0.1\&quot;;JucePlugin_ARACompatibleArchiveIDs=\&quot;\&quot;;JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=0.0.1;JUCE_APP_VERSION_HEX=0x1;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Workspace\Code\VST\JUCE\modules\juce_audio_processors\format_types\VST3_SDK;D:\Workspace\Code\VST\VST_SDK;..\..\JuceLibraryCode;..\..\..\..\juce_modules;D:\Workspace\Code\VST\JUCE\modules;..\..\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;NDEBUG;JUCE_PROJUCER_VERSION=0x80007;JUCE_MODULE_AVAILABLE_foleys_gui_magic=1;JUCE_MODULE_AVAILABLE_juce_audio_basics=1;JUCE_MODULE_AVAILABLE_juce_audio_devices=1;JUCE_MODULE_AVAILABLE_juce_audio_formats=1;JUCE_MODULE_AVAILABLE_juce_audio_plugin_client=1;JUCE_MODULE_AVAILABLE_juce_audio_processors=1;JUCE_MODULE_AVAILABLE_juce_audio_utils=1;JUCE_MODULE_AVAILABLE_juce_core=1;JUCE_MODULE_AVAILABLE_juce_cryptography=1;JUCE_MODULE_AVAILABLE_juce_data_structures=1;JUCE_MODULE_AVAILABLE_juce_dsp=1;JUCE_MODULE_AVAILABLE_juce_events=1;JUCE_MODULE_AVAILABLE_juce_graphics=1;JUCE_MODULE_AVAILABLE_juce_gui_basics=1;JUCE_MODULE_AVAILABLE_juce_gui_extra=1;JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED=1;JUCE_VST3_CAN_REPLACE_VST2=0;JUCE_STRICT_REFCOUNTEDPOINTER=1;JucePlugin_Build_VST=0;JucePlugin_Build_VST3=1;JucePlugin_Build_AU=0;JucePlugin_Build_AUv3=0;JucePlugin_Build_AAX=0;JucePlugin_Build_Standalone=1;JucePlugin_Build_Unity=0;JucePlugin_Build_LV2=0;JucePlugin_Enable_IAA=0;JucePlugin_Enable_ARA=0;JucePlugin_Name=\&quot;midi_stuff\&quot;;JucePlugin_Desc=\&quot;does stuff to midi\&quot;;JucePlugin_Manufacturer=\&quot;y3i12\&quot;;JucePlugin_ManufacturerWebsite=\&quot;y3i12.com\&quot;;JucePlugin_ManufacturerEmail=\&quot;\&quot;;JucePlugin_ManufacturerCode=0x79333133;JucePlugin_PluginCode=0x49626774;JucePlugin_IsSynth=1;JucePlugin_WantsMidiInput=1;JucePlugin_ProducesMidiOutput=1;JucePlugin_IsMidiEffect=0;JucePlugin_EditorRequiresKeyboardFocus=0;JucePlugin_Version=0.0.1;JucePlugin_VersionCode=0x1;JucePlugin_VersionString=\&quot;0.0.1\&quot;;JucePlugin_VSTUniqueID=JucePlugin_PluginCode;JucePlugin_VSTCategory=kPlugCategSynth;JucePlugin_Vst3Category=\&quot;Fx|Instrument|Tools\&quot;;JucePlugin_AUMainType='aumu';JucePlugin_AUSubType=JucePlugin_PluginCode;JucePlugin_AUExportPrefix=midi_stuffAU;JucePlugin_AUExportPrefixQuoted=\&quot;midi_stuffAU\&quot;;JucePlugin_AUManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_CFBundleIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXIdentifier=com.y3i12.midi_stuff;JucePlugin_AAXManufacturerCode=JucePlugin_ManufacturerCode;JucePlugin_AAXProductId=JucePlugin_PluginCode;JucePlugin_AAXCategory=2048;JucePlugin_AAXDisableBypass=0;JucePlugin_AAXDisableMultiMono=0;JucePlugin_IAAType=0x61757269;JucePlugin_IAASubType=JucePlugin_PluginCode;JucePlugin_IAAName=\&quot;y3i12: midi_stuff\&quot;;JucePlugin_VSTNumMidiInputs=16;JucePlugin_VSTNumMidiOutputs=16;JucePlugin_ARAContentTypes=0;JucePlugin_ARATransformationFlags=0;JucePlugin_ARAFactoryID=\&quot;com.y3i12.midi_stuff.factory\&quot;;JucePlugin_ARADocumentArchiveID=\&quot;com.y3i12.midi_stuff.aradocumentarchive.0.0.1\&quot;;JucePlugin_ARACompatibleArchiveIDs=\&quot;\&quot;;JUCE_STANDALONE_APPLICATION=JucePlugin_Build_Standalone;JUCER_VS2022_78A503E=1;JUCE_APP_VERSION=0.0.1;JUCE_APP_VERSION_HEX=0x1;JUCE_SHARED_CODE=1;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
       <OutputFile>$(OutDir)\midi_stuff.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(IntDir)\midi_stuff.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -143,22 +144,137 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\arpligner_ref\midi_relativizer.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\arpligner_ref\note_map.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\arpligner_ref\PluginEditor.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\arpligner_ref\PluginProcessor.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\..\Source\midi_stuff_plugin_processor.cpp"/>
-    <ClCompile Include="..\..\Source\midi_stuff_plugin_editor.cpp"/>
-    <ClCompile Include="..\..\Source\plugin_editor.cpp"/>
     <ClCompile Include="..\..\Source\plugin_processor.cpp"/>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_GUITreeEditor.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_MultiListPropertyComponent.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_Palette.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_PropertiesEditor.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleBoolPropertyComponent.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleChoicePropertyComponent.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleColourPropertyComponent.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleGradientPropertyComponent.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StylePropertyComponent.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleTextPropertyComponent.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_ToolBox.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_ApplicationSettings.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_MagicGUIBuilder.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_MagicJUCEFactories.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_MagicPluginEditor.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_MagicProcessor.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_Resources.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Helpers\foleys_DefaultGuiTrees.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_Container.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_Decorator.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_GradientBackground.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_GuiItem.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_RootItem.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_Stylesheet.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_JuceLookAndFeels.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_LookAndFeel.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_Skeuomorphic.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_MagicGUIState.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_MagicProcessorState.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_MidiParameterMapper.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_ParameterManager.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_RadioButtonManager.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicAnalyser.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicFilterPlot.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicLevelSource.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicOscilloscope.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_FileBrowserDialog.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_MagicLevelMeter.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_MagicPlotComponent.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_MidiDrumpadComponent.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_MidiLearnComponent.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_XYDragComponent.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\foleys_gui_magic\foleys_gui_magic.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1500,6 +1616,27 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_core\juce_core_CompilationTime.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\encryption\juce_BlowFish.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\encryption\juce_Primes.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\encryption\juce_RSAKey.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\hashing\juce_MD5.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\hashing\juce_SHA256.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\hashing\juce_Whirlpool.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_cryptography\juce_cryptography.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_data_structures\app_properties\juce_ApplicationProperties.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -1528,6 +1665,111 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_data_structures\juce_data_structures.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\containers\juce_AudioBlock_test.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\containers\juce_SIMDRegister_test.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\filter_design\juce_FilterDesign.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_Convolution.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_Convolution_test.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_FFT.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_FFT_test.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_Windowing.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_LogRampedValue_test.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_LookupTable.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_Matrix.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_Matrix_test.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_SpecialFunctions.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_avx.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_neon.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_sse.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_BallisticsFilter.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_DelayLine.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_DryWetMixer.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_FIRFilter.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_FIRFilter_test.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_FirstOrderTPTFilter.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_IIRFilter.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_LinkwitzRileyFilter.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_Oversampling.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_Panner.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_ProcessorChain_test.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_StateVariableTPTFilter.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Chorus.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Compressor.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_LadderFilter.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Limiter.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_NoiseGate.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Phaser.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_dsp\juce_dsp.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_events\broadcasters\juce_ActionBroadcaster.cpp">
@@ -1611,7 +1853,16 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\contexts\juce_LowLevelGraphicsSoftwareRenderer.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_JustifiedText.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_Ranges.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_ShapedText.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_SimpleShapedText.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\effects\juce_DropShadowEffect.cpp">
@@ -1864,15 +2115,6 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\fonts\juce_GlyphArrangement.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\fonts\juce_JustifiedText.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\fonts\juce_ShapedText.cpp">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\fonts\juce_SimpleShapedText.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_graphics\fonts\juce_TextLayout.cpp">
@@ -2313,6 +2555,9 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_AccessibilityHelpers.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_ComponentPeerHelpers.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\drawables\juce_Drawable.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -2658,6 +2903,9 @@
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\widgets\juce_TextEditor.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\widgets\juce_TextEditorModel.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_gui_basics\widgets\juce_Toolbar.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
@@ -2812,6 +3060,7 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp"/>
+    <ClCompile Include="..\..\JuceLibraryCode\include_foleys_gui_magic.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_devices.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_formats.cpp"/>
@@ -2826,7 +3075,9 @@
       <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_core_CompilationTime.cpp"/>
+    <ClCompile Include="..\..\JuceLibraryCode\include_juce_cryptography.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_data_structures.cpp"/>
+    <ClCompile Include="..\..\JuceLibraryCode\include_juce_dsp.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_events.cpp"/>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_graphics.cpp">
       <AdditionalOptions> /bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -2839,23 +3090,64 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\arpligner_ref\chord.hpp"/>
-    <ClInclude Include="..\..\Source\arpligner_ref\chord_db.hpp"/>
-    <ClInclude Include="..\..\Source\arpligner_ref\chordcat.hpp"/>
-    <ClInclude Include="..\..\Source\arpligner_ref\chordcat_types.hpp"/>
-    <ClInclude Include="..\..\Source\arpligner_ref\midi_relativizer.h"/>
-    <ClInclude Include="..\..\Source\arpligner_ref\note_map.h"/>
-    <ClInclude Include="..\..\Source\arpligner_ref\PluginEditor.h"/>
-    <ClInclude Include="..\..\Source\arpligner_ref\PluginProcessor.h"/>
-    <ClInclude Include="..\..\Source\arpligner_ref\scale_db.hpp"/>
-    <ClInclude Include="..\..\Source\arpligner_ref\utils.hpp"/>
     <ClInclude Include="..\..\Source\midi_stuff\tinyevents\tinyevents.h"/>
     <ClInclude Include="..\..\Source\midi_stuff\midi_stuff.h"/>
     <ClInclude Include="..\..\Source\midi_stuff\tests.hpp"/>
     <ClInclude Include="..\..\Source\midi_stuff_plugin_processor.h"/>
-    <ClInclude Include="..\..\Source\midi_stuff_plugin_editor.h"/>
-    <ClInclude Include="..\..\Source\plugin_editor.h"/>
     <ClInclude Include="..\..\Source\plugin_processor.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_GUITreeEditor.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_MultiListPropertyComponent.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_Palette.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_PropertiesEditor.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleBoolPropertyComponent.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleChoicePropertyComponent.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleColourPropertyComponent.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleGradientPropertyComponent.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StylePropertyComponent.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleTextPropertyComponent.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_ToolBox.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_ApplicationSettings.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_MagicGUIBuilder.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_MagicPluginEditor.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_MagicProcessor.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_Resources.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_SettableProperties.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_StringDefinitions.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_AtomicValueAttachment.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_Conversions.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_DefaultGuiTrees.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_MouseLambdas.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_ParameterAttachment.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_PopupMenuHelper.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_ScopedInterProcessLock.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_BoxModel.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_Container.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_Decorator.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_GradientBackground.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_GuiItem.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_RootItem.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_Stylesheet.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_JuceLookAndFeels.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_LookAndFeel.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_Skeuomorphic.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_MagicGUIState.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_MagicProcessorState.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_MidiParameterMapper.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_ParameterManager.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_RadioButtonManager.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicAnalyser.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicFilterPlot.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicLevelSource.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicOscilloscope.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicPlotSource.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_AutoOrientationSlider.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_FileBrowserDialog.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_MagicLevelMeter.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_MagicPlotComponent.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_MidiDrumpadComponent.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_MidiLearnComponent.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_XYDragComponent.h"/>
+    <ClInclude Include="..\..\..\foleys_gui_magic\foleys_gui_magic.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>
@@ -3353,6 +3645,7 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\containers\juce_SparseSet.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\containers\juce_Variant.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\detail\juce_CallbackListenerList.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\detail\juce_NativeFileHandle.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\files\juce_AndroidDocument.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\files\juce_common_MimeTypes.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\files\juce_DirectoryIterator.h"/>
@@ -3476,19 +3769,27 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\xml\juce_XmlElement.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\crc32.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\deflate.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\gzguts.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\inffast.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\inffixed.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\inflate.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\inftrees.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\trees.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\zconf.h"/>
-    <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\zconf.in.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\zlib.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\zutil.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\juce_GZIPCompressorOutputStream.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\juce_GZIPDecompressorInputStream.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\juce_ZipFile.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\zip\juce_zlib.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_core\juce_core.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\encryption\juce_BlowFish.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\encryption\juce_Primes.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\encryption\juce_RSAKey.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\hashing\juce_MD5.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\hashing\juce_SHA256.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\hashing\juce_Whirlpool.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_cryptography\juce_cryptography.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_data_structures\app_properties\juce_ApplicationProperties.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_data_structures\app_properties\juce_PropertiesFile.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_data_structures\undomanager\juce_UndoableAction.h"/>
@@ -3499,6 +3800,52 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_data_structures\values\juce_ValueTreePropertyWithDefault.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_data_structures\values\juce_ValueTreeSynchroniser.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_data_structures\juce_data_structures.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\containers\juce_AudioBlock.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\containers\juce_SIMDRegister.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\containers\juce_SIMDRegister_Impl.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\filter_design\juce_FilterDesign.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_Convolution.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_FFT.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\frequency\juce_Windowing.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_FastMathApproximations.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_LogRampedValue.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_LookupTable.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_Matrix.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_Phase.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_Polynomial.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\maths\juce_SpecialFunctions.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_avx.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_fallback.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_neon.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\native\juce_SIMDNativeOps_sse.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_BallisticsFilter.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_DelayLine.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_DryWetMixer.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_FIRFilter.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_FirstOrderTPTFilter.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_IIRFilter.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_IIRFilter_Impl.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_LinkwitzRileyFilter.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_Oversampling.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_Panner.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_ProcessContext.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_ProcessorChain.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_ProcessorDuplicator.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_ProcessorWrapper.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_StateVariableFilter.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\processors\juce_StateVariableTPTFilter.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Bias.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Chorus.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Compressor.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Gain.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_LadderFilter.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Limiter.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_NoiseGate.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Oscillator.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Phaser.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_Reverb.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\widgets\juce_WaveShaper.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_dsp\juce_dsp.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_events\broadcasters\juce_ActionBroadcaster.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_events\broadcasters\juce_ActionListener.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_events\broadcasters\juce_AsyncUpdater.h"/>
@@ -3538,7 +3885,11 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\contexts\juce_GraphicsContext.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\contexts\juce_LowLevelGraphicsContext.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\contexts\juce_LowLevelGraphicsSoftwareRenderer.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_JustifiedText.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_Ranges.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_ShapedText.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_SimpleShapedText.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\detail\juce_Unicode.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\effects\juce_DropShadowEffect.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\effects\juce_GlowEffect.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\effects\juce_ImageEffectFilter.h"/>
@@ -3869,6 +4220,7 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_Direct2DImage_windows.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_Direct2DImageContext_windows.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_Direct2DMetrics_windows.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_Direct2DPixelDataPage_windows.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_DirectX_windows.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_EventTracing.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_graphics\native\juce_RenderingHelpers.h"/>
@@ -3948,6 +4300,7 @@
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_AlertWindowHelpers.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_ButtonAccessibilityHandler.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_ComponentHelpers.h"/>
+    <ClInclude Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_ComponentPeerHelpers.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_CustomMouseCursorInfo.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_FocusHelpers.h"/>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_gui_basics\detail\juce_FocusRestorer.h"/>
@@ -4151,6 +4504,7 @@
     <ClInclude Include="..\..\JuceLibraryCode\JucePluginDefines.h"/>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Source\midi_stuff.xml"/>
     <None Include="..\..\LICENSE"/>
     <None Include="..\..\README.md"/>
     <None Include="..\..\..\..\JUCE\modules\juce_audio_devices\native\oboe\src\common\README.md"/>
@@ -4173,6 +4527,7 @@
     <None Include="..\..\..\..\JUCE\modules\juce_audio_processors\format_types\VST3_SDK\LICENSE.txt"/>
     <None Include="..\..\..\..\JUCE\modules\juce_audio_processors\format_types\VST3_SDK\README.md"/>
     <None Include="..\..\..\..\JUCE\modules\juce_core\native\java\README.txt"/>
+    <None Include="..\..\..\..\JUCE\modules\juce_core\zip\zlib\JUCE_CHANGES.txt"/>
     <None Include="..\..\..\..\JUCE\modules\juce_graphics\image_formats\jpglib\changes to libjpeg for JUCE.txt"/>
     <None Include="..\..\..\..\JUCE\modules\juce_graphics\image_formats\pnglib\libpng_readme.txt"/>
     <None Include="..\..\..\..\JUCE\modules\juce_graphics\unicode\sheenbidi\JUCE_CHANGES.txt"/>

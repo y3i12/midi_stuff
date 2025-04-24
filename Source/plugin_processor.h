@@ -13,7 +13,7 @@
 //==============================================================================
 /**
 */
-class plugin_processor  : public juce::AudioProcessor
+class plugin_processor  : public foleys::MagicProcessor
 {
 public:
     //==============================================================================
@@ -34,10 +34,6 @@ public:
     void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
 
     //==============================================================================
-    juce::AudioProcessorEditor* createEditor() override;
-    bool hasEditor() const override;
-
-    //==============================================================================
     const juce::String getName() const override;
 
     bool acceptsMidi() const override;
@@ -51,10 +47,6 @@ public:
     void setCurrentProgram (int index) override;
     const juce::String getProgramName (int index) override;
     void changeProgramName (int index, const juce::String& newName) override;
-
-    //==============================================================================
-    void getStateInformation (juce::MemoryBlock& destData) override;
-    void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
     //==============================================================================

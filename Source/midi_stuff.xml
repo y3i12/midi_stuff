@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<magic>
+  <Styles>
+    <Style name="default">
+      <Nodes/>
+      <Classes>
+        <plot-view border="2" background-color="black" border-color="silver" display="contents"/>
+        <nomargin margin="0" padding="0" border="0"/>
+        <group margin="5" padding="5" border="2" flex-direction="column"/>
+        <transparent background-color="transparentblack"/>
+      </Classes>
+      <Types>
+        <Slider border="0" slider-textbox="textbox-below"/>
+        <ToggleButton border="0" max-height="50" caption-size="0" text="Active"/>
+        <TextButton border="0" max-height="50" caption-size="0"/>
+        <ComboBox border="0" max-height="50" caption-size="0"/>
+        <Plot border="0" margin="0" padding="0" background-color="00000000"
+              radius="0"/>
+        <XYDragComponent border="0" margin="0" padding="0" background-color="00000000"
+                         radius="0"/>
+      </Types>
+      <Palettes>
+        <default/>
+      </Palettes>
+    </Style>
+  </Styles>
+  <View id="root" resizable="1" resize-corner="1">
+    <View class="parameters nomargin">
+      <Slider caption="Lowest" parameter="lowest" slider-type="linear-vertical"
+              interval="1" max-value="12" min-value="0"/>
+      <Slider caption="Highest" parameter="highest" slider-type="linear-vertical"
+              interval="1" min-value="0" max-value="12"/>
+      <Slider caption="Lowest 2" parameter="lowest_2" slider-type="linear-vertical"
+              min-value="0" max-value="12" interval="1"/>
+    </View>
+  </View>
+</magic>

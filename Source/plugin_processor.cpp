@@ -7,12 +7,11 @@
 */
 
 #include "plugin_processor.h"
-#include "plugin_editor.h"
 
 //==============================================================================
 plugin_processor::plugin_processor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
+     : foleys::MagicProcessor(BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
                       #if ! JucePlugin_IsSynth
                        .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
@@ -22,6 +21,7 @@ plugin_processor::plugin_processor()
                        )
 #endif
 {
+    FOLEYS_SET_SOURCE_PATH( __FILE__ );
 }
 
 plugin_processor::~plugin_processor()
@@ -131,30 +131,7 @@ bool plugin_processor::isBusesLayoutSupported (const BusesLayout& layouts) const
 
 void plugin_processor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
+    for ( auto i = 0; i < buffer.getNumChannels( ); ++i )
+        buffer.clear( i, 0, buffer.getNumSamples( ) );
     process_midi( midiMessages );
-}
-
-//==============================================================================
-bool plugin_processor::hasEditor() const
-{
-    return true; // (change this to false if you choose to not supply an editor)
-}
-
-juce::AudioProcessorEditor* plugin_processor::createEditor()
-{
-    return new plugin_editor (*this);
-}
-
-//==============================================================================
-void plugin_processor::getStateInformation (juce::MemoryBlock& destData)
-{
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
-}
-
-void plugin_processor::setStateInformation (const void* data, int sizeInBytes)
-{
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
 }
