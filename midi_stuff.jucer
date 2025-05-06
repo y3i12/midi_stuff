@@ -15,6 +15,522 @@
       <FILE id="ahXR8F" name="LICENSE" compile="0" resource="1" file="LICENSE"/>
       <FILE id="i0lhOp" name="README.md" compile="0" resource="1" file="README.md"/>
       <GROUP id="{1F535D75-0E7C-68B9-B326-158AA7E364EE}" name="midi_stuff">
+        <GROUP id="{B65548C5-2B8F-3CFB-2FF0-1B6AFB9A8C28}" name="etl">
+          <GROUP id="{7BC8D7FD-ACE0-48EC-C3DB-496EDD8F69FB}" name="atomic">
+            <FILE id="UfSFVC" name="atomic_arm.h" compile="0" resource="0" file="Source/midi_stuff/etl/atomic/atomic_arm.h"/>
+            <FILE id="Y4sWTj" name="atomic_clang_sync.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/atomic/atomic_clang_sync.h"/>
+            <FILE id="XUUhC6" name="atomic_gcc_sync.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/atomic/atomic_gcc_sync.h"/>
+            <FILE id="bLbSTr" name="atomic_std.h" compile="0" resource="0" file="Source/midi_stuff/etl/atomic/atomic_std.h"/>
+          </GROUP>
+          <GROUP id="{93884363-75C3-5CFC-C5B2-38E063E87A33}" name="deprecated">
+            <FILE id="dX0fWl" name="factory.h" compile="0" resource="0" file="Source/midi_stuff/etl/deprecated/factory.h"/>
+          </GROUP>
+          <GROUP id="{22E2EE98-368C-F7B5-BE7C-EF840BC7C5A2}" name="experimental">
+            <FILE id="pdd6oc" name="bit_cast.h" compile="0" resource="0" file="Source/midi_stuff/etl/experimental/bit_cast.h"/>
+            <FILE id="N8b9Di" name="class_traits.h" compile="0" resource="0" file="Source/midi_stuff/etl/experimental/class_traits.h"/>
+            <FILE id="tWoXgy" name="icache.h" compile="0" resource="0" file="Source/midi_stuff/etl/experimental/icache.h"/>
+            <FILE id="SeLynG" name="mem_cast.h" compile="0" resource="0" file="Source/midi_stuff/etl/experimental/mem_cast.h"/>
+            <FILE id="VCwAOj" name="mid_point flt (typo abs(a) should be abs(b).png"
+                  compile="0" resource="1" file="Source/midi_stuff/etl/experimental/mid_point flt (typo abs(a) should be abs(b).png"/>
+            <FILE id="i5EubP" name="mid_point ptr.png" compile="0" resource="1"
+                  file="Source/midi_stuff/etl/experimental/mid_point ptr.png"/>
+            <FILE id="MS4yPX" name="mid_point.png" compile="0" resource="1" file="Source/midi_stuff/etl/experimental/mid_point.png"/>
+            <FILE id="rZGR7A" name="singleton.h" compile="0" resource="0" file="Source/midi_stuff/etl/experimental/singleton.h"/>
+          </GROUP>
+          <GROUP id="{66AC1F63-DBD8-D919-0D24-721DFEE7E46E}" name="generators">
+            <FILE id="cOhOC6" name="fsm_generator.h" compile="0" resource="0" file="Source/midi_stuff/etl/generators/fsm_generator.h"/>
+            <FILE id="vxpp3x" name="generate.bat" compile="0" resource="1" file="Source/midi_stuff/etl/generators/generate.bat"/>
+            <FILE id="WEGCLj" name="generate_fsm.bat" compile="0" resource="1"
+                  file="Source/midi_stuff/etl/generators/generate_fsm.bat"/>
+            <FILE id="agjtat" name="generate_largest.bat" compile="0" resource="1"
+                  file="Source/midi_stuff/etl/generators/generate_largest.bat"/>
+            <FILE id="ZwnywS" name="generate_message_packet.bat" compile="0" resource="1"
+                  file="Source/midi_stuff/etl/generators/generate_message_packet.bat"/>
+            <FILE id="Rzfvnf" name="generate_message_router.bat" compile="0" resource="1"
+                  file="Source/midi_stuff/etl/generators/generate_message_router.bat"/>
+            <FILE id="aileYF" name="generate_smallest.bat" compile="0" resource="1"
+                  file="Source/midi_stuff/etl/generators/generate_smallest.bat"/>
+            <FILE id="JRxTNf" name="generate_type_lookup.bat" compile="0" resource="1"
+                  file="Source/midi_stuff/etl/generators/generate_type_lookup.bat"/>
+            <FILE id="BD8SzG" name="generate_type_select.bat" compile="0" resource="1"
+                  file="Source/midi_stuff/etl/generators/generate_type_select.bat"/>
+            <FILE id="ZAsdSE" name="generate_type_traits.bat" compile="0" resource="1"
+                  file="Source/midi_stuff/etl/generators/generate_type_traits.bat"/>
+            <FILE id="NT305K" name="generate_variant_pool.bat" compile="0" resource="1"
+                  file="Source/midi_stuff/etl/generators/generate_variant_pool.bat"/>
+            <FILE id="radR26" name="largest_generator.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/generators/largest_generator.h"/>
+            <FILE id="mPouV4" name="message_packet_generator.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/generators/message_packet_generator.h"/>
+            <FILE id="b1FNjZ" name="message_router_generator.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/generators/message_router_generator.h"/>
+            <FILE id="r5c2Q3" name="smallest_generator.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/generators/smallest_generator.h"/>
+            <FILE id="SNne6k" name="type_lookup_generator.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/generators/type_lookup_generator.h"/>
+            <FILE id="FCQ7rc" name="type_select_generator.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/generators/type_select_generator.h"/>
+            <FILE id="BSfbMN" name="type_traits_generator.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/generators/type_traits_generator.h"/>
+            <FILE id="iNbw7Y" name="variant_pool_generator.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/generators/variant_pool_generator.h"/>
+          </GROUP>
+          <GROUP id="{A23B838C-20B8-7B80-0493-212B687EC165}" name="mutex">
+            <FILE id="iMmnm1" name="mutex_arm.h" compile="0" resource="0" file="Source/midi_stuff/etl/mutex/mutex_arm.h"/>
+            <FILE id="DaR7zQ" name="mutex_clang_sync.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/mutex/mutex_clang_sync.h"/>
+            <FILE id="Pv26nk" name="mutex_cmsis_os2.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/mutex/mutex_cmsis_os2.h"/>
+            <FILE id="Nqvp03" name="mutex_freertos.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/mutex/mutex_freertos.h"/>
+            <FILE id="vUukvm" name="mutex_gcc_sync.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/mutex/mutex_gcc_sync.h"/>
+            <FILE id="eB77Ja" name="mutex_std.h" compile="0" resource="0" file="Source/midi_stuff/etl/mutex/mutex_std.h"/>
+          </GROUP>
+          <GROUP id="{707657C2-12FE-0477-820F-35EA2131CD85}" name="private">
+            <FILE id="BHi3fo" name="addressof.h" compile="0" resource="0" file="Source/midi_stuff/etl/private/addressof.h"/>
+            <FILE id="WaZqwf" name="bitset_legacy.h" compile="0" resource="0" file="Source/midi_stuff/etl/private/bitset_legacy.h"/>
+            <FILE id="ckNnaw" name="bitset_new.h" compile="0" resource="0" file="Source/midi_stuff/etl/private/bitset_new.h"/>
+            <FILE id="Mp07e9" name="choose_namespace.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/private/choose_namespace.h"/>
+            <FILE id="Rkn1HP" name="comparator_is_transparent.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/private/comparator_is_transparent.h"/>
+            <FILE id="cwfjAd" name="crc_implementation.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/private/crc_implementation.h"/>
+            <FILE id="i8C4Yi" name="crc_parameters.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/private/crc_parameters.h"/>
+            <FILE id="rLEimL" name="delegate_cpp03.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/private/delegate_cpp03.h"/>
+            <FILE id="qpB5py" name="delegate_cpp11.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/private/delegate_cpp11.h"/>
+            <FILE id="rNSqA3" name="diagnostic_array_bounds_push.h" compile="0"
+                  resource="0" file="Source/midi_stuff/etl/private/diagnostic_array_bounds_push.h"/>
+            <FILE id="QACjfW" name="diagnostic_deprecated_push.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/private/diagnostic_deprecated_push.h"/>
+            <FILE id="x6z33Q" name="diagnostic_float_equal_push.h" compile="0"
+                  resource="0" file="Source/midi_stuff/etl/private/diagnostic_float_equal_push.h"/>
+            <FILE id="j1lR9S" name="diagnostic_null_dereference_push.h" compile="0"
+                  resource="0" file="Source/midi_stuff/etl/private/diagnostic_null_dereference_push.h"/>
+            <FILE id="tmThiW" name="diagnostic_pessimizing_move_push.h" compile="0"
+                  resource="0" file="Source/midi_stuff/etl/private/diagnostic_pessimizing_move_push.h"/>
+            <FILE id="BC7Wh4" name="diagnostic_pop.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/private/diagnostic_pop.h"/>
+            <FILE id="jyJE0M" name="diagnostic_self_assign_overloaded_push.h" compile="0"
+                  resource="0" file="Source/midi_stuff/etl/private/diagnostic_self_assign_overloaded_push.h"/>
+            <FILE id="ljGcqn" name="diagnostic_stringop_overread_push.h" compile="0"
+                  resource="0" file="Source/midi_stuff/etl/private/diagnostic_stringop_overread_push.h"/>
+            <FILE id="Lg0Rcr" name="diagnostic_uninitialized_push.h" compile="0"
+                  resource="0" file="Source/midi_stuff/etl/private/diagnostic_uninitialized_push.h"/>
+            <FILE id="GhXwYX" name="diagnostic_unused_function_push.h" compile="0"
+                  resource="0" file="Source/midi_stuff/etl/private/diagnostic_unused_function_push.h"/>
+            <FILE id="ewnURT" name="diagnostic_useless_cast_push.h" compile="0"
+                  resource="0" file="Source/midi_stuff/etl/private/diagnostic_useless_cast_push.h"/>
+            <FILE id="xfUgNf" name="dynamic_extent.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/private/dynamic_extent.h"/>
+            <FILE id="eVRZyp" name="ivectorpointer.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/private/ivectorpointer.h"/>
+            <FILE id="Q4A00T" name="minmax_pop.h" compile="0" resource="0" file="Source/midi_stuff/etl/private/minmax_pop.h"/>
+            <FILE id="nM4ozj" name="minmax_push.h" compile="0" resource="0" file="Source/midi_stuff/etl/private/minmax_push.h"/>
+            <FILE id="m7769W" name="pvoidvector.h" compile="0" resource="0" file="Source/midi_stuff/etl/private/pvoidvector.h"/>
+            <FILE id="ggHd8i" name="to_string_helper.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/private/to_string_helper.h"/>
+            <FILE id="f0z0kL" name="variant_legacy.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/private/variant_legacy.h"/>
+            <FILE id="r3gqnR" name="variant_variadic.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/private/variant_variadic.h"/>
+            <FILE id="XMk5Qc" name="vector_base.h" compile="0" resource="0" file="Source/midi_stuff/etl/private/vector_base.h"/>
+          </GROUP>
+          <GROUP id="{53A20979-8999-DE34-9D71-D65B1D5EADBC}" name="profiles">
+            <FILE id="hir6JP" name="arduino_arm.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/arduino_arm.h"/>
+            <FILE id="jNaBJi" name="armv5.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/armv5.h"/>
+            <FILE id="B8gImC" name="armv5_no_stl.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/armv5_no_stl.h"/>
+            <FILE id="NvKAZx" name="armv6.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/armv6.h"/>
+            <FILE id="KXtdqG" name="armv6_no_stl.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/armv6_no_stl.h"/>
+            <FILE id="Fmkodt" name="armv7.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/armv7.h"/>
+            <FILE id="xjca6N" name="armv7_no_stl.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/armv7_no_stl.h"/>
+            <FILE id="RBgpgF" name="auto.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/auto.h"/>
+            <FILE id="HkogBz" name="clang_generic.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/clang_generic.h"/>
+            <FILE id="MQrf9i" name="clang_generic_no_stl.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/profiles/clang_generic_no_stl.h"/>
+            <FILE id="cmnMwm" name="cpp03.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/cpp03.h"/>
+            <FILE id="KSJUSq" name="cpp03_no_stl.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/cpp03_no_stl.h"/>
+            <FILE id="Fxz4C1" name="cpp11.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/cpp11.h"/>
+            <FILE id="M37Nr5" name="cpp11_no_stl.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/cpp11_no_stl.h"/>
+            <FILE id="B3Jp1P" name="cpp14.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/cpp14.h"/>
+            <FILE id="snjXSe" name="cpp14_no_stl.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/cpp14_no_stl.h"/>
+            <FILE id="ffABFu" name="cpp17.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/cpp17.h"/>
+            <FILE id="HTzUue" name="cpp17_no_stl.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/cpp17_no_stl.h"/>
+            <FILE id="dHzFc8" name="determine_builtin_support.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/profiles/determine_builtin_support.h"/>
+            <FILE id="bBzN4v" name="determine_compiler.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/profiles/determine_compiler.h"/>
+            <FILE id="mgH05V" name="determine_compiler_language_support.h" compile="0"
+                  resource="0" file="Source/midi_stuff/etl/profiles/determine_compiler_language_support.h"/>
+            <FILE id="WXWxng" name="determine_compiler_version.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/profiles/determine_compiler_version.h"/>
+            <FILE id="WfRJNJ" name="determine_development_os.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/profiles/determine_development_os.h"/>
+            <FILE id="tsjkVp" name="gcc_generic.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/gcc_generic.h"/>
+            <FILE id="EShPtM" name="gcc_generic_no_stl.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/profiles/gcc_generic_no_stl.h"/>
+            <FILE id="zhxUWG" name="gcc_linux_x86.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/gcc_linux_x86.h"/>
+            <FILE id="C2Bqm3" name="gcc_linux_x86_no_stl.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/profiles/gcc_linux_x86_no_stl.h"/>
+            <FILE id="haOe76" name="gcc_windows_x86.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/profiles/gcc_windows_x86.h"/>
+            <FILE id="FJocFP" name="gcc_windows_x86_no_stl.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/profiles/gcc_windows_x86_no_stl.h"/>
+            <FILE id="eTUthc" name="msvc_x86.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/msvc_x86.h"/>
+            <FILE id="A6QK29" name="msvc_x86_no_stl.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/profiles/msvc_x86_no_stl.h"/>
+            <FILE id="hrEUgC" name="segger_gcc_stlport.h" compile="0" resource="0"
+                  file="Source/midi_stuff/etl/profiles/segger_gcc_stlport.h"/>
+            <FILE id="jgWU1m" name="ticc.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/ticc.h"/>
+            <FILE id="uWdf2p" name="ticc_no_stl.h" compile="0" resource="0" file="Source/midi_stuff/etl/profiles/ticc_no_stl.h"/>
+          </GROUP>
+          <FILE id="wEM1BV" name="absolute.h" compile="0" resource="0" file="Source/midi_stuff/etl/absolute.h"/>
+          <FILE id="m0FlEN" name="algorithm.h" compile="0" resource="0" file="Source/midi_stuff/etl/algorithm.h"/>
+          <FILE id="FuQjgP" name="alignment.h" compile="0" resource="0" file="Source/midi_stuff/etl/alignment.h"/>
+          <FILE id="cH0UWw" name="array.h" compile="0" resource="0" file="Source/midi_stuff/etl/array.h"/>
+          <FILE id="SkxWww" name="array_view.h" compile="0" resource="0" file="Source/midi_stuff/etl/array_view.h"/>
+          <FILE id="IeG4I9" name="array_wrapper.h" compile="0" resource="0" file="Source/midi_stuff/etl/array_wrapper.h"/>
+          <FILE id="ocsjsw" name="atomic.h" compile="0" resource="0" file="Source/midi_stuff/etl/atomic.h"/>
+          <FILE id="Ve50UT" name="base64.h" compile="0" resource="0" file="Source/midi_stuff/etl/base64.h"/>
+          <FILE id="udMv1W" name="basic_format_spec.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/basic_format_spec.h"/>
+          <FILE id="JfCKE0" name="basic_string.h" compile="0" resource="0" file="Source/midi_stuff/etl/basic_string.h"/>
+          <FILE id="eo61Hq" name="basic_string_stream.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/basic_string_stream.h"/>
+          <FILE id="Z9ZSLI" name="binary.h" compile="0" resource="0" file="Source/midi_stuff/etl/binary.h"/>
+          <FILE id="BupYsE" name="bip_buffer_spsc_atomic.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/bip_buffer_spsc_atomic.h"/>
+          <FILE id="jj3x8z" name="bit.h" compile="0" resource="0" file="Source/midi_stuff/etl/bit.h"/>
+          <FILE id="SEj4lC" name="bit_stream.h" compile="0" resource="0" file="Source/midi_stuff/etl/bit_stream.h"/>
+          <FILE id="YYWeiA" name="bitset.h" compile="0" resource="0" file="Source/midi_stuff/etl/bitset.h"/>
+          <FILE id="ix4mbk" name="bloom_filter.h" compile="0" resource="0" file="Source/midi_stuff/etl/bloom_filter.h"/>
+          <FILE id="RQVrku" name="bresenham_line.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/bresenham_line.h"/>
+          <FILE id="jKyNtW" name="buffer_descriptors.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/buffer_descriptors.h"/>
+          <FILE id="Ta3Lay" name="byte.h" compile="0" resource="0" file="Source/midi_stuff/etl/byte.h"/>
+          <FILE id="V05hx7" name="byte_stream.h" compile="0" resource="0" file="Source/midi_stuff/etl/byte_stream.h"/>
+          <FILE id="vOfkwd" name="callback.h" compile="0" resource="0" file="Source/midi_stuff/etl/callback.h"/>
+          <FILE id="zXP310" name="callback_service.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/callback_service.h"/>
+          <FILE id="aGkddr" name="callback_timer.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/callback_timer.h"/>
+          <FILE id="zWwnNq" name="callback_timer_atomic.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/callback_timer_atomic.h"/>
+          <FILE id="x1LvZo" name="callback_timer_interrupt.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/callback_timer_interrupt.h"/>
+          <FILE id="OiI42B" name="callback_timer_locked.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/callback_timer_locked.h"/>
+          <FILE id="vMNIgq" name="char_traits.h" compile="0" resource="0" file="Source/midi_stuff/etl/char_traits.h"/>
+          <FILE id="yBV4bY" name="checksum.h" compile="0" resource="0" file="Source/midi_stuff/etl/checksum.h"/>
+          <FILE id="GdyjTG" name="circular_buffer.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/circular_buffer.h"/>
+          <FILE id="yaCTkg" name="circular_iterator.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/circular_iterator.h"/>
+          <FILE id="H8fvG3" name="combinations.h" compile="0" resource="0" file="Source/midi_stuff/etl/combinations.h"/>
+          <FILE id="rHOuWn" name="compare.h" compile="0" resource="0" file="Source/midi_stuff/etl/compare.h"/>
+          <FILE id="j0lGdL" name="constant.h" compile="0" resource="0" file="Source/midi_stuff/etl/constant.h"/>
+          <FILE id="rmYkEh" name="container.h" compile="0" resource="0" file="Source/midi_stuff/etl/container.h"/>
+          <FILE id="Gh8NOC" name="correlation.h" compile="0" resource="0" file="Source/midi_stuff/etl/correlation.h"/>
+          <FILE id="uz2lud" name="covariance.h" compile="0" resource="0" file="Source/midi_stuff/etl/covariance.h"/>
+          <FILE id="aPJOzK" name="crc.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc.h"/>
+          <FILE id="E0IYKN" name="crc1.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc1.h"/>
+          <FILE id="x4alMy" name="crc8_ccitt.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc8_ccitt.h"/>
+          <FILE id="XS1vR0" name="crc8_cdma2000.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc8_cdma2000.h"/>
+          <FILE id="Rx5jYl" name="crc8_darc.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc8_darc.h"/>
+          <FILE id="Fzmkhe" name="crc8_dvbs2.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc8_dvbs2.h"/>
+          <FILE id="dLgyOD" name="crc8_ebu.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc8_ebu.h"/>
+          <FILE id="g94zmm" name="crc8_icode.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc8_icode.h"/>
+          <FILE id="oRAknd" name="crc8_itu.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc8_itu.h"/>
+          <FILE id="C1fSao" name="crc8_j1850.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc8_j1850.h"/>
+          <FILE id="qrVBTB" name="crc8_j1850_zero.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/crc8_j1850_zero.h"/>
+          <FILE id="l5KbHw" name="crc8_maxim.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc8_maxim.h"/>
+          <FILE id="hQ39r7" name="crc8_rohc.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc8_rohc.h"/>
+          <FILE id="JN2SbH" name="crc8_wcdma.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc8_wcdma.h"/>
+          <FILE id="tnvzmo" name="crc16.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16.h"/>
+          <FILE id="ORebgk" name="crc16_a.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_a.h"/>
+          <FILE id="VBHagT" name="crc16_arc.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_arc.h"/>
+          <FILE id="iZIWgx" name="crc16_aug_ccitt.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/crc16_aug_ccitt.h"/>
+          <FILE id="HK10uc" name="crc16_buypass.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_buypass.h"/>
+          <FILE id="Pfx5ih" name="crc16_ccitt.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_ccitt.h"/>
+          <FILE id="Kfx5Js" name="crc16_cdma2000.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/crc16_cdma2000.h"/>
+          <FILE id="Lk1fKT" name="crc16_dds110.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_dds110.h"/>
+          <FILE id="u0doax" name="crc16_dectr.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_dectr.h"/>
+          <FILE id="wfMs2k" name="crc16_dectx.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_dectx.h"/>
+          <FILE id="BkRSvb" name="crc16_dnp.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_dnp.h"/>
+          <FILE id="MfCmDd" name="crc16_en13757.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_en13757.h"/>
+          <FILE id="REgSEg" name="crc16_genibus.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_genibus.h"/>
+          <FILE id="cEeh8M" name="crc16_kermit.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_kermit.h"/>
+          <FILE id="t1PyAH" name="crc16_m17.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_m17.h"/>
+          <FILE id="guvb54" name="crc16_maxim.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_maxim.h"/>
+          <FILE id="KFto80" name="crc16_mcrf4xx.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_mcrf4xx.h"/>
+          <FILE id="DBb91o" name="crc16_modbus.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_modbus.h"/>
+          <FILE id="g5X04T" name="crc16_profibus.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/crc16_profibus.h"/>
+          <FILE id="KwaN7o" name="crc16_riello.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_riello.h"/>
+          <FILE id="wXk400" name="crc16_t10dif.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_t10dif.h"/>
+          <FILE id="hwecvX" name="crc16_teledisk.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/crc16_teledisk.h"/>
+          <FILE id="cM2xYQ" name="crc16_tms37157.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/crc16_tms37157.h"/>
+          <FILE id="WZd8Hg" name="crc16_usb.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_usb.h"/>
+          <FILE id="XQTo3U" name="crc16_x25.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_x25.h"/>
+          <FILE id="FY06sz" name="crc16_xmodem.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc16_xmodem.h"/>
+          <FILE id="IIvcVX" name="crc32.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc32.h"/>
+          <FILE id="TlR4an" name="crc32_bzip2.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc32_bzip2.h"/>
+          <FILE id="apark4" name="crc32_c.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc32_c.h"/>
+          <FILE id="UA0Eut" name="crc32_d.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc32_d.h"/>
+          <FILE id="dcNfoj" name="crc32_jamcrc.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc32_jamcrc.h"/>
+          <FILE id="fYDtfe" name="crc32_mpeg2.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc32_mpeg2.h"/>
+          <FILE id="DJ9dvd" name="crc32_posix.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc32_posix.h"/>
+          <FILE id="U0EmDF" name="crc32_q.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc32_q.h"/>
+          <FILE id="RRjalD" name="crc32_xfer.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc32_xfer.h"/>
+          <FILE id="DvLRhQ" name="crc64_ecma.h" compile="0" resource="0" file="Source/midi_stuff/etl/crc64_ecma.h"/>
+          <FILE id="KA5KKW" name="cstring.h" compile="0" resource="0" file="Source/midi_stuff/etl/cstring.h"/>
+          <FILE id="JgreBA" name="cyclic_value.h" compile="0" resource="0" file="Source/midi_stuff/etl/cyclic_value.h"/>
+          <FILE id="foNAo6" name="debounce.h" compile="0" resource="0" file="Source/midi_stuff/etl/debounce.h"/>
+          <FILE id="Tf1wYp" name="debug_count.h" compile="0" resource="0" file="Source/midi_stuff/etl/debug_count.h"/>
+          <FILE id="eqN6Xe" name="delegate.h" compile="0" resource="0" file="Source/midi_stuff/etl/delegate.h"/>
+          <FILE id="K0nSn6" name="delegate_observer.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/delegate_observer.h"/>
+          <FILE id="l2EU9T" name="delegate_service.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/delegate_service.h"/>
+          <FILE id="uu3ZQ0" name="deque.h" compile="0" resource="0" file="Source/midi_stuff/etl/deque.h"/>
+          <FILE id="DEmMJl" name="doxygen.h" compile="0" resource="0" file="Source/midi_stuff/etl/doxygen.h"/>
+          <FILE id="Y1v38r" name="endianness.h" compile="0" resource="0" file="Source/midi_stuff/etl/endianness.h"/>
+          <FILE id="IoFCVn" name="enum_type.h" compile="0" resource="0" file="Source/midi_stuff/etl/enum_type.h"/>
+          <FILE id="CVH96T" name="error_handler.h" compile="0" resource="0" file="Source/midi_stuff/etl/error_handler.h"/>
+          <FILE id="u9Tn3z" name="exception.h" compile="0" resource="0" file="Source/midi_stuff/etl/exception.h"/>
+          <FILE id="yglp28" name="expected.h" compile="0" resource="0" file="Source/midi_stuff/etl/expected.h"/>
+          <FILE id="teU9WR" name="factorial.h" compile="0" resource="0" file="Source/midi_stuff/etl/factorial.h"/>
+          <FILE id="z49AAI" name="fibonacci.h" compile="0" resource="0" file="Source/midi_stuff/etl/fibonacci.h"/>
+          <FILE id="dIQZGN" name="file_error_numbers.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/file_error_numbers.h"/>
+          <FILE id="ZOr4VZ" name="fixed_iterator.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/fixed_iterator.h"/>
+          <FILE id="dQwqwV" name="fixed_sized_memory_block_allocator.h" compile="0"
+                resource="0" file="Source/midi_stuff/etl/fixed_sized_memory_block_allocator.h"/>
+          <FILE id="WtiMPg" name="flags.h" compile="0" resource="0" file="Source/midi_stuff/etl/flags.h"/>
+          <FILE id="Y6V0q5" name="flat_map.h" compile="0" resource="0" file="Source/midi_stuff/etl/flat_map.h"/>
+          <FILE id="m2hvC4" name="flat_multimap.h" compile="0" resource="0" file="Source/midi_stuff/etl/flat_multimap.h"/>
+          <FILE id="c6CVsj" name="flat_multiset.h" compile="0" resource="0" file="Source/midi_stuff/etl/flat_multiset.h"/>
+          <FILE id="GbieUU" name="flat_set.h" compile="0" resource="0" file="Source/midi_stuff/etl/flat_set.h"/>
+          <FILE id="SVIdE8" name="fnv_1.h" compile="0" resource="0" file="Source/midi_stuff/etl/fnv_1.h"/>
+          <FILE id="Jfje8A" name="format_spec.h" compile="0" resource="0" file="Source/midi_stuff/etl/format_spec.h"/>
+          <FILE id="AYtPxA" name="forward_list.h" compile="0" resource="0" file="Source/midi_stuff/etl/forward_list.h"/>
+          <FILE id="kqoRx4" name="frame_check_sequence.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/frame_check_sequence.h"/>
+          <FILE id="DUon8o" name="fsm.h" compile="0" resource="0" file="Source/midi_stuff/etl/fsm.h"/>
+          <FILE id="EyG6yG" name="function.h" compile="0" resource="0" file="Source/midi_stuff/etl/function.h"/>
+          <FILE id="sx8iB6" name="functional.h" compile="0" resource="0" file="Source/midi_stuff/etl/functional.h"/>
+          <FILE id="nVNkiU" name="gamma.h" compile="0" resource="0" file="Source/midi_stuff/etl/gamma.h"/>
+          <FILE id="YfiIRn" name="generic_pool.h" compile="0" resource="0" file="Source/midi_stuff/etl/generic_pool.h"/>
+          <FILE id="NDe9De" name="hash.h" compile="0" resource="0" file="Source/midi_stuff/etl/hash.h"/>
+          <FILE id="m8ft1l" name="hfsm.h" compile="0" resource="0" file="Source/midi_stuff/etl/hfsm.h"/>
+          <FILE id="kY6Bso" name="histogram.h" compile="0" resource="0" file="Source/midi_stuff/etl/histogram.h"/>
+          <FILE id="jI7wGd" name="ihash.h" compile="0" resource="0" file="Source/midi_stuff/etl/ihash.h"/>
+          <FILE id="SemvKT" name="imemory_block_allocator.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/imemory_block_allocator.h"/>
+          <FILE id="Lkxo2v" name="indirect_vector.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/indirect_vector.h"/>
+          <FILE id="fGh2PK" name="initializer_list.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/initializer_list.h"/>
+          <FILE id="ddVFCw" name="instance_count.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/instance_count.h"/>
+          <FILE id="sWtIUg" name="integral_limits.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/integral_limits.h"/>
+          <FILE id="HBdYqm" name="intrusive_forward_list.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/intrusive_forward_list.h"/>
+          <FILE id="xTJFyq" name="intrusive_links.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/intrusive_links.h"/>
+          <FILE id="HwT8K5" name="intrusive_list.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/intrusive_list.h"/>
+          <FILE id="q07wSn" name="intrusive_queue.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/intrusive_queue.h"/>
+          <FILE id="X4m1rD" name="intrusive_stack.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/intrusive_stack.h"/>
+          <FILE id="WidZdx" name="invert.h" compile="0" resource="0" file="Source/midi_stuff/etl/invert.h"/>
+          <FILE id="isb6mA" name="io_port.h" compile="0" resource="0" file="Source/midi_stuff/etl/io_port.h"/>
+          <FILE id="JeVYEG" name="ipool.h" compile="0" resource="0" file="Source/midi_stuff/etl/ipool.h"/>
+          <FILE id="T0he0U" name="ireference_counted_message_pool.h" compile="0"
+                resource="0" file="Source/midi_stuff/etl/ireference_counted_message_pool.h"/>
+          <FILE id="btrVV7" name="iterator.h" compile="0" resource="0" file="Source/midi_stuff/etl/iterator.h"/>
+          <FILE id="lvdGVm" name="jenkins.h" compile="0" resource="0" file="Source/midi_stuff/etl/jenkins.h"/>
+          <FILE id="GUs7Mr" name="largest.h" compile="0" resource="0" file="Source/midi_stuff/etl/largest.h"/>
+          <FILE id="UWWWK5" name="limiter.h" compile="0" resource="0" file="Source/midi_stuff/etl/limiter.h"/>
+          <FILE id="FbIh4i" name="limits.h" compile="0" resource="0" file="Source/midi_stuff/etl/limits.h"/>
+          <FILE id="CDh3nA" name="list.h" compile="0" resource="0" file="Source/midi_stuff/etl/list.h"/>
+          <FILE id="kL8MbB" name="log.h" compile="0" resource="0" file="Source/midi_stuff/etl/log.h"/>
+          <FILE id="yLE5jr" name="macros.h" compile="0" resource="0" file="Source/midi_stuff/etl/macros.h"/>
+          <FILE id="RD26RT" name="map.h" compile="0" resource="0" file="Source/midi_stuff/etl/map.h"/>
+          <FILE id="diz4D3" name="math.h" compile="0" resource="0" file="Source/midi_stuff/etl/math.h"/>
+          <FILE id="ypBCtw" name="math_constants.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/math_constants.h"/>
+          <FILE id="M1HOzA" name="mean.h" compile="0" resource="0" file="Source/midi_stuff/etl/mean.h"/>
+          <FILE id="IuyYH8" name="mem_cast.h" compile="0" resource="0" file="Source/midi_stuff/etl/mem_cast.h"/>
+          <FILE id="OgyjTA" name="memory.h" compile="0" resource="0" file="Source/midi_stuff/etl/memory.h"/>
+          <FILE id="C3XVD5" name="memory_model.h" compile="0" resource="0" file="Source/midi_stuff/etl/memory_model.h"/>
+          <FILE id="mihzZZ" name="message.h" compile="0" resource="0" file="Source/midi_stuff/etl/message.h"/>
+          <FILE id="YJUMsJ" name="message_broker.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/message_broker.h"/>
+          <FILE id="ffIjDV" name="message_bus.h" compile="0" resource="0" file="Source/midi_stuff/etl/message_bus.h"/>
+          <FILE id="DStCCx" name="message_packet.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/message_packet.h"/>
+          <FILE id="C7KbTs" name="message_router.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/message_router.h"/>
+          <FILE id="lm7xNR" name="message_router_registry.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/message_router_registry.h"/>
+          <FILE id="gyU5Zx" name="message_timer.h" compile="0" resource="0" file="Source/midi_stuff/etl/message_timer.h"/>
+          <FILE id="ecMPaq" name="message_timer_atomic.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/message_timer_atomic.h"/>
+          <FILE id="Ycs4dR" name="message_timer_interrupt.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/message_timer_interrupt.h"/>
+          <FILE id="dRj3a2" name="message_timer_locked.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/message_timer_locked.h"/>
+          <FILE id="d45qoJ" name="message_types.h" compile="0" resource="0" file="Source/midi_stuff/etl/message_types.h"/>
+          <FILE id="FxLuAi" name="multi_array.h" compile="0" resource="0" file="Source/midi_stuff/etl/multi_array.h"/>
+          <FILE id="mW7ffX" name="multi_range.h" compile="0" resource="0" file="Source/midi_stuff/etl/multi_range.h"/>
+          <FILE id="wbvObE" name="multi_span.h" compile="0" resource="0" file="Source/midi_stuff/etl/multi_span.h"/>
+          <FILE id="e5r6ds" name="multi_vector.h" compile="0" resource="0" file="Source/midi_stuff/etl/multi_vector.h"/>
+          <FILE id="pAWlSt" name="multimap.h" compile="0" resource="0" file="Source/midi_stuff/etl/multimap.h"/>
+          <FILE id="ywcV1V" name="multiset.h" compile="0" resource="0" file="Source/midi_stuff/etl/multiset.h"/>
+          <FILE id="yyM7ig" name="murmur3.h" compile="0" resource="0" file="Source/midi_stuff/etl/murmur3.h"/>
+          <FILE id="mtBaSF" name="mutex.h" compile="0" resource="0" file="Source/midi_stuff/etl/mutex.h"/>
+          <FILE id="mdyPGf" name="negative.h" compile="0" resource="0" file="Source/midi_stuff/etl/negative.h"/>
+          <FILE id="YkeqXE" name="nth_type.h" compile="0" resource="0" file="Source/midi_stuff/etl/nth_type.h"/>
+          <FILE id="Dn4muR" name="null_type.h" compile="0" resource="0" file="Source/midi_stuff/etl/null_type.h"/>
+          <FILE id="zeEG1Q" name="nullptr.h" compile="0" resource="0" file="Source/midi_stuff/etl/nullptr.h"/>
+          <FILE id="u8BC6E" name="numeric.h" compile="0" resource="0" file="Source/midi_stuff/etl/numeric.h"/>
+          <FILE id="j4l3qK" name="observer.h" compile="0" resource="0" file="Source/midi_stuff/etl/observer.h"/>
+          <FILE id="vwjFwZ" name="optional.h" compile="0" resource="0" file="Source/midi_stuff/etl/optional.h"/>
+          <FILE id="jrLsjn" name="overload.h" compile="0" resource="0" file="Source/midi_stuff/etl/overload.h"/>
+          <FILE id="uwATZE" name="packet.h" compile="0" resource="0" file="Source/midi_stuff/etl/packet.h"/>
+          <FILE id="ZaRc8q" name="parameter_pack.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/parameter_pack.h"/>
+          <FILE id="mWKzO0" name="parameter_type.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/parameter_type.h"/>
+          <FILE id="TVL2PI" name="pearson.h" compile="0" resource="0" file="Source/midi_stuff/etl/pearson.h"/>
+          <FILE id="v9z3Yj" name="permutations.h" compile="0" resource="0" file="Source/midi_stuff/etl/permutations.h"/>
+          <FILE id="WuKtws" name="placement_new.h" compile="0" resource="0" file="Source/midi_stuff/etl/placement_new.h"/>
+          <FILE id="DLIGvL" name="platform.h" compile="0" resource="0" file="Source/midi_stuff/etl/platform.h"/>
+          <FILE id="ZzDPsY" name="poly_span.h" compile="0" resource="0" file="Source/midi_stuff/etl/poly_span.h"/>
+          <FILE id="hVEK4W" name="pool.h" compile="0" resource="0" file="Source/midi_stuff/etl/pool.h"/>
+          <FILE id="pbIixn" name="power.h" compile="0" resource="0" file="Source/midi_stuff/etl/power.h"/>
+          <FILE id="VV3wzn" name="priority_queue.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/priority_queue.h"/>
+          <FILE id="RVu4Sy" name="pseudo_moving_average.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/pseudo_moving_average.h"/>
+          <FILE id="ozS62u" name="quantize.h" compile="0" resource="0" file="Source/midi_stuff/etl/quantize.h"/>
+          <FILE id="lVqxrv" name="queue.h" compile="0" resource="0" file="Source/midi_stuff/etl/queue.h"/>
+          <FILE id="L8NX3f" name="queue_lockable.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/queue_lockable.h"/>
+          <FILE id="Q5CJAL" name="queue_mpmc_mutex.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/queue_mpmc_mutex.h"/>
+          <FILE id="BWTMpW" name="queue_spsc_atomic.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/queue_spsc_atomic.h"/>
+          <FILE id="mi2Nim" name="queue_spsc_isr.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/queue_spsc_isr.h"/>
+          <FILE id="gcNrAw" name="queue_spsc_locked.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/queue_spsc_locked.h"/>
+          <FILE id="pkDleF" name="radix.h" compile="0" resource="0" file="Source/midi_stuff/etl/radix.h"/>
+          <FILE id="sPb7do" name="random.h" compile="0" resource="0" file="Source/midi_stuff/etl/random.h"/>
+          <FILE id="ZKkFJQ" name="ratio.h" compile="0" resource="0" file="Source/midi_stuff/etl/ratio.h"/>
+          <FILE id="M1moMk" name="reference_counted_message.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/reference_counted_message.h"/>
+          <FILE id="DHdVMY" name="reference_counted_message_pool.h" compile="0"
+                resource="0" file="Source/midi_stuff/etl/reference_counted_message_pool.h"/>
+          <FILE id="soWF9w" name="reference_counted_object.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/reference_counted_object.h"/>
+          <FILE id="krkME3" name="reference_flat_map.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/reference_flat_map.h"/>
+          <FILE id="LzDroU" name="reference_flat_multimap.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/reference_flat_multimap.h"/>
+          <FILE id="JeUnye" name="reference_flat_multiset.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/reference_flat_multiset.h"/>
+          <FILE id="Yo5eix" name="reference_flat_set.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/reference_flat_set.h"/>
+          <FILE id="dgvNT5" name="rescale.h" compile="0" resource="0" file="Source/midi_stuff/etl/rescale.h"/>
+          <FILE id="BTgfPI" name="result.h" compile="0" resource="0" file="Source/midi_stuff/etl/result.h"/>
+          <FILE id="eDhINS" name="rms.h" compile="0" resource="0" file="Source/midi_stuff/etl/rms.h"/>
+          <FILE id="QBH1wN" name="scaled_rounding.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/scaled_rounding.h"/>
+          <FILE id="vToCtn" name="scheduler.h" compile="0" resource="0" file="Source/midi_stuff/etl/scheduler.h"/>
+          <FILE id="wy1zZ3" name="set.h" compile="0" resource="0" file="Source/midi_stuff/etl/set.h"/>
+          <FILE id="CEVZEE" name="shared_message.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/shared_message.h"/>
+          <FILE id="Je4xaP" name="singleton.h" compile="0" resource="0" file="Source/midi_stuff/etl/singleton.h"/>
+          <FILE id="y3LBN1" name="smallest.h" compile="0" resource="0" file="Source/midi_stuff/etl/smallest.h"/>
+          <FILE id="BuYdB9" name="span.h" compile="0" resource="0" file="Source/midi_stuff/etl/span.h"/>
+          <FILE id="gA20uZ" name="sqrt.h" compile="0" resource="0" file="Source/midi_stuff/etl/sqrt.h"/>
+          <FILE id="O608TH" name="stack.h" compile="0" resource="0" file="Source/midi_stuff/etl/stack.h"/>
+          <FILE id="zBGZlL" name="standard_deviation.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/standard_deviation.h"/>
+          <FILE id="hYqd6v" name="state_chart.h" compile="0" resource="0" file="Source/midi_stuff/etl/state_chart.h"/>
+          <FILE id="caX7o7" name="static_assert.h" compile="0" resource="0" file="Source/midi_stuff/etl/static_assert.h"/>
+          <FILE id="IjEFBK" name="string.h" compile="0" resource="0" file="Source/midi_stuff/etl/string.h"/>
+          <FILE id="aNsN9J" name="string_stream.h" compile="0" resource="0" file="Source/midi_stuff/etl/string_stream.h"/>
+          <FILE id="msGUUc" name="string_utilities.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/string_utilities.h"/>
+          <FILE id="cQVy23" name="string_view.h" compile="0" resource="0" file="Source/midi_stuff/etl/string_view.h"/>
+          <FILE id="atRr0K" name="stringify.h" compile="0" resource="0" file="Source/midi_stuff/etl/stringify.h"/>
+          <FILE id="uSR4He" name="successor.h" compile="0" resource="0" file="Source/midi_stuff/etl/successor.h"/>
+          <FILE id="d7n4qh" name="task.h" compile="0" resource="0" file="Source/midi_stuff/etl/task.h"/>
+          <FILE id="mXt5Wd" name="threshold.h" compile="0" resource="0" file="Source/midi_stuff/etl/threshold.h"/>
+          <FILE id="lfGBBA" name="timer.h" compile="0" resource="0" file="Source/midi_stuff/etl/timer.h"/>
+          <FILE id="y3z7lG" name="to_arithmetic.h" compile="0" resource="0" file="Source/midi_stuff/etl/to_arithmetic.h"/>
+          <FILE id="rmwB3z" name="to_string.h" compile="0" resource="0" file="Source/midi_stuff/etl/to_string.h"/>
+          <FILE id="qIMweL" name="to_u8string.h" compile="0" resource="0" file="Source/midi_stuff/etl/to_u8string.h"/>
+          <FILE id="sV9YaT" name="to_u16string.h" compile="0" resource="0" file="Source/midi_stuff/etl/to_u16string.h"/>
+          <FILE id="l6mGxF" name="to_u32string.h" compile="0" resource="0" file="Source/midi_stuff/etl/to_u32string.h"/>
+          <FILE id="OR2PH0" name="to_wstring.h" compile="0" resource="0" file="Source/midi_stuff/etl/to_wstring.h"/>
+          <FILE id="KVO6sr" name="type_def.h" compile="0" resource="0" file="Source/midi_stuff/etl/type_def.h"/>
+          <FILE id="L5lm4u" name="type_lookup.h" compile="0" resource="0" file="Source/midi_stuff/etl/type_lookup.h"/>
+          <FILE id="ULFrNQ" name="type_select.h" compile="0" resource="0" file="Source/midi_stuff/etl/type_select.h"/>
+          <FILE id="E4nw9X" name="type_traits.h" compile="0" resource="0" file="Source/midi_stuff/etl/type_traits.h"/>
+          <FILE id="zZfjf6" name="u8format_spec.h" compile="0" resource="0" file="Source/midi_stuff/etl/u8format_spec.h"/>
+          <FILE id="RmiwgR" name="u8string.h" compile="0" resource="0" file="Source/midi_stuff/etl/u8string.h"/>
+          <FILE id="pyYbDZ" name="u8string_stream.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/u8string_stream.h"/>
+          <FILE id="OEDHPA" name="u16format_spec.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/u16format_spec.h"/>
+          <FILE id="gZTQ19" name="u16string.h" compile="0" resource="0" file="Source/midi_stuff/etl/u16string.h"/>
+          <FILE id="zsP9kD" name="u16string_stream.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/u16string_stream.h"/>
+          <FILE id="rC9FhG" name="u32format_spec.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/u32format_spec.h"/>
+          <FILE id="QjLRwc" name="u32string.h" compile="0" resource="0" file="Source/midi_stuff/etl/u32string.h"/>
+          <FILE id="gnzeIh" name="u32string_stream.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/u32string_stream.h"/>
+          <FILE id="hoary5" name="unaligned_type.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/unaligned_type.h"/>
+          <FILE id="ncT5YU" name="unordered_map.h" compile="0" resource="0" file="Source/midi_stuff/etl/unordered_map.h"/>
+          <FILE id="re47er" name="unordered_multimap.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/unordered_multimap.h"/>
+          <FILE id="eIR3RN" name="unordered_multiset.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/unordered_multiset.h"/>
+          <FILE id="UOTW4E" name="unordered_set.h" compile="0" resource="0" file="Source/midi_stuff/etl/unordered_set.h"/>
+          <FILE id="R64dmv" name="user_type.h" compile="0" resource="0" file="Source/midi_stuff/etl/user_type.h"/>
+          <FILE id="bSOZWm" name="utility.h" compile="0" resource="0" file="Source/midi_stuff/etl/utility.h"/>
+          <FILE id="SndrZ5" name="variance.h" compile="0" resource="0" file="Source/midi_stuff/etl/variance.h"/>
+          <FILE id="IXSAe1" name="variant.h" compile="0" resource="0" file="Source/midi_stuff/etl/variant.h"/>
+          <FILE id="yIKDjq" name="variant_pool.h" compile="0" resource="0" file="Source/midi_stuff/etl/variant_pool.h"/>
+          <FILE id="d0FV8y" name="vector.h" compile="0" resource="0" file="Source/midi_stuff/etl/vector.h"/>
+          <FILE id="isfmBg" name="version.h" compile="0" resource="0" file="Source/midi_stuff/etl/version.h"/>
+          <FILE id="PWbR4b" name="visitor.h" compile="0" resource="0" file="Source/midi_stuff/etl/visitor.h"/>
+          <FILE id="W4i6Ee" name="wformat_spec.h" compile="0" resource="0" file="Source/midi_stuff/etl/wformat_spec.h"/>
+          <FILE id="u6QDiK" name="wstring.h" compile="0" resource="0" file="Source/midi_stuff/etl/wstring.h"/>
+          <FILE id="SmisEG" name="wstring_stream.h" compile="0" resource="0"
+                file="Source/midi_stuff/etl/wstring_stream.h"/>
+        </GROUP>
         <GROUP id="{6F33A8C1-C07E-5AD6-6763-5841B98F8DBE}" name="tinyevents">
           <FILE id="X3oECV" name="tinyevents.h" compile="0" resource="0" file="Source/midi_stuff/tinyevents/tinyevents.h"/>
         </GROUP>

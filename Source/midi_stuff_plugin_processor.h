@@ -16,12 +16,26 @@ public:
      midi_stuff::processors::midi_channel_note_input     input;
      midi_stuff::processors::midi_channel_split          split;
 
-     midi_stuff::processors::midi_note_dedup             dedup_lhl; // lowest highest lowest
-     midi_stuff::processors::midi_lowest_notes           lowest;
-     midi_stuff::processors::midi_highest_notes          highest;
-     midi_stuff::processors::midi_lowest_notes           lowest_2;
-
-     midi_stuff::processors::midi_note_dedup             dedup_arp_chord_notes;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_1;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_2;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_3;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_4;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_5;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_6;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_7;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_8;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_9;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_10;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_11;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_12;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_13;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_14;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_15;
+     midi_stuff::processors::midi_note_dedup             dedup_ch_16;
+     //midi_stuff::processors::midi_lowest_notes           lowest;
+     //midi_stuff::processors::midi_highest_notes          highest;
+     //midi_stuff::processors::midi_lowest_notes           lowest_2;
+     midi_stuff::processors::midi_chord_intervals        chord_intervals;
      midi_stuff::processors::midi_note_dedup             dedup_arp_sequence_notes;
      midi_stuff::processors::midi_note_arpeggiator       arppegiator;
 
@@ -30,9 +44,5 @@ public:
      
      // UI
      juce::AudioProcessorValueTreeState                  parameters;
-
-     std::atomic< float >*                               param_lowest_n   = nullptr;
-     std::atomic< float >*                               param_highest_n  = nullptr;
-     std::atomic< float >*                               param_lowest_2_n = nullptr;
 
 };

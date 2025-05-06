@@ -26,19 +26,24 @@ public:
 
     void run( void ) { output.backtrack_process( ); }
     
-    template < typename container_t >
-    void assert_container_has_all( container_t& container, std::initializer_list< note_t > notes ) {
+    template < typename container_t, typename note_collection_t >
+    void assert_container_has_all( const container_t& container, const note_collection_t& notes ) {
         std::for_each( notes.begin( ), notes.end( ),
-            [ & ] ( note_t note ) {
-                jassert(
-                    std::find(
-                        container->begin( ),
-                        container->end( ),
-                        note
-                    ) != container->end( )
-                );
-            }
+                       [ & ] ( note_t note ) {
+                           jassert(
+                               std::find(
+                                   container.begin( ),
+                                   container.end( ),
+                                   note
+                               ) != container.end( )
+                           );
+                       }
         );
+    }
+
+    template < typename container_t >
+    void assert_container_has_all( const container_t& container, std::initializer_list< note_t > notes ) {
+        assert_container_has_all( container, std::vector< note_t >( notes ) );
     }
 };
 
@@ -270,6 +275,34 @@ public:
     midi_stuff::processors::midi_note_dedup             dedup_2;
     midi_stuff::processors::midi_chord_intervals        chord_intervals;
 
+    void test_chord( note_t root, const std::vector< note_t >& intervals ) {
+        input.note_on( 1, root, 100 );
+        std::for_each(
+            intervals.cbegin( ),
+            intervals.cend( ),
+            [ & ] ( const note_t& note ) {
+                input.note_on( 2, note + root, 100 );
+            }
+        );
+
+        run( );
+
+        assert_container_has_all( chord_intervals.chord_notes, intervals );
+
+        /*jassert( chord_intervals.chord_notes.size( ) == chord_data::chord_descriptors[ 1 ].notes.size( ) );*/
+        input.note_off( 1, root, 100 );
+        std::for_each(
+            intervals.cbegin( ),
+            intervals.cend( ),
+            [ & ] ( const note_t& note ) {
+                input.note_off( 2, note + root, 100 );
+            }
+        );
+
+        run( );
+        jassert( chord_intervals.chord_notes.size( ) == 0 );
+    }
+
     test_midi_midi_chord_intervals( void ) : midi_stuff_processor_test_base( ) {
         binder bind_it( {
             { &input,           "channel_notes", &split,           "notes"          },
@@ -281,21 +314,14 @@ public:
         } );
 
         reset_output_buffers( );
-        {
-            const midi_stuff::chord_data::named_noteset& test_chord = chord_data::chord_descriptors[ 9 ];
-            input.note_on( 1, 60, 100 );
-            std::for_each(
-                test_chord.notes.cbegin( ),
-                test_chord.notes.cend( ),
-                [ & ] ( const note_t& note ) {
-                    input.note_on( 2, note + 60, 100 );
-                }
-            );
 
-            run( );
-            jassert( chord_intervals.chord_notes.size( ) == test_chord.notes.size( ) );
-            // assert_container_has_all( chord_intervals.chord_notes, { 60, 63, 65, 67 } );
-        }
+        test_chord( 60, { 3, 7        } ); // minor
+        test_chord( 60, { 3, 7, 9     } ); // m6
+        test_chord( 60, { 3, 7, 10    } ); // m7
+        test_chord( 60, { 3, 7, 10, 2 } ); // m9
+        test_chord( 60, { 3, 7, 10, 5 } ); // m11
+        test_chord( 60, { 3, 7, 10, 9 } ); // m13
+
     }
 };
 

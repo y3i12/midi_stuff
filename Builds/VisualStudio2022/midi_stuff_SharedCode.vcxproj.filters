@@ -2,6 +2,30 @@
 
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="midi_stuff\Source\midi_stuff\etl\atomic">
+      <UniqueIdentifier>{3B9DB39E-A54D-4837-8184-1259D8DB855B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="midi_stuff\Source\midi_stuff\etl\deprecated">
+      <UniqueIdentifier>{6B3BC09A-E07F-394F-565D-A591AF6580A8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="midi_stuff\Source\midi_stuff\etl\experimental">
+      <UniqueIdentifier>{E646D49E-0479-C230-1DD7-E22E80E595EF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="midi_stuff\Source\midi_stuff\etl\generators">
+      <UniqueIdentifier>{C69BCE44-F501-C6E8-8313-5EBF0D6B2272}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="midi_stuff\Source\midi_stuff\etl\mutex">
+      <UniqueIdentifier>{3342C6F2-11B6-506D-B4E3-CFF38867415F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="midi_stuff\Source\midi_stuff\etl\private">
+      <UniqueIdentifier>{5C57E832-7E9F-26DC-C7A4-E7669151F0B3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="midi_stuff\Source\midi_stuff\etl\profiles">
+      <UniqueIdentifier>{A40E6FA3-DCC4-2B1E-1DD1-82D2F9B14970}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="midi_stuff\Source\midi_stuff\etl">
+      <UniqueIdentifier>{DBAA9E57-C566-86FF-1707-61CE721BFE7E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="midi_stuff\Source\midi_stuff\tinyevents">
       <UniqueIdentifier>{0001845E-CA96-CDE2-47B9-EFFC9932323C}</UniqueIdentifier>
     </Filter>
@@ -3870,6 +3894,1074 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\atomic\atomic_arm.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\atomic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\atomic\atomic_clang_sync.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\atomic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\atomic\atomic_gcc_sync.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\atomic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\atomic\atomic_std.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\atomic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\deprecated\factory.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\experimental\bit_cast.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\experimental</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\experimental\class_traits.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\experimental</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\experimental\icache.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\experimental</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\experimental\mem_cast.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\experimental</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\experimental\singleton.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\experimental</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\generators\fsm_generator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\generators\largest_generator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\generators\message_packet_generator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\generators\message_router_generator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\generators\smallest_generator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\generators\type_lookup_generator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\generators\type_select_generator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\generators\type_traits_generator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\generators\variant_pool_generator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\mutex\mutex_arm.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\mutex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\mutex\mutex_clang_sync.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\mutex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\mutex\mutex_cmsis_os2.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\mutex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\mutex\mutex_freertos.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\mutex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\mutex\mutex_gcc_sync.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\mutex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\mutex\mutex_std.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\mutex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\addressof.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\bitset_legacy.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\bitset_new.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\choose_namespace.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\comparator_is_transparent.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\crc_implementation.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\crc_parameters.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\delegate_cpp03.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\delegate_cpp11.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\diagnostic_array_bounds_push.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\diagnostic_deprecated_push.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\diagnostic_float_equal_push.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\diagnostic_null_dereference_push.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\diagnostic_pessimizing_move_push.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\diagnostic_pop.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\diagnostic_self_assign_overloaded_push.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\diagnostic_stringop_overread_push.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\diagnostic_uninitialized_push.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\diagnostic_unused_function_push.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\diagnostic_useless_cast_push.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\dynamic_extent.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\ivectorpointer.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\minmax_pop.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\minmax_push.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\pvoidvector.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\to_string_helper.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\variant_legacy.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\variant_variadic.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\private\vector_base.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\arduino_arm.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\armv5.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\armv5_no_stl.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\armv6.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\armv6_no_stl.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\armv7.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\armv7_no_stl.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\auto.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\clang_generic.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\clang_generic_no_stl.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\cpp03.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\cpp03_no_stl.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\cpp11.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\cpp11_no_stl.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\cpp14.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\cpp14_no_stl.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\cpp17.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\cpp17_no_stl.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\determine_builtin_support.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\determine_compiler.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\determine_compiler_language_support.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\determine_compiler_version.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\determine_development_os.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\gcc_generic.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\gcc_generic_no_stl.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\gcc_linux_x86.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\gcc_linux_x86_no_stl.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\gcc_windows_x86.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\gcc_windows_x86_no_stl.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\msvc_x86.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\msvc_x86_no_stl.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\segger_gcc_stlport.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\ticc.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\profiles\ticc_no_stl.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl\profiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\absolute.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\algorithm.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\alignment.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\array.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\array_view.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\array_wrapper.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\atomic.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\base64.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\basic_format_spec.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\basic_string.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\basic_string_stream.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\binary.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\bip_buffer_spsc_atomic.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\bit.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\bit_stream.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\bitset.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\bloom_filter.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\bresenham_line.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\buffer_descriptors.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\byte.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\byte_stream.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\callback.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\callback_service.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\callback_timer.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\callback_timer_atomic.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\callback_timer_interrupt.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\callback_timer_locked.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\char_traits.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\checksum.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\circular_buffer.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\circular_iterator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\combinations.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\compare.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\constant.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\container.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\correlation.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\covariance.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc1.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc8_ccitt.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc8_cdma2000.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc8_darc.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc8_dvbs2.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc8_ebu.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc8_icode.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc8_itu.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc8_j1850.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc8_j1850_zero.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc8_maxim.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc8_rohc.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc8_wcdma.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_a.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_arc.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_aug_ccitt.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_buypass.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_ccitt.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_cdma2000.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_dds110.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_dectr.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_dectx.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_dnp.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_en13757.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_genibus.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_kermit.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_m17.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_maxim.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_mcrf4xx.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_modbus.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_profibus.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_riello.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_t10dif.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_teledisk.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_tms37157.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_usb.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_x25.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc16_xmodem.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc32.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc32_bzip2.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc32_c.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc32_d.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc32_jamcrc.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc32_mpeg2.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc32_posix.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc32_q.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc32_xfer.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\crc64_ecma.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\cstring.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\cyclic_value.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\debounce.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\debug_count.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\delegate.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\delegate_observer.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\delegate_service.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\deque.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\doxygen.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\endianness.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\enum_type.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\error_handler.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\exception.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\expected.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\factorial.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\fibonacci.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\file_error_numbers.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\fixed_iterator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\fixed_sized_memory_block_allocator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\flags.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\flat_map.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\flat_multimap.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\flat_multiset.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\flat_set.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\fnv_1.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\format_spec.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\forward_list.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\frame_check_sequence.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\fsm.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\function.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\functional.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\gamma.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\generic_pool.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\hash.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\hfsm.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\histogram.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\ihash.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\imemory_block_allocator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\indirect_vector.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\initializer_list.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\instance_count.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\integral_limits.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\intrusive_forward_list.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\intrusive_links.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\intrusive_list.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\intrusive_queue.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\intrusive_stack.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\invert.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\io_port.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\ipool.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\ireference_counted_message_pool.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\iterator.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\jenkins.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\largest.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\limiter.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\limits.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\list.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\log.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\macros.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\map.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\math.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\math_constants.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\mean.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\mem_cast.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\memory.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\memory_model.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\message.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\message_broker.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\message_bus.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\message_packet.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\message_router.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\message_router_registry.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\message_timer.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\message_timer_atomic.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\message_timer_interrupt.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\message_timer_locked.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\message_types.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\multi_array.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\multi_range.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\multi_span.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\multi_vector.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\multimap.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\multiset.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\murmur3.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\mutex.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\negative.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\nth_type.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\null_type.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\nullptr.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\numeric.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\observer.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\optional.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\overload.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\packet.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\parameter_pack.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\parameter_type.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\pearson.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\permutations.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\placement_new.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\platform.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\poly_span.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\pool.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\power.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\priority_queue.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\pseudo_moving_average.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\quantize.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\queue.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\queue_lockable.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\queue_mpmc_mutex.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\queue_spsc_atomic.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\queue_spsc_isr.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\queue_spsc_locked.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\radix.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\random.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\ratio.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\reference_counted_message.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\reference_counted_message_pool.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\reference_counted_object.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\reference_flat_map.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\reference_flat_multimap.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\reference_flat_multiset.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\reference_flat_set.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\rescale.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\result.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\rms.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\scaled_rounding.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\scheduler.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\set.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\shared_message.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\singleton.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\smallest.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\span.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\sqrt.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\stack.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\standard_deviation.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\state_chart.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\static_assert.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\string.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\string_stream.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\string_utilities.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\string_view.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\stringify.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\successor.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\task.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\threshold.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\timer.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\to_arithmetic.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\to_string.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\to_u8string.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\to_u16string.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\to_u32string.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\to_wstring.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\type_def.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\type_lookup.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\type_select.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\type_traits.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\u8format_spec.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\u8string.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\u8string_stream.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\u16format_spec.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\u16string.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\u16string_stream.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\u32format_spec.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\u32string.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\u32string_stream.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\unaligned_type.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\unordered_map.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\unordered_multimap.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\unordered_multiset.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\unordered_set.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\user_type.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\utility.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\variance.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\variant.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\variant_pool.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\vector.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\version.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\visitor.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\wformat_spec.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\wstring.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\etl\wstring_stream.h">
+      <Filter>midi_stuff\Source\midi_stuff\etl</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\midi_stuff\tinyevents\tinyevents.h">
       <Filter>midi_stuff\Source\midi_stuff\tinyevents</Filter>
     </ClInclude>
@@ -8116,6 +9208,45 @@
     </None>
     <None Include="..\..\README.md">
       <Filter>midi_stuff\Source</Filter>
+    </None>
+    <None Include="..\..\Source\midi_stuff\etl\experimental\mid_point flt (typo abs(a) should be abs(b).png">
+      <Filter>midi_stuff\Source\midi_stuff\etl\experimental</Filter>
+    </None>
+    <None Include="..\..\Source\midi_stuff\etl\experimental\mid_point ptr.png">
+      <Filter>midi_stuff\Source\midi_stuff\etl\experimental</Filter>
+    </None>
+    <None Include="..\..\Source\midi_stuff\etl\experimental\mid_point.png">
+      <Filter>midi_stuff\Source\midi_stuff\etl\experimental</Filter>
+    </None>
+    <None Include="..\..\Source\midi_stuff\etl\generators\generate.bat">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </None>
+    <None Include="..\..\Source\midi_stuff\etl\generators\generate_fsm.bat">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </None>
+    <None Include="..\..\Source\midi_stuff\etl\generators\generate_largest.bat">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </None>
+    <None Include="..\..\Source\midi_stuff\etl\generators\generate_message_packet.bat">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </None>
+    <None Include="..\..\Source\midi_stuff\etl\generators\generate_message_router.bat">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </None>
+    <None Include="..\..\Source\midi_stuff\etl\generators\generate_smallest.bat">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </None>
+    <None Include="..\..\Source\midi_stuff\etl\generators\generate_type_lookup.bat">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </None>
+    <None Include="..\..\Source\midi_stuff\etl\generators\generate_type_select.bat">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </None>
+    <None Include="..\..\Source\midi_stuff\etl\generators\generate_type_traits.bat">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </None>
+    <None Include="..\..\Source\midi_stuff\etl\generators\generate_variant_pool.bat">
+      <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
     </None>
     <None Include="..\..\..\..\JUCE\modules\juce_audio_devices\native\oboe\src\common\README.md">
       <Filter>JUCE Modules\juce_audio_devices\native\oboe\src\common</Filter>

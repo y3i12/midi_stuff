@@ -12,7 +12,8 @@
 #include <type_traits>
 #include <unordered_set>
 
-#include "midi_stuff/tinyevents/tinyevents.h"
+#include "etl/bitset.h"
+#include "tinyevents/tinyevents.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // midi stuff
@@ -113,6 +114,16 @@ uint8_t count_bits( T n ) {
 }
 
 } // namespace utils
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// midi stuff :: math
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+namespace math {
+
+template < typename T > inline T pow2( const T v ) { return v * v; }
+
+} // namespace math
 
 
 //---------------------------------------------------------------------------------------------------------------------------
@@ -243,32 +254,54 @@ struct midi_channel_note : public midi_note {
 namespace chord_data {
 
 typedef std::vector< note_t > note_set;
-
+// TODO: refactor to encompass MSB and LSB approach
 template < class _note_set_t >
 struct _named_note_set {
     using note_set_t   = _note_set_t;
     using type         = typename _named_note_set< note_set_t >;
-    using scale_code_t = typename std::bitset< 12 >;
 
+    using scale_code_t = typename etl::bitset< 16, uint16_t >;
 
     std::string        name;
     note_set_t         notes;
+
+    scale_code_t       ms_notes_code; //  most significant
+    scale_code_t       ls_notes_code; // least significant
+
     scale_code_t       scale_code;
 
-    _named_note_set( const std::string&  _name, const note_set_t&  _notes ) : name( _name ), notes( _notes ) { set_scale_code( notes, scale_code ); }
-    _named_note_set( const std::string&& _name, const note_set_t&& _notes ) : name( _name ), notes( _notes ) { set_scale_code( notes, scale_code ); }
-    _named_note_set( const char*         _name, const note_set_t&  _notes ) : name( _name ), notes( _notes ) { set_scale_code( notes, scale_code ); }
-    _named_note_set( const char*         _name, const note_set_t&& _notes ) : name( _name ), notes( _notes ) { set_scale_code( notes, scale_code ); }
+    _named_note_set( const note_set_t&  the_ms_notes,
+                     const note_set_t&  the_ls_notes,
+                     const std::string& the_name ) :
+            name( the_name ) {
+
+        // notes = the_ms_notes + the_ls_notes
+        notes.reserve( the_ms_notes.size( ) + the_ls_notes.size( ) );
+        std::copy( the_ms_notes.begin( ), the_ms_notes.end( ), std::back_inserter( notes ) );
+        std::copy( the_ls_notes.begin( ), the_ls_notes.end( ), std::back_inserter( notes ) );
+
+        set_scale_code( the_ms_notes, ms_notes_code );
+        set_scale_code( the_ls_notes, ls_notes_code );
+
+        scale_code = ms_notes_code | ls_notes_code;
+    }
+
+    _named_note_set( const note_set_t& the_ms_notes,
+                     const note_set_t& the_ls_notes,
+                     const char* the_name ) :
+            _named_note_set( the_ms_notes, the_ls_notes, std::string( the_name ) ) { }
 
     template < typename T >
     static void set_scale_code( const T& iteratble_note_container, scale_code_t& output_scale_code, note_t root_shift = 0 ) {
         output_scale_code.reset( );
+        size_t shifted_note = 0;
 
         std::for_each(
-            iteratble_note_container.cbegin( ),
-            iteratble_note_container.cend( ),
+            iteratble_note_container.begin( ),
+            iteratble_note_container.end( ),
             [ & ] ( const midi_stuff::midi_note& note ) {
-                output_scale_code.set( static_cast< size_t >( ( note.note % 12 ) - root_shift ), true );
+                shifted_note = ( static_cast< size_t >( note.note ) + 12 - root_shift ) % 12;
+                if ( shifted_note > 0 ) output_scale_code.set( shifted_note, true ); // skip roots
             }
         );
     }
@@ -293,81 +326,99 @@ struct _named_note_set {
 typedef _named_note_set< note_set >  named_noteset;
 typedef std::vector< named_noteset > named_noteset_list;
 
-
 static const named_noteset_list chord_descriptors = {
-    { "major",    { 4, 7              } },
-    { "7",        { 4, 7, 10          } },
-    { "9",        { 4, 7, 10, 2       } },
-    { "11",       { 4, 7, 10, 2, 5    } },
-    { "13",       { 4, 7, 10, 2, 5, 9 } },
-    { "minor",    { 3, 7              } },
-    { "m7",       { 3, 7, 10          } },
-    { "m9",       { 3, 7, 10, 2       } },
-    { "m11",      { 3, 7, 10, 2, 5    } },
-    { "m13",      { 3, 7, 10, 2, 5, 9 } },
-    { "maj7",     { 4, 7, 11          } },
-    { "maj9",     { 4, 7, 11, 2       } },
-    { "maj11",    { 4, 7, 11, 2, 5    } },
-    { "maj13",    { 4, 7, 11, 2, 5, 9 } },
-    { "mMaj7",    { 3, 7, 11          } },
-    { "mMaj9",    { 3, 7, 11, 2       } },
-    { "mMaj11",   { 3, 7, 11, 2, 5    } },
-    { "mMaj13",   { 3, 7, 11, 2, 5, 9 } },
-    { "sus2",     { 2, 7              } },
-    { "7sus2",    { 2, 7, 10          } },
-    { "maj7sus2", { 2, 7, 11          } },
-    { "sus4",     { 5, 7              } },
-    { "7sus4",    { 5, 7, 10          } },
-    { "9sus4",    { 5, 7, 10, 2       } },
-    { "maj7sus4", { 5, 7, 11          } },
-    { "maj9sus4", { 5, 7, 11, 2       } },
-    { "dim",      { 3, 6              } },
-    { "dim7",     { 3, 6, 9           } },
-    { "dim9",     { 3, 6, 9, 2        } },
-    { "dim11",    { 3, 6, 9, 2, 5     } },
-    { "ø",        { 3, 6, 10          } },
-    { "aug",      { 4, 8              } },
-    { "aug7",     { 4, 8, 10          } },
-    { "aug9",     { 4, 8, 10, 2       } },
-    { "aug11",    { 4, 8, 10, 2, 5    } },
-    { "aug13",    { 4, 8, 10, 2, 5, 9 } },
-    { "augMaj7",  { 4, 8, 11          } },
-    { "augMaj9",  { 4, 8, 11, 2       } },
-    { "augMaj11", { 4, 8, 11, 2, 5    } },
-    { "augMaj13", { 4, 8, 11, 2, 5, 9 } },
-    { "6",        { 4, 7, 9           } },
-    { "m6",       { 3, 7, 9           } },
-    { "",         { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 } } // Security terminator that WILL match something
+    // Fingerprint   extra tones    name
+    { { 2,            }, {       7       }, "sus2"     },
+    { { 3             }, {       7       }, "minor"    },
+    { { 5,            }, {       7       }, "sus4"     },
+    { { 4,            }, {       7       }, "major"    },
+    { { 5, 10,        }, {       7       }, "7sus4"    },
+    { { 5, 11,        }, {       7       }, "maj7sus4" },
+    { { 2, 10,        }, {       7       }, "7sus2"    },
+    { { 2, 11,        }, {       7       }, "maj7sus2" },
+    { { 3, 9          }, {       7       }, "m6"       },
+    { { 3, 10,        }, {       7       }, "m7"       },
+    { { 3, 10, 2      }, {       7       }, "m9"       },
+    { { 3, 10, 5      }, { 2,    7       }, "m11"      },
+    { { 3, 10, 9,     }, { 2, 5, 7       }, "m13"      },
+    { { 3, 11         }, {       7       }, "mMaj7"    },
+    { { 3, 11, 2      }, {       7       }, "mMaj9"    },
+    { { 3, 11, 5      }, { 2,    7       }, "mMaj11"   },
+    { { 3, 11, 9      }, { 2, 5, 7       }, "mMaj13"   },
+    { { 3, 6, 10      }, {               }, "ø"        },
+    { { 3, 6          }, {               }, "dim"      },
+    { { 3, 6, 9       }, {               }, "dim7"     },
+    { { 3, 6, 2,      }, {    9          }, "dim9"     },
+    { { 3, 6, 5,      }, { 2, 9          }, "dim11"    },
+    { { 4, 9          }, {       7       }, "6"        },
+    { { 4, 10,        }, {       7       }, "7"        },
+    { { 4, 2,         }, {       7, 10   }, "9"        },
+    { { 4, 5,         }, { 2,    7, 10   }, "11"       },
+    { { 4, 9,         }, { 2, 5, 7, 10   }, "13"       },
+    { { 4, 11         }, {       7       }, "maj7"     },
+    { { 4, 11, 2      }, {       7       }, "maj9"     },
+    { { 4, 11, 5      }, { 2,    7       }, "maj11"    },
+    { { 4, 11, 9      }, { 2, 5, 7       }, "maj13"    },
+    { { 4, 8          }, {               }, "aug"      },
+    { { 4, 8, 10      }, {               }, "aug7"     },
+    { { 4, 8, 10, 2   }, {               }, "aug9"     },
+    { { 4, 8, 10, 5   }, { 2,            }, "aug11"    },
+    { { 4, 8, 10, 9   }, { 2, 5,         }, "aug13"    },
+    { { 4, 8, 11      }, {               }, "augMaj7"  },
+    { { 4, 8, 11, 2   }, {               }, "augMaj9"  },
+    { { 4, 8, 11, 5   }, { 2             }, "augMaj11" },
+    { { 4, 8, 11, 9   }, { 2, 5          }, "augMaj13" },
+    { { 5, 2, 10      }, {       7       }, "9sus4"    },
+    { { 5, 2, 11      }, {       7       }, "maj9sus4" },
+
+    { { 0, 1, 2, 6, 7 }, { 0, 1, 3, 4, 6 }, "guard"    } // Security terminator that WILL match something
 };
 
-const named_noteset& get_best_fitting_named_noteset( const named_noteset::scale_code_t& input_scale_code, const uint8_t stop_at_distance = 0 ) {
-    const named_noteset* best_fitting_named_noteset = &chord_descriptors.back( ); // set it to guard, always returning a valid hypothesis, chromatic
+// get_best_fitting_named_noteset returns a note set with the most fitting chord scale (according to the algo, not to music theory)
+//
+// highly based on the post how [chordcat works](https://blog.s20n.dev/posts/how-chordcat-works/) and
+// its [chord_db](https://github.com/shriramters/chordcat/blob/main/src/chord_db.hpp) idea.
+//
+// the std::find_if has a similar role of the loop implemented in
+// chordcat::insert_chords(const unsigned short root, const std::set<unsigned short>& intervals, std::multiset<Chord>& res)
+// see: https://github.com/shriramters/chordcat/blob/863c147999266b26ec06058c7766d5830b561fd6/src/utils.hpp#L32
+//
+// This algorithm uses the splitted chord definition in the static vector `chord_descriptors`. The two parts are named as
+// most significant notes (MSn) notes and least significant notes (LSn), having each one of the "nibbles" stored in bit sets
+// of the type named_noteset::scale_code_t in named_noteset's variables ms_notes_code, ls_notes_code, scale_code - the last 
+// contains the union of MSn and LSn.
+//
+// Each bit in scale_code_t states the presence of a given note ( 0 <= note < 12 ) in the chord, by iterating through the chord
+// descriptors, three values are extracted: number of notes matching the MSn, number of notes matching LSn and the overall distance
+// of the chord from the input (number of different notes). Using pitagoras, a heuristic distance can be calculated
+//
+// distance = ( ( ms.count - ms_matches ) ^ 2 ) * 2 // distance of the MSn with a 2 factor for priority
+//          + ( ( ls.count - ls_matches ) ^ 2 )     // distance of the LSn
+//          + ( scale_distance ^ 2 )                // general differences, including MSn, LSn and accidents ( in input and not in chord )
+//
+
+const named_noteset& get_best_fitting_named_noteset( const named_noteset::scale_code_t& input_scale_code, const uint8_t stop_distance = 0 ) {
+    const named_noteset* best_fitting_named_noteset = &chord_descriptors.back( ); // set it to guard, always returning a valid hypothesis
     size_t               min_distance               = std::numeric_limits< size_t >::max( );
 
-    // highly based on the post how [chordcat works](https://blog.s20n.dev/posts/how-chordcat-works/) and 
-    // its [chord_db](https://github.com/shriramters/chordcat/blob/main/src/chord_db.hpp) idea.
-    //
-    // the find_if makes a similar role of the loop implemented in
-    // chordcat::insert_chords(const unsigned short root, const std::set<unsigned short>& intervals, std::multiset<Chord>& res)
-    // see: https://github.com/shriramters/chordcat/blob/863c147999266b26ec06058c7766d5830b561fd6/src/utils.hpp#L32
-    //
-    // the difference is that there's a breaking condition by distance, as in this case the result is not a multiset
     auto discard_itr = std::find_if(
         chord_descriptors.begin( ),
         chord_descriptors.end( ),
         [ & ]( const named_noteset& hypothesis_chord ) {
-            // xor the bit sets of the input and a predefined code, gives us the number of accidents composed by:
-            // - A( hypothesis chord notes )   NOT IN   B(            input notes ) ==> A - B
-            // - B(            input notes )   NOT IN   A( hypothesis chord notes ) ==> B - A
-            //
-            // having ( A - B ) + ( B - A ) ==> ( A + B ) - ( A & B ) ==> A ^ B
-            size_t distance = ( hypothesis_chord.scale_code ^ input_scale_code ).count( );
-            
-            if ( distance < min_distance ) {
+            size_t ms_matches     = ( hypothesis_chord.ms_notes_code & input_scale_code ).count( );
+            // TODO: fix ls_distance
+            size_t ls_distance    = ( ~hypothesis_chord.ls_notes_code & ( input_scale_code & ~hypothesis_chord.ms_notes_code ) ).count( );
+            size_t scale_distance = (  hypothesis_chord.scale_code    ^ input_scale_code ).count( );
+
+            size_t distance       = math::pow2( hypothesis_chord.ms_notes_code.count( ) - ms_matches ) * 2
+                                  + math::pow2( ls_distance )
+                                  + math::pow2( scale_distance );
+
+            if ( distance <= min_distance ) {
                 min_distance               = distance;
                 best_fitting_named_noteset = &hypothesis_chord;
 
-                if ( stop_at_distance >= min_distance ) {
+                if ( stop_distance >= min_distance ) {
                     // match, stop search
                     return true;
                 }
@@ -380,13 +431,12 @@ const named_noteset& get_best_fitting_named_noteset( const named_noteset::scale_
     return *best_fitting_named_noteset;
 }
 
-
 template < typename T >
-const named_noteset& get_best_fitting_named_noteset( const T& iterable_note_container, const note_t root_shift, const uint8_t stop_at_distance = 0 ) {
+const named_noteset& get_best_fitting_named_noteset( const T& iterable_note_container, const note_t root_shift, const uint8_t stop_distance = 0 ) {
     named_noteset::scale_code_t input_scale_code;
     named_noteset::set_scale_code( iterable_note_container, input_scale_code, root_shift );
 
-    return get_best_fitting_named_noteset( input_scale_code, stop_at_distance );
+    return get_best_fitting_named_noteset( input_scale_code, stop_distance );
 }
 
 } // namespace chord_data
@@ -399,27 +449,27 @@ const named_noteset& get_best_fitting_named_noteset( const T& iterable_note_cont
 namespace scale_data {
 
 static const chord_data::named_noteset_list scale = {
-    { "Major",              { 2, 4, 5, 7, 9, 11 } },
-    { "Dorian",             { 2, 3, 5, 7, 9, 10 } },
-    { "Phrygian",           { 1, 3, 5, 7, 8, 10 } },
-    { "Lydian",             { 2, 4, 6, 7, 9, 11 } },
-    { "Mixolydian",         { 2, 4, 5, 7, 9, 10 } },
-    { "Aeolian",            { 2, 3, 5, 7, 8, 10 } },
-    { "Locrian",            { 1, 3, 5, 6, 8, 10 } },
-    { "Harmonic Minor",     { 2, 3, 5, 7, 8, 11 } },
-    { "Locrian Natural 6",  { 1, 3, 5, 6, 9, 10 } },
-    { "Augmented Major",    { 2, 4, 5, 8, 9, 11 } },
-    { "Dorian #11",         { 2, 3, 6, 7, 9, 10 } },
-    { "Phrygian Dominant",  { 1, 4, 5, 7, 8, 10 } },
-    { "Lydian #2",          { 3, 4, 6, 7, 9, 11 } },
-    { "Super Locrian bb7",  { 1, 3, 4, 6, 8,  9 } },
-    { "Jazz Minor",         { 2, 3, 5, 7, 9, 11 } },
-    { "Dorian b2",          { 1, 3, 5, 7, 9, 10 } },
-    { "Lydian Augmented",   { 2, 4, 6, 8, 9, 11 } },
-    { "Lydian Dominant",    { 2, 4, 6, 7, 9, 10 } },
-    { "Aeolian Dominant",   { 2, 4, 5, 7, 8, 10 } },
-    { "Half-diminished",    { 2, 3, 5, 6, 8, 10 } },
-    { "Altered",            { 1, 3, 4, 6, 8, 10 } },
+    { { 2, 4, 5, 7, 9, 11 }, { }, "Major"               },
+    { { 2, 3, 5, 7, 9, 10 }, { }, "Dorian"              },
+    { { 1, 3, 5, 7, 8, 10 }, { }, "Phrygian"            },
+    { { 2, 4, 6, 7, 9, 11 }, { }, "Lydian"              },
+    { { 2, 4, 5, 7, 9, 10 }, { }, "Mixolydian"          },
+    { { 2, 3, 5, 7, 8, 10 }, { }, "Aeolian"             },
+    { { 1, 3, 5, 6, 8, 10 }, { }, "Locrian"             },
+    { { 2, 3, 5, 7, 8, 11 }, { }, "Harmonic Minor"      },
+    { { 1, 3, 5, 6, 9, 10 }, { }, "Locrian Natural 6"   },
+    { { 2, 4, 5, 8, 9, 11 }, { }, "Augmented Major"     },
+    { { 2, 3, 6, 7, 9, 10 }, { }, "Dorian #11"          },
+    { { 1, 4, 5, 7, 8, 10 }, { }, "Phrygian Dominant"   },
+    { { 3, 4, 6, 7, 9, 11 }, { }, "Lydian #2"           },
+    { { 1, 3, 4, 6, 8,  9 }, { }, "Super Locrian bb7"   },
+    { { 2, 3, 5, 7, 9, 11 }, { }, "Jazz Minor"          },
+    { { 1, 3, 5, 7, 9, 10 }, { }, "Dorian b2"           },
+    { { 2, 4, 6, 8, 9, 11 }, { }, "Lydian Augmented"    },
+    { { 2, 4, 6, 7, 9, 10 }, { }, "Lydian Dominant"     },
+    { { 2, 4, 5, 7, 8, 10 }, { }, "Aeolian Dominant"    },
+    { { 2, 3, 5, 6, 8, 10 }, { }, "Half-diminished"     },
+    { { 1, 3, 4, 6, 8, 10 }, { }, "Altered"             },
 };
 
 }
@@ -437,12 +487,12 @@ namespace containers {
 template < typename type_t, typename comparator_t, typename container_t /* = std::list< typename type_t > */ >
 class sorted_list {
 public:
-    using type                     = type_t;
+    //using type                     = type_t;
     using comparator_type          = comparator_t;
     using container                = container_t;
     using iterator                 = container_t::iterator;
     using const_iterator           = container_t::const_iterator;
-    using class_type               = sorted_list< type, comparator_type, container >;
+    using class_type               = sorted_list< type_t, comparator_type, container >;
 
     container                      notes;
 
@@ -492,15 +542,43 @@ public:
         notes.clear( );
     }
 
+    type_t& front( void ) noexcept {
+        return notes.front( );
+    }
+
+    const type_t& front( void ) const noexcept {
+        return notes.front( );
+    }
+
+    type_t& back( void ) noexcept {
+        return notes.back( );
+    }
+
+    const type_t& back( void ) const noexcept {
+        return notes.back( );
+    }
+
     inline size_t size( void ) const {
         return notes.size( );
     }
 
-    inline iterator begin( void ) const {
+    inline bool empty( void ) const {
+        return notes.empty( );
+    }
+
+    inline iterator begin( void ) {
         return notes.begin( );
     }
 
-    inline iterator end( void ) const {
+    inline iterator end( void ) {
+        return notes.end( );
+    }
+
+    inline const const_iterator begin( void ) const {
+        return notes.begin( );
+    }
+
+    inline const_iterator end( void ) const {
         return notes.end( );
     }
 
@@ -1609,6 +1687,8 @@ public:
     events::value_change            scale_code_output;
     scale_code_t                    scale_code;
 
+    const named_noteset*            chosen_chord;
+
     bool                            im_a_dirty_object; // when to run process
 
 public:
@@ -1629,23 +1709,28 @@ public:
         chord_notes_output( ),
         scale_code_output_port( *this->get_output( "scale_code" ) ),
         scale_code_output( ),
+        chosen_chord( 0 ),
         im_a_dirty_object( false ) {
         scale_code_output.value = static_cast< uint16_t >( 0 );
     }
 
 
     virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& to ) override {
+        note_t abs_note = static_cast< note_t >( event.note % 12 );
+
         switch ( std::get< int >( to.extra ) ) {
-            case k_root_note:    { root_note = event; im_a_dirty_object = true; } break;
-            case k_chord_notes:  if ( chord_notes.insert( event ) ) { im_a_dirty_object = true; } break;
+            case k_root_note:       {         root_note = static_cast< note_t >( abs_note );      im_a_dirty_object = true; } break;
+            case k_chord_notes:  if ( chord_notes.insert( static_cast< note_t >( abs_note ) ) ) { im_a_dirty_object = true; } break;
             default: jassert( 0 );
         }
     }
 
     virtual void process_event( const events::note_off& event, parameter_port& /*from*/, parameter_port& to ) override {
+        note_t abs_note = static_cast< note_t >( event.note % 12 );
+
         switch ( std::get< int >( to.extra ) ) {
-            case k_root_note:    if ( root_note && root_note.value( ).note == event.note ) { root_note = std::nullopt; im_a_dirty_object = true; } break;
-            case k_chord_notes:  if ( chord_notes.erase( event )                         ) { im_a_dirty_object = true; } break;
+            case k_root_note:    if ( root_note && root_note.value( ).note == abs_note ) { root_note = std::nullopt; im_a_dirty_object = true; } break;
+            case k_chord_notes:  if ( chord_notes.erase( abs_note )                    ) {                           im_a_dirty_object = true; } break;
             default: jassert( 0 );
         }
     }
@@ -1658,12 +1743,12 @@ public:
         if ( im_a_dirty_object ) {
 
             // short circuit: if no complete input, no output.
-            if ( chord_notes_output.notes.empty( ) || !root_note ) {
+            if ( chord_notes.empty( ) ) {
 
                 // enqueue offs for whatever is on the output port
                 std::for_each(
-                    chord_notes_output.cbegin( ),
-                    chord_notes_output.cend( ),
+                    chord_notes_output.begin( ),
+                    chord_notes_output.end( ),
                     [ & ] ( const midi_note& note ) { // in notes (output) but not in active_notes (freshly computed) - note off
                         enqueue_event( chord_notes_output_port, events::note_off( note ) );
                     }
@@ -1671,6 +1756,7 @@ public:
 
                 chord_notes_output.clear( );
 
+                scale_code.reset( );
                 scale_code_output.value = static_cast< uint16_t >( 0 );
                 enqueue_event( scale_code_output_port, scale_code_output );
 
@@ -1680,24 +1766,34 @@ public:
             } // end short circuit
 
 
-            note_t root_shift = root_note.value( ).note % 12;
+            note_t root_shift = 0;
+            if ( root_note ) { // if not provided in channel 1, use lowest
+                root_shift = root_note.value( ).note;
+            } else {
+                root_shift = chord_notes.front( ).note;
+            }
 
             // refresh internal scale_code and check if the notes changed the output
             named_noteset::set_scale_code( chord_notes, scale_code, root_shift );
             const named_noteset& hypothesis_chord = chord_data::get_best_fitting_named_noteset( scale_code );
 
-            if ( hypothesis_chord.scale_code == scale_code ) {
+            if ( chosen_chord && hypothesis_chord.scale_code == chosen_chord->scale_code ) {
                 im_a_dirty_object = false; // clean and idling object
                 return; // nothing changed
             }
 
+            chosen_chord = &hypothesis_chord;
+
             // if the execution reached this point, it means that the output is going to change
+            // dispatch the scale code value change
             scale_code              = hypothesis_chord.scale_code;
             scale_code_output.value = static_cast< uint16_t >( scale_code.to_ulong( ) );
             enqueue_event( scale_code_output_port, scale_code_output );
 
+            // and dispatch the note on/off events required to make the output to be equal to the new scale
             container active_notes;
             named_noteset::set_notes_from_scale_code( scale_code, active_notes, root_shift );
+            active_notes.insert( root_shift );
 
             // according to previous publication of note events, the new notes can be prescribed by the mutual exclution of sets A and B </blablabla>
             utils::symmetric_difference_apply( active_notes, chord_notes_output,
