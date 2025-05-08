@@ -121,7 +121,20 @@ uint8_t count_bits( T n ) {
 
 namespace math {
 
-template < typename T > inline T pow2( const T v ) { return v * v; }
+template < class T >
+inline constexpr T pow( const T, std::integral_constant< size_t, 0 > ) {
+    return 1;
+}
+
+template < class T, size_t factor >
+inline constexpr T pow( const T x, std::integral_constant< size_t, factor > ) {
+    return pow( x, std::integral_constant< size_t, factor - 1 >( ) ) * x;
+}
+
+template < size_t factor, class T >
+inline constexpr T pow( const T x ) {
+    return pow( x, std::integral_constant< size_t, factor >( ) );
+}
 
 } // namespace math
 
@@ -254,7 +267,7 @@ struct midi_channel_note : public midi_note {
 namespace chord_data {
 
 typedef std::vector< note_t > note_set;
-// TODO: refactor to encompass MSB and LSB approach
+
 template < class _note_set_t >
 struct _named_note_set {
     using note_set_t   = _note_set_t;
@@ -327,15 +340,11 @@ typedef _named_note_set< note_set >  named_noteset;
 typedef std::vector< named_noteset > named_noteset_list;
 
 static const named_noteset_list chord_descriptors = {
-    // Fingerprint   extra tones    name
-    { { 2,            }, {       7       }, "sus2"     },
-    { { 3             }, {       7       }, "minor"    },
-    { { 5,            }, {       7       }, "sus4"     },
-    { { 4,            }, {       7       }, "major"    },
-    { { 5, 10,        }, {       7       }, "7sus4"    },
-    { { 5, 11,        }, {       7       }, "maj7sus4" },
+    // MSn                LSn               name
+    { { 2, 7          }, {               }, "sus2"     },
     { { 2, 10,        }, {       7       }, "7sus2"    },
     { { 2, 11,        }, {       7       }, "maj7sus2" },
+    { { 3, 7          }, {               }, "minor"    },
     { { 3, 9          }, {       7       }, "m6"       },
     { { 3, 10,        }, {       7       }, "m7"       },
     { { 3, 10, 2      }, {       7       }, "m9"       },
@@ -350,6 +359,7 @@ static const named_noteset_list chord_descriptors = {
     { { 3, 6, 9       }, {               }, "dim7"     },
     { { 3, 6, 2,      }, {    9          }, "dim9"     },
     { { 3, 6, 5,      }, { 2, 9          }, "dim11"    },
+    { { 4, 7          }, {               }, "major"    },
     { { 4, 9          }, {       7       }, "6"        },
     { { 4, 10,        }, {       7       }, "7"        },
     { { 4, 2,         }, {       7, 10   }, "9"        },
@@ -368,10 +378,13 @@ static const named_noteset_list chord_descriptors = {
     { { 4, 8, 11, 2   }, {               }, "augMaj9"  },
     { { 4, 8, 11, 5   }, { 2             }, "augMaj11" },
     { { 4, 8, 11, 9   }, { 2, 5          }, "augMaj13" },
+    { { 5, 7          }, {               }, "sus4"     },
+    { { 5, 10,        }, {       7       }, "7sus4"    },
     { { 5, 2, 10      }, {       7       }, "9sus4"    },
+    { { 5, 11,        }, {       7       }, "maj7sus4" },
     { { 5, 2, 11      }, {       7       }, "maj9sus4" },
 
-    { { 0, 1, 2, 6, 7 }, { 0, 1, 3, 4, 6 }, "guard"    } // Security terminator that WILL match something
+    { { 0             }, { 0             }, "guard"    } // Security terminator
 };
 
 // get_best_fitting_named_noteset returns a note set with the most fitting chord scale (according to the algo, not to music theory)
@@ -390,38 +403,31 @@ static const named_noteset_list chord_descriptors = {
 //
 // Each bit in scale_code_t states the presence of a given note ( 0 <= note < 12 ) in the chord, by iterating through the chord
 // descriptors, three values are extracted: number of notes matching the MSn, number of notes matching LSn and the overall distance
-// of the chord from the input (number of different notes). Using pitagoras, a heuristic distance can be calculated
-//
-// distance = ( ( ms.count - ms_matches ) ^ 2 ) * 2 // distance of the MSn with a 2 factor for priority
-//          + ( ( ls.count - ls_matches ) ^ 2 )     // distance of the LSn
-//          + ( scale_distance ^ 2 )                // general differences, including MSn, LSn and accidents ( in input and not in chord )
+// of the chord from the input (number of different notes). MSn, LSn and distance are used as a heuristic to determine the chord
 //
 
-const named_noteset& get_best_fitting_named_noteset( const named_noteset::scale_code_t& input_scale_code, const uint8_t stop_distance = 0 ) {
+const named_noteset& get_best_fitting_named_noteset( const named_noteset::scale_code_t& input_scale_code ) {
     const named_noteset* best_fitting_named_noteset = &chord_descriptors.back( ); // set it to guard, always returning a valid hypothesis
-    size_t               min_distance               = std::numeric_limits< size_t >::max( );
+    int32_t              max_score                   = std::numeric_limits< int32_t >::min( );
 
     auto discard_itr = std::find_if(
         chord_descriptors.begin( ),
         chord_descriptors.end( ),
         [ & ]( const named_noteset& hypothesis_chord ) {
-            size_t ms_matches     = ( hypothesis_chord.ms_notes_code & input_scale_code ).count( );
-            // TODO: fix ls_distance
-            size_t ls_distance    = ( ~hypothesis_chord.ls_notes_code & ( input_scale_code & ~hypothesis_chord.ms_notes_code ) ).count( );
-            size_t scale_distance = (  hypothesis_chord.scale_code    ^ input_scale_code ).count( );
+            int32_t distance_score = static_cast< int32_t >( ( input_scale_code & ~hypothesis_chord.scale_code ).count( ) ); // Unmatching input scale notes
 
-            size_t distance       = math::pow2( hypothesis_chord.ms_notes_code.count( ) - ms_matches ) * 2
-                                  + math::pow2( ls_distance )
-                                  + math::pow2( scale_distance );
+            // short circuit on a perfect match
+            if ( 0 == distance_score ) {
+                return true;
+            }
 
-            if ( distance <= min_distance ) {
-                min_distance               = distance;
+            int32_t ms_score = static_cast< int32_t >( ( input_scale_code &  hypothesis_chord.ms_notes_code ).count( ) ); // matching MSn
+            int32_t ls_score = static_cast< int32_t >( ( input_scale_code &  hypothesis_chord.ls_notes_code ).count( ) ); // matching LSn
+            int32_t score    = math::pow< 3 >( ms_score ) + math::pow< 2 >( ls_score ) - distance_score;
+
+            if ( score > max_score ) {
+                max_score                  = score;
                 best_fitting_named_noteset = &hypothesis_chord;
-
-                if ( stop_distance >= min_distance ) {
-                    // match, stop search
-                    return true;
-                }
             }
 
             return false;
@@ -432,11 +438,11 @@ const named_noteset& get_best_fitting_named_noteset( const named_noteset::scale_
 }
 
 template < typename T >
-const named_noteset& get_best_fitting_named_noteset( const T& iterable_note_container, const note_t root_shift, const uint8_t stop_distance = 0 ) {
+const named_noteset& get_best_fitting_named_noteset( const T& iterable_note_container, const note_t root_shift ) {
     named_noteset::scale_code_t input_scale_code;
     named_noteset::set_scale_code( iterable_note_container, input_scale_code, root_shift );
 
-    return get_best_fitting_named_noteset( input_scale_code, stop_distance );
+    return get_best_fitting_named_noteset( input_scale_code );
 }
 
 } // namespace chord_data

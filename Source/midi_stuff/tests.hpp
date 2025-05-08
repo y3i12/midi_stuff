@@ -287,7 +287,7 @@ public:
 
         run( );
 
-        assert_container_has_all( chord_intervals.chord_notes, intervals );
+        assert_container_has_all( chord_intervals.chord_notes_output, intervals );
 
         /*jassert( chord_intervals.chord_notes.size( ) == chord_data::chord_descriptors[ 1 ].notes.size( ) );*/
         input.note_off( 1, root, 100 );
@@ -300,7 +300,7 @@ public:
         );
 
         run( );
-        jassert( chord_intervals.chord_notes.size( ) == 0 );
+        jassert( chord_intervals.chord_notes_output.size( ) == 0 );
     }
 
     test_midi_midi_chord_intervals( void ) : midi_stuff_processor_test_base( ) {
