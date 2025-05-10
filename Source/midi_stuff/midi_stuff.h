@@ -408,7 +408,7 @@ static const named_noteset_list chord_descriptors = {
 
 const named_noteset& get_best_fitting_named_noteset( const named_noteset::scale_code_t& input_scale_code ) {
     const named_noteset* best_fitting_named_noteset = &chord_descriptors.back( ); // set it to guard, always returning a valid hypothesis
-    int32_t              max_score                   = std::numeric_limits< int32_t >::min( );
+    int32_t              max_score                  = std::numeric_limits< int32_t >::min( );
 
     auto discard_itr = std::find_if(
         chord_descriptors.begin( ),
@@ -713,7 +713,7 @@ typedef midi_stuff::events::midi_note_event_base< midi_stuff::events::note_on_ev
 typedef midi_stuff::events::midi_note_event_base< midi_stuff::events::note_off_event_t, midi_channel_note > channel_note_off;
 typedef midi_stuff::events::midi_note_event_base< midi_stuff::events::note_on_event_t,  midi_note >         note_on;
 typedef midi_stuff::events::midi_note_event_base< midi_stuff::events::note_off_event_t, midi_note >         note_off;
-
+// TODO: implement all_notes_off
 
 
 //---------------------------------------------------------------------------------------------------------------------------
@@ -760,7 +760,7 @@ class base_processor; // FWD decl
 //---------------------------------------------------------------------------------------------------------------------------
 
 struct parameter_port {
-    using extra_t = std::variant< void*, int > ;
+    using extra_t = std::variant< void*, int32_t > ;
 
     parameter_port( base_processor* the_owner, const std::string& the_name, parameter_type the_type, extra_t the_extra = 0 ) :
         owner( the_owner ), 
@@ -812,15 +812,11 @@ protected:
 
     std::unordered_set< parameter_port*, parameter_port::hash > provided_inputs;
     bool                                                        has_processed;
+
 public:
     using parameter_initializer_list =  std::initializer_list< std::tuple< std::string, parameter_type, parameter_port::extra_t > >;
 
 public:
-    template < typename T >
-    struct create_listener {
-
-    };
-
     struct binder {
         struct bond {
             struct parameter {
@@ -1049,12 +1045,18 @@ public:
 
         output_port.dispatcher->queue( the_event );
 
-        if      constexpr ( std::is_same_v< T, events::note_on          > ) return true;
-        else if constexpr ( std::is_same_v< T, events::note_off         > ) return true;
-        else if constexpr ( std::is_same_v< T, events::channel_note_on  > ) return true;
-        else if constexpr ( std::is_same_v< T, events::channel_note_off > ) return true;
-        else if constexpr ( std::is_same_v< T, events::value_change     > ) return true;
-        else return false;
+        if constexpr (
+            std::is_same_v< T, events::note_on          > ||
+            std::is_same_v< T, events::note_off         > ||
+            std::is_same_v< T, events::channel_note_on  > ||
+            std::is_same_v< T, events::channel_note_off > ||
+            std::is_same_v< T, events::value_change     >
+        ) {
+            return true;
+        }
+
+        // unreachable - and it should be this way
+        // return false;
     }
 
     void dispatch_events( void ) {
@@ -1240,28 +1242,36 @@ private:
 
 class midi_channel_filter : public base_processor {
 public:
-    std::vector< parameter_port* > channel_output_ports;
-    std::vector< bool >            enable_output;
+    std::vector< parameter_port* >  channel_output_ports;
+    std::array< bool, 16 >          channel_mute;
+    bool                            mute_all;
+
+    static constexpr int32_t        k_last_channel = 16;
+    static constexpr int32_t        k_channel_mute = 17;
+    static constexpr int32_t        k_mute_all     = 18;
+
 public:
     midi_channel_filter( void ) :
         base_processor(
             {
-                { "channel_1",     k_midi_note,  1 },
-                { "channel_2",     k_midi_note,  2 },
-                { "channel_3",     k_midi_note,  3 },
-                { "channel_4",     k_midi_note,  4 },
-                { "channel_5",     k_midi_note,  5 },
-                { "channel_6",     k_midi_note,  6 },
-                { "channel_7",     k_midi_note,  7 },
-                { "channel_8",     k_midi_note,  8 },
-                { "channel_9",     k_midi_note,  9 },
-                { "channel_10",    k_midi_note, 10 },
-                { "channel_11",    k_midi_note, 11 },
-                { "channel_12",    k_midi_note, 12 },
-                { "channel_13",    k_midi_note, 13 },
-                { "channel_14",    k_midi_note, 14 },
-                { "channel_15",    k_midi_note, 15 },
-                { "channel_16",    k_midi_note, 16 },
+                { "channel_1",     k_midi_note,  1             },
+                { "channel_2",     k_midi_note,  2             },
+                { "channel_3",     k_midi_note,  3             },
+                { "channel_4",     k_midi_note,  4             },
+                { "channel_5",     k_midi_note,  5             },
+                { "channel_6",     k_midi_note,  6             },
+                { "channel_7",     k_midi_note,  7             },
+                { "channel_8",     k_midi_note,  8             },
+                { "channel_9",     k_midi_note,  9             },
+                { "channel_10",    k_midi_note, 10             },
+                { "channel_11",    k_midi_note, 11             },
+                { "channel_12",    k_midi_note, 12             },
+                { "channel_13",    k_midi_note, 13             },
+                { "channel_14",    k_midi_note, 14             },
+                { "channel_15",    k_midi_note, 15             },
+                { "channel_16",    k_midi_note, 16             },
+                { "channel_mute",  k_value,     k_channel_mute },
+                { "mute_all",      k_value,     k_mute_all     },
             },
             {
                 { "channel_1",     k_midi_note,  1 },
@@ -1281,7 +1291,7 @@ public:
                 { "channel_15",    k_midi_note, 15 },
                 { "channel_16",    k_midi_note, 16 },
             }
-            ),
+        ),
         channel_output_ports(
             {
                 get_output( "channel_1" ),
@@ -1302,24 +1312,38 @@ public:
                 get_output( "channel_16" ),
             }
         ),
-        enable_output( 16, true ) { }
+        mute_all( false ) {
+            channel_mute.fill( false ); 
+        }
 
     virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& to ) override {
-        process_event_tmpl( event, to );
+        jassert( std::get< int32_t >( to.extra ) > 0 && std::get< int32_t >( to.extra ) <= 16 );
+
+        if ( mute_all || channel_mute[ std::get< int32_t >( to.extra ) - 1 ] ) {
+            return;
+        }
+
+        process_note_event_tmpl( event, to );
     };
 
     virtual void process_event( const events::note_off& event, parameter_port& /*from*/, parameter_port& to ) override {
-        process_event_tmpl( event, to );
+        jassert( std::get< int32_t >( to.extra ) > 0 && std::get< int32_t >( to.extra ) <= 16 );
+        process_note_event_tmpl( event, to );
+    };
+
+    virtual void process_event( const events::value_change& event, parameter_port&, parameter_port& to ) {
+        if ( k_channel_mute == std::get< int32_t >( to.extra ) ) {
+            jassert( std::get< int32_t >( event.value ) <= k_last_channel );
+            channel_mute[ std::get< int32_t >( event.value ) ] = !channel_mute[ std::get< int32_t >( event.value ) ];
+        } else if ( k_mute_all == std::get< int32_t >( to.extra ) ) {
+            mute_all = !mute_all;
+        }
     };
 
 private:
     template < typename T >
-    inline void process_event_tmpl( const T& event, parameter_port& to ) {
-        jassert( std::get< int >( to.extra ) > 0 && std::get< int >( to.extra ) <= 16 );
-
-        if ( enable_output[ std::get< int >( to.extra ) - 1 ] ) {
-            enqueue_event( *channel_output_ports[ std::get< int >( to.extra ) - 1 ], event );
-        }
+    inline void process_note_event_tmpl( const T& event, parameter_port& to ) {
+        enqueue_event( *channel_output_ports[ std::get< int32_t >( to.extra ) - 1 ], event );
     };
 };
 
@@ -1330,7 +1354,7 @@ private:
 
 class midi_channel_join : public base_processor {
 public:
-    parameter_port& channel_output;
+    parameter_port&        channel_output;
 
 public:
     midi_channel_join( void ) :
@@ -1356,22 +1380,26 @@ public:
             {
                 { "channel_notes", k_midi_channel_note, 0 }
             }
-            ),
-        channel_output( *get_output( "channel_notes" ) ) { }
+        ),
+        channel_output( *get_output( "channel_notes" ) )
+        {
+        }
 
     virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& to ) override {
-        process_event_tmpl( event, to );
+        process_note_event_tmpl( event, to );
     };
 
     virtual void process_event( const events::note_off& event, parameter_port& /*from*/, parameter_port& to ) override {
-        process_event_tmpl( event, to );
+        process_note_event_tmpl( event, to );
     };
+
 
 private:
     template < typename T >
-    inline void process_event_tmpl( const T& event, parameter_port& to ) {
-        jassert( std::get< int >( to.extra ) > 0 && std::get< int >( to.extra ) <= 16 );
-        enqueue_event( channel_output, event.k_event_type, std::get< int >( to.extra ), event.note, event.velocity );
+    inline void process_note_event_tmpl( const T& event, parameter_port& to ) {
+        jassert( std::get< int32_t >( to.extra ) > 0 && std::get< int32_t >( to.extra ) <= 16 );
+
+        enqueue_event( channel_output, event.k_event_type, std::get< int32_t >( to.extra ), event.note, event.velocity );
     };
 };
 
@@ -1463,18 +1491,38 @@ public:
     typedef midi_first_n_notes_of_container< base_type > type;
     typedef base_type::parameter_initializer_list        parameter_initializer_list;
 
+    static constexpr int32_t k_note_input         = 0;
+    static constexpr int32_t k_number_notes_input = 1;
+
+    static constexpr int32_t k_note_output        = 0;
+
 public:
     container       active_notes;
-    uint8_t         number_notes_kept;
+    uint32_t        number_notes_kept;
+
     parameter_port& output_port;
 
 public:
     midi_first_n_notes_of_container( uint8_t the_number_notes_kept = 128 ) :
-        midi_sorted_note_store< container_t >( { { "notes", k_midi_note, 0 } }, { { "notes", k_midi_note, 0 } } ),
+        midi_sorted_note_store< container_t >(
+            {
+                { "notes",        k_midi_note, k_note_input         },
+                { "number_notes", k_value,     k_number_notes_input }
+            },
+            {
+                { "notes",        k_midi_note, k_note_output        }
+            }
+        ),
         active_notes( ),
         number_notes_kept( the_number_notes_kept ),
         output_port( *this->get_output( "notes" ) ) {
     }
+
+    virtual void process_event( const events::value_change& event, parameter_port&, parameter_port& to ) override {
+        if ( std::get< int32_t >( to.extra ) == k_number_notes_input ) {
+            number_notes_kept = std::get< uint32_t >( event.value );
+        }
+    };
 
     virtual void process( void ) override {
         auto  active_notes_itr       = this->active_notes->begin( );
@@ -1563,12 +1611,17 @@ public:
     struct overloaded : Ts... { using Ts::operator( )...; };
 
 public:
-    static const int                k_chord_notes    = 0;
-    static const int                k_sequence_notes = 1;
+    static constexpr int32_t        k_chord_notes_input    = 0;
+    static constexpr int32_t        k_sequence_notes_input = 1;
+
+    static constexpr int32_t        k_notes_output         = 0;
 
     parameter_port&                 output_port; // this->notes is treated as output as it has a generic name
     container                       chord_notes;
     container                       sequence_notes;
+
+    // TODO: param_work, add shift for input and output
+
     bool                            im_a_dirty_object;
 
 
@@ -1576,11 +1629,11 @@ public:
     midi_note_arpeggiator( ) :
         base_type(
             {
-                { "chord_notes",    k_midi_note, k_chord_notes    },
-                { "sequence_notes", k_midi_note, k_sequence_notes }
+                { "chord_notes",    k_midi_note, k_chord_notes_input    },
+                { "sequence_notes", k_midi_note, k_sequence_notes_input }
             },
             {
-                { "notes", k_midi_note, 0 }
+                { "notes",          k_midi_note, k_notes_output         }
             }
         ),
         chord_notes( ),
@@ -1590,9 +1643,9 @@ public:
 
     virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& to ) override {
         jassert( event.note >= 0 && event.note < 128 );
-        switch ( std::get< int >( to.extra ) ) {
-            case k_chord_notes:    if ( chord_notes.insert(    event ) ) { im_a_dirty_object = true; } break;
-            case k_sequence_notes: if ( sequence_notes.insert( event ) ) { im_a_dirty_object = true; } break;
+        switch ( std::get< int32_t >( to.extra ) ) {
+            case k_chord_notes_input:    if ( chord_notes.insert(    event ) ) { im_a_dirty_object = true; } break;
+            case k_sequence_notes_input: if ( sequence_notes.insert( event ) ) { im_a_dirty_object = true; } break;
             default: jassert( 0 );
         }
     };
@@ -1600,9 +1653,9 @@ public:
     virtual void process_event( const events::note_off& event, parameter_port& /*from*/, parameter_port& to ) override {
         jassert( event.note >= 0 && event.note < 128 );
 
-        switch ( std::get< int >( to.extra ) ) {
-            case k_chord_notes:    if ( chord_notes.erase(    event ) ) { im_a_dirty_object = true; } break;
-            case k_sequence_notes: if ( sequence_notes.erase( event ) ) { im_a_dirty_object = true; } break;
+        switch ( std::get< int32_t >( to.extra ) ) {
+            case k_chord_notes_input:    if ( chord_notes.erase(    event ) ) { im_a_dirty_object = true; } break;
+            case k_sequence_notes_input: if ( sequence_notes.erase( event ) ) { im_a_dirty_object = true; } break;
             default: jassert( 0 );
         }
     };
@@ -1669,6 +1722,9 @@ public:
 // midi stuff :: processors :: chord intervals
 //---------------------------------------------------------------------------------------------------------------------------
 
+
+// TODO: step 2: abstract this in a way that it can have multiple different "decision engines" for the chord picking
+
 class midi_chord_intervals : public base_processor {
 public:
     using container                     = containers::ascending_midi_note_list;
@@ -1680,11 +1736,21 @@ public:
     struct overloaded : Ts... { using Ts::operator()...; };
 
 public:
-    static const int                k_root_note      = 0;
-    static const int                k_chord_notes    = 1;
+    static constexpr int32_t        k_root_note_input      = 0;
+    static constexpr int32_t        k_chord_notes_input    = 1;
+    static constexpr int32_t        k_pattern_notes_input  = 2;
+
+    static constexpr int32_t        k_chord_notes_output     = 0;
+    static constexpr int32_t        k_scale_code_output      = 1;
+    static constexpr int32_t        k_pattern_degrees_output = 2;
 
     std::optional< midi_note >      root_note;
     container                       chord_notes;
+    container                       pattern_notes;
+
+    // TODO: step 1: midi_notes_to_intervals, according to a tertiary input propose : { pattern_notes + chord_notes } -> { pattern_intervals_output_port, pattern_intervals_output } )
+    // attention: consider accidents, it will solidify the interface for the abstract engine - first round the note to the map, and progress to finding an appropriate scale in the scale map
+    // 
 
     parameter_port&                 chord_notes_output_port;
     container                       chord_notes_output;
@@ -1692,6 +1758,9 @@ public:
     parameter_port&                 scale_code_output_port;
     events::value_change            scale_code_output;
     scale_code_t                    scale_code;
+
+    parameter_port&                 pattern_degrees_output_port;
+    container                       pattern_degrees_output;
 
     const named_noteset*            chosen_chord;
 
@@ -1701,20 +1770,25 @@ public:
     midi_chord_intervals( void ) :
         base_processor(
             {
-                { "root_note",   k_midi_note, k_root_note   },
-                { "chord_notes", k_midi_note, k_chord_notes }
+                { "root_note",       k_midi_note, k_root_note_input        },
+                { "chord_notes",     k_midi_note, k_chord_notes_input      },
+                { "pattern_notes",   k_midi_note, k_pattern_notes_input    }
             },
             {
-                { "chord_notes", k_midi_note, 0 },
-                { "scale_code",  k_value,     1 }
+                { "chord_notes",     k_midi_note, k_chord_notes_output     },
+                { "scale_code",      k_value,     k_scale_code_output      },
+                { "pattern_degrees", k_midi_note, k_pattern_degrees_output }
             }
         ),
         root_note( std::nullopt ),
         chord_notes( ),
+        pattern_notes( ),
         chord_notes_output_port( *this->get_output( "chord_notes" ) ),
         chord_notes_output( ),
         scale_code_output_port( *this->get_output( "scale_code" ) ),
         scale_code_output( ),
+        pattern_degrees_output_port( *this->get_output( "pattern_degrees" ) ),
+        pattern_degrees_output( ),
         chosen_chord( 0 ),
         im_a_dirty_object( false ) {
         scale_code_output.value = static_cast< uint16_t >( 0 );
@@ -1724,9 +1798,10 @@ public:
     virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& to ) override {
         note_t abs_note = static_cast< note_t >( event.note % 12 );
 
-        switch ( std::get< int >( to.extra ) ) {
-            case k_root_note:       {         root_note = static_cast< note_t >( abs_note );      im_a_dirty_object = true; } break;
-            case k_chord_notes:  if ( chord_notes.insert( static_cast< note_t >( abs_note ) ) ) { im_a_dirty_object = true; } break;
+        switch ( std::get< int32_t >( to.extra ) ) {
+            case k_root_note_input:        {           root_note = static_cast< note_t >( abs_note );      im_a_dirty_object = true; } break;
+            case k_chord_notes_input:   if (   chord_notes.insert( static_cast< note_t >( abs_note ) ) ) { im_a_dirty_object = true; } break;
+            case k_pattern_notes_input: if ( pattern_notes.insert(                        event      ) ) { im_a_dirty_object = true; } break;
             default: jassert( 0 );
         }
     }
@@ -1734,11 +1809,37 @@ public:
     virtual void process_event( const events::note_off& event, parameter_port& /*from*/, parameter_port& to ) override {
         note_t abs_note = static_cast< note_t >( event.note % 12 );
 
-        switch ( std::get< int >( to.extra ) ) {
-            case k_root_note:    if ( root_note && root_note.value( ).note == abs_note ) { root_note = std::nullopt; im_a_dirty_object = true; } break;
-            case k_chord_notes:  if ( chord_notes.erase( abs_note )                    ) {                           im_a_dirty_object = true; } break;
+        switch ( std::get< int32_t >( to.extra ) ) {
+            case k_root_note_input:     if ( root_note && root_note.value( ).note == abs_note   ) { root_note = std::nullopt; im_a_dirty_object = true; } break;
+            case k_chord_notes_input:   if ( chord_notes.erase(                      abs_note ) ) {                           im_a_dirty_object = true; } break;
+            case k_pattern_notes_input: if ( pattern_notes.erase(                    event    ) ) {                           im_a_dirty_object = true; } break;
             default: jassert( 0 );
         }
+    }
+
+    void all_notes_off( void ) {
+        // enqueue offs for whatever is on the output port
+        std::for_each(
+            chord_notes_output.begin( ),
+            chord_notes_output.end( ),
+            [ & ] ( const midi_note& note ) { // in notes (output) but not in active_notes (freshly computed) - note off
+                enqueue_event( chord_notes_output_port, events::note_off( note ) );
+            }
+        );
+        chord_notes_output.clear( );
+
+        std::for_each(
+            pattern_degrees_output.begin( ),
+            pattern_degrees_output.end( ),
+            [ & ] ( const midi_note& note ) { // in notes (output) but not in active_notes (freshly computed) - note off
+                enqueue_event( pattern_degrees_output_port, events::note_off( note ) );
+            }
+        );
+        pattern_degrees_output.clear( );
+
+        scale_code.reset( );
+        scale_code_output.value = static_cast< uint16_t >( 0 );
+        enqueue_event( scale_code_output_port, scale_code_output );
     }
 
     virtual void process( void ) override {
@@ -1746,80 +1847,108 @@ public:
         // chord_notes     to contain all chord notes from 0 - 11 (even the predicted)
         // scale_code      to the chord scale
 
-        if ( im_a_dirty_object ) {
+        if ( !im_a_dirty_object ) return;
 
-            // short circuit: if no complete input, no output.
-            if ( chord_notes.empty( ) ) {
+        // short circuit: if no complete input, no output.
+        if ( chord_notes.empty( ) ) {
+            // clears chord_notes_output and pattern_degrees_output,
+            // calls scale_code.reset( ) and propagate the events
+            all_notes_off( );
+            im_a_dirty_object = false; // mwah. took the short(cir)cut.
+            return;
+        } // end short circuit
 
-                // enqueue offs for whatever is on the output port
-                std::for_each(
-                    chord_notes_output.begin( ),
-                    chord_notes_output.end( ),
-                    [ & ] ( const midi_note& note ) { // in notes (output) but not in active_notes (freshly computed) - note off
-                        enqueue_event( chord_notes_output_port, events::note_off( note ) );
-                    }
-                );
-
-                chord_notes_output.clear( );
-
-                scale_code.reset( );
-                scale_code_output.value = static_cast< uint16_t >( 0 );
-                enqueue_event( scale_code_output_port, scale_code_output );
-
-                im_a_dirty_object       = false; // mwah. took the shortcut.
-
-                return;
-            } // end short circuit
-
-
-            note_t root_shift = 0;
-            if ( root_note ) { // if not provided in channel 1, use lowest
-                root_shift = root_note.value( ).note;
-            } else {
-                root_shift = chord_notes.front( ).note;
-            }
-
-            // refresh internal scale_code and check if the notes changed the output
-            named_noteset::set_scale_code( chord_notes, scale_code, root_shift );
-            const named_noteset& hypothesis_chord = chord_data::get_best_fitting_named_noteset( scale_code );
-
-            if ( chosen_chord && hypothesis_chord.scale_code == chosen_chord->scale_code ) {
-                im_a_dirty_object = false; // clean and idling object
-                return; // nothing changed
-            }
-
-            chosen_chord = &hypothesis_chord;
-
-            // if the execution reached this point, it means that the output is going to change
-            // dispatch the scale code value change
-            scale_code              = hypothesis_chord.scale_code;
-            scale_code_output.value = static_cast< uint16_t >( scale_code.to_ulong( ) );
-            enqueue_event( scale_code_output_port, scale_code_output );
-
-            // and dispatch the note on/off events required to make the output to be equal to the new scale
-            container active_notes;
-            named_noteset::set_notes_from_scale_code( scale_code, active_notes, root_shift );
-            active_notes.insert( root_shift );
-
-            // according to previous publication of note events, the new notes can be prescribed by the mutual exclution of sets A and B </blablabla>
-            utils::symmetric_difference_apply( active_notes, chord_notes_output,
-                // in active_notes (freshly computed) but not in chord_notes_output - note on
-                [ & ] ( const midi_note& note ) {
-                    enqueue_event( chord_notes_output_port, events::note_on( note ) );
-                },
-                // in chord_notes_output (output) but not in active_notes (freshly computed) - note off
-                [ & ] ( const midi_note& note ) {
-                    enqueue_event( chord_notes_output_port, events::note_off( note ) );
-                }
-            );
-
-            // new notes are now part of music history
-            chord_notes_output.notes = active_notes.notes;
-
-            im_a_dirty_object = false; // yeessss.... yes... excellent...
+        // root shift is root note. all other incoming notes are shifted by root_shift. 0 <= root_shift < 12
+        note_t root_shift = 0;
+        if ( root_note ) { // if not provided in channel 1, use lowest
+            root_shift = root_note.value( ).note;
+        } else {
+            root_shift = chord_notes.front( ).note;
         }
+
+        // refresh internal scale_code and check if the notes changed the output
+        named_noteset::set_scale_code( chord_notes, scale_code, root_shift );
+        chosen_chord = &( chord_data::get_best_fitting_named_noteset( scale_code ));
+
+        // ------- scale_code output ------- //
+        // if the execution reached this point, it means that the output is going to change
+        // dispatch the scale code value change
+        scale_code              = chosen_chord->scale_code;
+        scale_code_output.value = static_cast< uint16_t >( scale_code.to_ulong( ) );
+        enqueue_event( scale_code_output_port, scale_code_output );
+
+        // ------- chord_notes output ------- //
+        // and dispatch the note on/off events required to make the output to be equal to the new scale
+        container active_notes;
+        named_noteset::set_notes_from_scale_code( scale_code, active_notes, root_shift );
+        active_notes.insert( root_shift );
+
+        // according to previous publication of note events, the new notes can be prescribed by the mutual exclution of sets A and B </blablabla>
+        utils::symmetric_difference_apply( active_notes, chord_notes_output,
+            // in active_notes (freshly computed) but not in chord_notes_output - note on
+            [ & ] ( const midi_note& note ) {
+                enqueue_event( chord_notes_output_port, events::note_on( note ) );
+            },
+            // in chord_notes_output (output) but not in active_notes (freshly computed) - note off
+            [ & ] ( const midi_note& note ) {
+                enqueue_event( chord_notes_output_port, events::note_off( note ) );
+            }
+        );
+
+        // new notes are now part of music history
+        chord_notes_output.notes = active_notes.notes;
+
+        // ------- pattern_degrees output ------- //
+        active_notes.clear( );
+
+        std::for_each(
+            pattern_notes.begin( ),
+            pattern_notes.end( ),
+            [ & ] ( const midi_note& note ) {
+                note_t  abs_note    = ( ( note.note + 12 ) - root_shift ) % 12;
+                uint8_t note_degree = 0;
+            
+                // linear lower bound search for the abs_note in chord_notes_output
+                if (
+                    std::find_if(
+                        chord_notes_output.begin( ),
+                        chord_notes_output.end( ),
+                        [ & ] ( const midi_note& chord_note ) {
+                            ++note_degree;
+                            // lower bound degree
+                            return abs_note <= chord_note.note;
+                        }
+                    ) == chord_notes_output.end( ) ) {
+                    // when not found, it means that the pattern note is an accident upper bound
+                    // other accidents are going to be auto lower bound
+                    // possible experiments:
+                    // - use a scale?
+                    // - accidents_output?
+                    note_degree = 0;
+                }
+
+                note_t new_note = static_cast< note_t >( note_degree + ( ( ( note.note + 12 ) - root_shift ) / 12 - 1 ) * chord_notes_output.size( ) );
+                active_notes.insert( new_note );
+            }
+        );
+
+        // once again, loudly blaber the words cibtained in the ancient scrolls of union theory, 
+        // commanding events for mutually exclusive existing notes
+        utils::symmetric_difference_apply( active_notes, pattern_degrees_output,
+            // in active_notes (freshly computed) but not in chord_notes_output - note on
+            [ & ] ( const midi_note& note ) {
+                enqueue_event( pattern_degrees_output_port, events::note_on( note ) );
+            },
+            // in chord_notes_output (output) but not in active_notes (freshly computed) - note off
+            [ & ] ( const midi_note& note ) {
+                enqueue_event( pattern_degrees_output_port, events::note_off( note ) );
+            }
+        );
+
+        im_a_dirty_object = false; // yeessss.... yes... excellent...
     }
 };
+
 
 //---------------------------------------------------------------------------------------------------------------------------
 // midi stuff :: processors :: midi note output
@@ -1838,10 +1967,10 @@ public:
 public:
     midi_note_output_tmpl( void ) : 
         base_processor( { { "notes", k_parameter_type, 0 } }, { } ),
-        output_midi_buffer( nullptr )
-        { }
+        output_midi_buffer( nullptr ) {
+    }
 
-    virtual void process_event( const events::note_on & event, parameter_port& /*from*/, parameter_port& /*to*/ ) override {
+    virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& /*to*/ ) override {
         process_event_tmpl( event );
     };
 

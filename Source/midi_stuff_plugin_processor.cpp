@@ -14,6 +14,7 @@ midi_stuff_plugin_processor::midi_stuff_plugin_processor( void ) :
 
     binder bind_it( {
             { &input,              "channel_notes",             &split,                    "notes"           },
+
             { &split,              "channel_1",                 &dedup_ch_1,               "notes"           },
             { &split,              "channel_2",                 &dedup_ch_2,               "notes"           },
             { &split,              "channel_3",                 &dedup_ch_3,               "notes"           },
@@ -33,11 +34,15 @@ midi_stuff_plugin_processor::midi_stuff_plugin_processor( void ) :
 
             { &dedup_ch_1,         "notes",                     &chord_intervals,          "root_note"       },
             { &dedup_ch_2,         "notes",                     &chord_intervals,          "chord_notes"     },
+            { &dedup_ch_3,         "notes",                     &chord_intervals,          "pattern_notes"   },
+            { &dedup_ch_4,         "notes",                     &arppegiator,              "sequence_notes"  },
 
-            { &dedup_ch_3,         "notes",                     &arppegiator,              "sequence_notes"  },
             { &chord_intervals,    "chord_notes",               &arppegiator,              "chord_notes"     },
             
-            { &arppegiator,        "notes",                     &join,                     "channel_1"       },
+            { &chord_intervals,    "chord_notes",               &join,                     "channel_1"       },
+            { &chord_intervals,    "pattern_degrees",           &join,                     "channel_2"       },
+            { &arppegiator,        "notes",                     &join,                     "channel_3"       },
+
             { &join,               "channel_notes",             &output,                   "notes"           }
     } );
 

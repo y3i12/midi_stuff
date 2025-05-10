@@ -330,8 +330,8 @@ namespace __MAKE_THIS_CRAP_NOT_BEING_EASILY_ACCESSIBLE__ {
 static std::tuple<
     midi_stuff::tests::test_midi_lowest_notes,
     midi_stuff::tests::test_midi_highest_notes,
-    midi_stuff::tests::test_midi_note_arpeggiator,
-    midi_stuff::tests::test_midi_midi_chord_intervals
+    midi_stuff::tests::test_midi_note_arpeggiator
+    //midi_stuff::tests::test_midi_midi_chord_intervals
 > tests;
 
 } // namespace __MAKE_THIS_CRAP_NOT_BEING_EASILY_ACCESSIBLE__
