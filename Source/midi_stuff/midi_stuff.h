@@ -10,9 +10,16 @@
 #include <list>
 #include <optional>
 #include <type_traits>
+#include <thread>
 #include <unordered_set>
 
+#include "etl/atomic.h"
 #include "etl/bitset.h"
+#include "etl/delegate.h"
+#include "etl/mutex.h"
+#include "etl/nullptr.h"
+#include "etl/optional.h"
+#include "etl/utility.h" // use this to replace tiny events?
 #include "tinyevents/tinyevents.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,7 +120,181 @@ uint8_t count_bits( T n ) {
     return count;
 }
 
+void while_condition_do_loop( auto condition, auto loop ) {
+    while ( condition( ) ) {
+        loop( );
+    }
+}
+
+void do_loop_while_condition( auto loop, auto condition ) {
+    while ( true ) {
+        loop( );
+        if ( !condition( ) ) return;
+    }
+}
+
 } // namespace utils
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// midi stuff :: threads
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+namespace threads {
+
+struct read_write_lock {
+    etl::mutex          write_mutex;
+    etl::atomic_bool    writing;
+    etl::atomic_int32_t reading;
+
+    read_write_lock ( void ) :
+        writing( false ),
+        reading( 0 ) {
+    }
+
+    struct read_guard {
+        read_write_lock& lock;
+
+        read_guard( void ) = delete;
+        read_guard( read_write_lock& _lock ) : lock( _lock ) { lock.read_start( ); }
+        ~read_guard( void )                                  { lock.read_end(   ); }
+    };
+
+    struct write_guard {
+        read_write_lock& lock;
+
+        write_guard( void ) = delete;
+        write_guard( read_write_lock& _lock ) : lock( _lock ) { lock.write_start( ); }
+        ~write_guard( void )                                  { lock.write_end(   ); }
+    };
+
+    void read_start( void ) {
+        writing.wait( false );
+        ++reading;
+    }
+
+    void read_end( void ) {
+        int32_t current_readers = reading.load( );
+        
+        if ( current_readers < 0 ) {
+            reading.store( 0 );
+            reading.notify_all( );
+            return;
+        }
+
+        if ( current_readers == 0 ) {
+            return;
+        }
+
+        if ( 0 == --reading ) {
+            reading.notify_all( );
+        }
+    }
+
+    void write_start( void ) {
+        write_mutex.lock( );
+        writing.store( true );
+
+        reading.wait( 0 );
+    }
+
+    void write_end( void ) {
+        writing = false;
+        writing.notify_all( );
+        write_mutex.unlock( );
+    }
+};
+
+template < typename object_t >
+struct concurrent_object {
+private:
+    read_write_lock     lock;
+    object_t            object;
+    etl::atomic_uint8_t revision;
+
+public:
+    void read_visit( auto func ) {
+        read_write_lock::read_guard guard( lock );
+        func( object );
+    }
+
+    void write_visit( auto func ) {
+        read_write_lock::write_guard guard( lock );
+        func( object );
+        ++revision;
+    }
+
+    uint8_t get_revision( void ) { return revision; }
+
+};
+
+template < typename object_t >
+struct buffered_object {
+public:
+    using object_type             = object_t;
+    using concurrent_object_type  = midi_stuff::threads::concurrent_object< object_type >;
+
+public:
+    object_type buffer;
+
+protected:
+    uint8_t     revision;
+
+public:
+    buffered_object( void ) : revision( etl::integral_limits< uint8_t >::max ) { }
+
+    void flush( void ) {
+        get_concurrent_object( ).write_visit(
+            [ & ] ( object_type& write_locked_object ) {
+                write_locked_object = buffer;
+            }
+        );
+        sync_revision( );
+    }
+
+    bool read( void ) {
+        concurrent_object_type& concurrent_object( get_concurrent_object( ) );
+        const uint8_t concurrent_object_revision = concurrent_object.get_revision( );
+
+        if ( concurrent_object_revision == revision ) {
+            return false;
+        }
+
+        concurrent_object.read_visit(
+            [ & ] ( object_type& write_locked_object ) {
+                buffer = write_locked_object;
+            }
+        );
+
+        sync_revision( );
+
+        return true;
+    }
+
+    void sync_revision( void ) {
+        revision = get_concurrent_object( ).get_revision( );
+    }
+
+protected:
+    virtual concurrent_object_type& get_concurrent_object( void ) = 0;
+};
+
+template < typename object_t, uint32_t _uuid >
+struct buffered_object_instance : buffered_object< object_t > {
+public:
+    using            object_type                         = object_t;
+    using            parent_type                         = buffered_object< object_type >;
+    using            concurrent_object_type              = parent_type::concurrent_object_type;
+
+    static constexpr uint32_t uuid                       = _uuid;
+
+protected:
+    virtual concurrent_object_type& get_concurrent_object( void ) override { return concurrent_object; }
+
+private:
+    static  concurrent_object_type concurrent_object;
+};
+
+} // namespace threads
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // midi stuff :: math
@@ -1613,14 +1794,17 @@ public:
 public:
     static constexpr int32_t        k_chord_notes_input    = 0;
     static constexpr int32_t        k_sequence_notes_input = 1;
+    static constexpr int32_t        k_input_floor_note     = 2;
+    static constexpr int32_t        k_output_floor_note    = 3;
 
     static constexpr int32_t        k_notes_output         = 0;
 
-    parameter_port&                 output_port; // this->notes is treated as output as it has a generic name
     container                       chord_notes;
     container                       sequence_notes;
-
-    // TODO: param_work, add shift for input and output
+    note_t                          input_floor_note;
+    note_t                          output_floor_note;
+    
+    parameter_port&                 output_port; // this->notes is treated as output as it has a generic name
 
     bool                            im_a_dirty_object;
 
@@ -1629,15 +1813,19 @@ public:
     midi_note_arpeggiator( ) :
         base_type(
             {
-                { "chord_notes",    k_midi_note, k_chord_notes_input    },
-                { "sequence_notes", k_midi_note, k_sequence_notes_input }
+                { "chord_notes",       k_midi_note, k_chord_notes_input    },
+                { "sequence_notes",    k_midi_note, k_sequence_notes_input },
+                { "input_floor_note",  k_midi_note, k_input_floor_note     },
+                { "output_floor_note", k_midi_note, k_output_floor_note    }
             },
             {
-                { "notes",          k_midi_note, k_notes_output         }
+                { "notes",             k_midi_note, k_notes_output         }
             }
         ),
         chord_notes( ),
         sequence_notes( ),
+        input_floor_note( 0 ),
+        output_floor_note( 0 ),
         im_a_dirty_object( false ),
         output_port( *this->get_output( "notes" ) ) { }
 
@@ -1649,13 +1837,22 @@ public:
             default: jassert( 0 );
         }
     };
-
+    
     virtual void process_event( const events::note_off& event, parameter_port& /*from*/, parameter_port& to ) override {
         jassert( event.note >= 0 && event.note < 128 );
 
         switch ( std::get< int32_t >( to.extra ) ) {
             case k_chord_notes_input:    if ( chord_notes.erase(    event ) ) { im_a_dirty_object = true; } break;
             case k_sequence_notes_input: if ( sequence_notes.erase( event ) ) { im_a_dirty_object = true; } break;
+            default: jassert( 0 );
+        }
+    };
+    
+    virtual void process_event( const events::value_change& event, parameter_port& /*from*/, parameter_port& to ) override {
+        // TODO: change floor notes while playing will most certainly break things - fix it!
+        switch ( std::get< int32_t >( to.extra ) ) {
+            case k_input_floor_note:  input_floor_note  = static_cast< note_t >( std::get< uint32_t >( event.value ) ); break;
+            case k_output_floor_note: output_floor_note = static_cast< note_t >( std::get< uint32_t >( event.value ) ); break;
             default: jassert( 0 );
         }
     };
@@ -1951,6 +2148,213 @@ public:
 
 
 //---------------------------------------------------------------------------------------------------------------------------
+// midi stuff :: processors :: midi note wormhole
+// 
+// makes notes available across threads
+//---------------------------------------------------------------------------------------------------------------------------
+
+class midi_note_wormhole : public base_processor {
+public:
+    using container              = midi_stuff::containers::ascending_midi_note_list;
+
+    template < uint32_t _uuid >
+    using buffered_container     = midi_stuff::threads::buffered_object_instance< container, _uuid >;
+
+    template < uint32_t _uuid >
+    struct input_output_strip {
+        input_output_strip( parameter_port& _output_port ) : output_port( _output_port ) {}
+
+        buffered_container< _uuid > buffered_input;
+        bool                        needs_input_flush = false;
+
+        parameter_port&             output_port;
+        container                   output;
+    };
+
+    input_output_strip<  1 > io_strip_1;
+    input_output_strip<  2 > io_strip_2;
+    input_output_strip<  3 > io_strip_3;
+    input_output_strip<  4 > io_strip_4;
+    input_output_strip<  5 > io_strip_5;
+    input_output_strip<  6 > io_strip_6;
+    input_output_strip<  7 > io_strip_7;
+    input_output_strip<  8 > io_strip_8;
+    input_output_strip<  9 > io_strip_9;
+    input_output_strip< 10 > io_strip_10;
+    input_output_strip< 11 > io_strip_11;
+    input_output_strip< 12 > io_strip_12;
+    input_output_strip< 13 > io_strip_13;
+    input_output_strip< 14 > io_strip_14;
+    input_output_strip< 15 > io_strip_15;
+    input_output_strip< 16 > io_strip_16;
+public:
+    midi_note_wormhole( void ) : base_processor(
+        {
+            { "channel_1",     k_midi_note,  1             },
+            { "channel_2",     k_midi_note,  2             },
+            { "channel_3",     k_midi_note,  3             },
+            { "channel_4",     k_midi_note,  4             },
+            { "channel_5",     k_midi_note,  5             },
+            { "channel_6",     k_midi_note,  6             },
+            { "channel_7",     k_midi_note,  7             },
+            { "channel_8",     k_midi_note,  8             },
+            { "channel_9",     k_midi_note,  9             },
+            { "channel_10",    k_midi_note, 10             },
+            { "channel_11",    k_midi_note, 11             },
+            { "channel_12",    k_midi_note, 12             },
+            { "channel_13",    k_midi_note, 13             },
+            { "channel_14",    k_midi_note, 14             },
+            { "channel_15",    k_midi_note, 15             },
+            { "channel_16",    k_midi_note, 16             },
+        },
+        {
+            { "channel_1",     k_midi_note,  1 },
+            { "channel_2",     k_midi_note,  2 },
+            { "channel_3",     k_midi_note,  3 },
+            { "channel_4",     k_midi_note,  4 },
+            { "channel_5",     k_midi_note,  5 },
+            { "channel_6",     k_midi_note,  6 },
+            { "channel_7",     k_midi_note,  7 },
+            { "channel_8",     k_midi_note,  8 },
+            { "channel_9",     k_midi_note,  9 },
+            { "channel_10",    k_midi_note, 10 },
+            { "channel_11",    k_midi_note, 11 },
+            { "channel_12",    k_midi_note, 12 },
+            { "channel_13",    k_midi_note, 13 },
+            { "channel_14",    k_midi_note, 14 },
+            { "channel_15",    k_midi_note, 15 },
+            { "channel_16",    k_midi_note, 16 },
+        }
+    ),
+    io_strip_1(  *this->get_output( "channel_1"  ) ),
+    io_strip_2(  *this->get_output( "channel_2"  ) ),
+    io_strip_3(  *this->get_output( "channel_3"  ) ),
+    io_strip_4(  *this->get_output( "channel_4"  ) ),
+    io_strip_5(  *this->get_output( "channel_5"  ) ),
+    io_strip_6(  *this->get_output( "channel_6"  ) ),
+    io_strip_7(  *this->get_output( "channel_7"  ) ),
+    io_strip_8(  *this->get_output( "channel_8"  ) ),
+    io_strip_9(  *this->get_output( "channel_9"  ) ),
+    io_strip_10( *this->get_output( "channel_10" ) ),
+    io_strip_11( *this->get_output( "channel_11" ) ),
+    io_strip_12( *this->get_output( "channel_12" ) ),
+    io_strip_13( *this->get_output( "channel_13" ) ),
+    io_strip_14( *this->get_output( "channel_14" ) ),
+    io_strip_15( *this->get_output( "channel_15" ) ),
+    io_strip_16( *this->get_output( "channel_16" ) ) {
+    }
+
+    void do_with_strip( int32_t strip, auto lambda ) {
+        switch ( strip ) {
+            case 1  : lambda( io_strip_1  ); break;
+            case 2  : lambda( io_strip_2  ); break;
+            case 3  : lambda( io_strip_3  ); break;
+            case 4  : lambda( io_strip_4  ); break;
+            case 5  : lambda( io_strip_5  ); break;
+            case 6  : lambda( io_strip_6  ); break;
+            case 7  : lambda( io_strip_7  ); break;
+            case 8  : lambda( io_strip_8  ); break;
+            case 9  : lambda( io_strip_9  ); break;
+            case 10 : lambda( io_strip_10 ); break;
+            case 11 : lambda( io_strip_11 ); break;
+            case 12 : lambda( io_strip_12 ); break;
+            case 13 : lambda( io_strip_13 ); break;
+            case 14 : lambda( io_strip_14 ); break;
+            case 15 : lambda( io_strip_15 ); break;
+            case 16 : lambda( io_strip_16 ); break;
+            default:                         break;
+        }
+    }
+
+    void do_with_all_strips( auto lambda ) {
+        lambda( io_strip_1 );
+        lambda( io_strip_2 );
+        lambda( io_strip_3 );
+        lambda( io_strip_4 );
+        lambda( io_strip_5 );
+        lambda( io_strip_6 );
+        lambda( io_strip_7 );
+        lambda( io_strip_8 );
+        lambda( io_strip_9 );
+        lambda( io_strip_10 );
+        lambda( io_strip_11 );
+        lambda( io_strip_12 );
+        lambda( io_strip_13 );
+        lambda( io_strip_14 );
+        lambda( io_strip_15 );
+        lambda( io_strip_16 );
+    }
+
+    virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& to ) override {
+        jassert( std::get< int32_t >( to.extra ) <= 16 && std::get< int32_t >( to.extra ) > 0 );
+
+        do_with_strip(
+            std::get< int32_t >( to.extra ),
+            [ & ]( auto& strip ){
+                if ( strip.buffered_input.buffer.insert( event ) ) {
+                    strip.needs_input_flush = true;
+                }
+            }
+        );
+    }
+
+    virtual void process_event( const events::note_off& event, parameter_port& /*from*/, parameter_port& to ) override {
+        jassert( std::get< int32_t >( to.extra ) <= 16 && std::get< int32_t >( to.extra ) > 0 );
+
+        do_with_strip(
+            std::get< int32_t >( to.extra ),
+            [ & ] ( auto& strip ) {
+                if ( strip.buffered_input.buffer.erase( event ) ) {
+                    strip.needs_input_flush = true;
+                }
+            }
+        );
+    }
+
+    void all_notes_off( void ) {
+        do_with_all_strips(
+            [ & ] ( auto& strip ) {
+                if ( !strip.buffered_input.buffer.empty( ) ) {
+                    strip.buffered_input.buffer.clear( );
+                    strip.needs_input_flush = true;
+                }
+            }
+        );
+    }
+
+    virtual void process( void ) override {
+        do_with_all_strips(
+            [ & ] ( auto& strip ) {
+
+                bool should_update = false;
+                // if it is flushing the input, uptates the output, based on the input
+                if ( !strip.needs_input_flush ) {
+                    strip.needs_input_flush = false;
+                    strip.buffered_input.flush( );
+                    should_update = true;
+                } else {
+                    should_update = strip.buffered_input.read( );
+                }
+
+                utils::symmetric_difference_apply(
+                    strip.buffered_input.buffer,
+                    strip.output,
+                    [ & ] ( const midi_note& note ) {
+                        enqueue_event( strip.output_port, events::note_on( note ) );
+                    },
+                    [ & ] ( const midi_note& note ) {
+                        enqueue_event( strip.output_port, events::note_off( note ) );
+                    }
+                );
+
+                strip.output = strip.buffered_input.buffer;
+            }
+        );
+        
+    }
+};
+
+//---------------------------------------------------------------------------------------------------------------------------
 // midi stuff :: processors :: midi note output
 //---------------------------------------------------------------------------------------------------------------------------
 
@@ -2012,7 +2416,7 @@ struct juce_midi_buffer_note_adder {
             0
         );
     }
-
+    
     static void add_to_buffer( juce::MidiBuffer& midi_buffer, const events::note_off& event ) {
         midi_buffer.addEvent(
             juce::MidiMessage::noteOff(

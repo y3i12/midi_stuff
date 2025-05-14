@@ -39,10 +39,12 @@ midi_stuff_plugin_processor::midi_stuff_plugin_processor( void ) :
 
             { &chord_intervals,    "chord_notes",               &arppegiator,              "chord_notes"     },
             
+            /*
             { &chord_intervals,    "chord_notes",               &join,                     "channel_1"       },
             { &chord_intervals,    "pattern_degrees",           &join,                     "channel_2"       },
             { &arppegiator,        "notes",                     &join,                     "channel_3"       },
-
+            */
+            { &arppegiator,        "notes",                     &join,                     "channel_1"       },
             { &join,               "channel_notes",             &output,                   "notes"           }
     } );
 
