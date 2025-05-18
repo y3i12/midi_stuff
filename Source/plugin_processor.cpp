@@ -11,7 +11,7 @@
 //==============================================================================
 plugin_processor::plugin_processor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : foleys::MagicProcessor(BusesProperties()
+    : AudioProcessor( BusesProperties( )
                      #if ! JucePlugin_IsMidiEffect
                       #if ! JucePlugin_IsSynth
                        .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
@@ -21,7 +21,6 @@ plugin_processor::plugin_processor()
                        )
 #endif
 {
-    FOLEYS_SET_SOURCE_PATH( __FILE__ );
 }
 
 plugin_processor::~plugin_processor()

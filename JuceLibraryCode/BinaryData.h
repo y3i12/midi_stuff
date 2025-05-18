@@ -8,14 +8,8 @@
 
 namespace BinaryData
 {
-    extern const char*   midi_stuff_xml;
-    const int            midi_stuff_xmlSize = 1607;
-
     extern const char*   LICENSE;
     const int            LICENSESize = 1235;
-
-    extern const char*   README_md;
-    const int            README_mdSize = 40;
 
     extern const char*   mid_point_flt_typo_absa_should_be_absb_png;
     const int            mid_point_flt_typo_absa_should_be_absb_pngSize = 926107;
@@ -57,7 +51,7 @@ namespace BinaryData
     const int            generate_variant_pool_batSize = 81;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 16;
+    const int namedResourceListSize = 14;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

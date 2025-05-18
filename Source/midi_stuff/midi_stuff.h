@@ -586,45 +586,46 @@ static const named_noteset_list chord_descriptors = {
 // descriptors, three values are extracted: number of notes matching the MSn, number of notes matching LSn and the overall distance
 // of the chord from the input (number of different notes). MSn, LSn and distance are used as a heuristic to determine the chord
 //
+struct midi_stuff_chord_guesser {
+    static const named_noteset& get_best_fitting_named_noteset( const named_noteset::scale_code_t& input_scale_code ) {
+        const named_noteset* best_fitting_named_noteset = &chord_descriptors.back( ); // set it to guard, always returning a valid hypothesis
+        int32_t              max_score                  = std::numeric_limits< int32_t >::min( );
 
-const named_noteset& get_best_fitting_named_noteset( const named_noteset::scale_code_t& input_scale_code ) {
-    const named_noteset* best_fitting_named_noteset = &chord_descriptors.back( ); // set it to guard, always returning a valid hypothesis
-    int32_t              max_score                  = std::numeric_limits< int32_t >::min( );
+        auto discard_itr = std::find_if(
+            chord_descriptors.begin( ),
+            chord_descriptors.end( ),
+            [ & ]( const named_noteset& hypothesis_chord ) {
+                int32_t distance_score = static_cast< int32_t >( ( input_scale_code & ~hypothesis_chord.scale_code ).count( ) ); // Unmatching input scale notes
 
-    auto discard_itr = std::find_if(
-        chord_descriptors.begin( ),
-        chord_descriptors.end( ),
-        [ & ]( const named_noteset& hypothesis_chord ) {
-            int32_t distance_score = static_cast< int32_t >( ( input_scale_code & ~hypothesis_chord.scale_code ).count( ) ); // Unmatching input scale notes
+                // short circuit on a perfect match
+                if ( 0 == distance_score ) {
+                    return true;
+                }
 
-            // short circuit on a perfect match
-            if ( 0 == distance_score ) {
-                return true;
+                int32_t ms_score = static_cast< int32_t >( ( input_scale_code &  hypothesis_chord.ms_notes_code ).count( ) ); // matching MSn
+                int32_t ls_score = static_cast< int32_t >( ( input_scale_code &  hypothesis_chord.ls_notes_code ).count( ) ); // matching LSn
+                int32_t score    = math::pow< 3 >( ms_score ) + math::pow< 2 >( ls_score ) - distance_score;
+
+                if ( score > max_score ) {
+                    max_score                  = score;
+                    best_fitting_named_noteset = &hypothesis_chord;
+                }
+
+                return false;
             }
+        );
 
-            int32_t ms_score = static_cast< int32_t >( ( input_scale_code &  hypothesis_chord.ms_notes_code ).count( ) ); // matching MSn
-            int32_t ls_score = static_cast< int32_t >( ( input_scale_code &  hypothesis_chord.ls_notes_code ).count( ) ); // matching LSn
-            int32_t score    = math::pow< 3 >( ms_score ) + math::pow< 2 >( ls_score ) - distance_score;
+        return *best_fitting_named_noteset;
+    }
 
-            if ( score > max_score ) {
-                max_score                  = score;
-                best_fitting_named_noteset = &hypothesis_chord;
-            }
+    template < typename T >
+    static const named_noteset& get_best_fitting_named_noteset( const T& iterable_note_container, const note_t root_shift ) {
+        named_noteset::scale_code_t input_scale_code;
+        named_noteset::set_scale_code( iterable_note_container, input_scale_code, root_shift );
 
-            return false;
-        }
-    );
-
-    return *best_fitting_named_noteset;
-}
-
-template < typename T >
-const named_noteset& get_best_fitting_named_noteset( const T& iterable_note_container, const note_t root_shift ) {
-    named_noteset::scale_code_t input_scale_code;
-    named_noteset::set_scale_code( iterable_note_container, input_scale_code, root_shift );
-
-    return get_best_fitting_named_noteset( input_scale_code );
-}
+        return midi_stuff_chord_guesser::get_best_fitting_named_noteset( input_scale_code );
+    }
+};
 
 } // namespace chord_data
 
@@ -2065,7 +2066,7 @@ public:
 
         // refresh internal scale_code and check if the notes changed the output
         named_noteset::set_scale_code( chord_notes, scale_code, root_shift );
-        chosen_chord = &( chord_data::get_best_fitting_named_noteset( scale_code ));
+        chosen_chord = &( chord_data::midi_stuff_chord_guesser::get_best_fitting_named_noteset( scale_code ));
 
         // ------- scale_code output ------- //
         // if the execution reached this point, it means that the output is going to change

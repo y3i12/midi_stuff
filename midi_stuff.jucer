@@ -11,9 +11,7 @@
               binaryDataNamespace="BinaryData">
   <MAINGROUP id="mSB3us" name="midi_stuff">
     <GROUP id="{5FFBD03F-E00E-0E6D-E038-BA7D1B98515B}" name="Source">
-      <FILE id="fOh4wx" name="midi_stuff.xml" compile="0" resource="1" file="Source/midi_stuff.xml"/>
       <FILE id="ahXR8F" name="LICENSE" compile="0" resource="1" file="LICENSE"/>
-      <FILE id="i0lhOp" name="README.md" compile="0" resource="1" file="README.md"/>
       <GROUP id="{1F535D75-0E7C-68B9-B326-158AA7E364EE}" name="midi_stuff">
         <GROUP id="{B65548C5-2B8F-3CFB-2FF0-1B6AFB9A8C28}" name="etl">
           <GROUP id="{7BC8D7FD-ACE0-48EC-C3DB-496EDD8F69FB}" name="atomic">
@@ -534,21 +532,26 @@
         <GROUP id="{6F33A8C1-C07E-5AD6-6763-5841B98F8DBE}" name="tinyevents">
           <FILE id="X3oECV" name="tinyevents.h" compile="0" resource="0" file="Source/midi_stuff/tinyevents/tinyevents.h"/>
         </GROUP>
+        <FILE id="Gx1Bll" name="midi_stuff.cpp" compile="1" resource="0" file="Source/midi_stuff/midi_stuff.cpp"/>
         <FILE id="nrzVEN" name="midi_stuff.h" compile="0" resource="0" file="Source/midi_stuff/midi_stuff.h"/>
         <FILE id="fEAgIo" name="tests.hpp" compile="0" resource="0" file="Source/midi_stuff/tests.hpp"/>
       </GROUP>
-      <FILE id="QlkUzi" name="midi_stuff_plugin_processor.cpp" compile="1"
-            resource="0" file="Source/midi_stuff_plugin_processor.cpp"/>
-      <FILE id="iXoNfp" name="midi_stuff_plugin_processor.h" compile="0"
-            resource="0" file="Source/midi_stuff_plugin_processor.h"/>
+      <FILE id="QlkUzi" name="midi_stuff_juce_plugin.cpp" compile="1" resource="0"
+            file="Source/midi_stuff_juce_plugin.cpp"/>
+      <FILE id="iXoNfp" name="midi_stuff_juce_plugin.h" compile="0" resource="0"
+            file="Source/midi_stuff_juce_plugin.h"/>
+      <FILE id="QbGLJj" name="midi_stuff_processor.h" compile="0" resource="0"
+            file="Source/midi_stuff_processor.h"/>
+      <FILE id="VAEBQQ" name="midi_stuff_receiver.h" compile="0" resource="0"
+            file="Source/midi_stuff_receiver.h"/>
       <FILE id="OMlrC4" name="plugin_processor.cpp" compile="1" resource="0"
             file="Source/plugin_processor.cpp"/>
       <FILE id="a90Ors" name="plugin_processor.h" compile="0" resource="0"
             file="Source/plugin_processor.h"/>
+      <FILE id="i0lhOp" name="README.md" compile="0" resource="0" file="README.md"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
-    <MODULE id="foleys_gui_magic" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
@@ -585,7 +588,6 @@
         <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
-        <MODULEPATH id="foleys_gui_magic" path="../../juce_modules"/>
         <MODULEPATH id="juce_dsp" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_cryptography" path="../../JUCE/modules"/>
       </MODULEPATHS>
@@ -596,7 +598,6 @@
         <CONFIGURATION isDebug="0" name="Release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="foleys_gui_magic" path="../../juce_modules"/>
         <MODULEPATH id="juce_audio_basics" path="D:\Workspace\Code\VST\JUCE\modules"/>
         <MODULEPATH id="juce_audio_devices" path="D:\Workspace\Code\VST\JUCE\modules"/>
         <MODULEPATH id="juce_audio_formats" path="D:\Workspace\Code\VST\JUCE\modules"/>
@@ -613,5 +614,27 @@
         <MODULEPATH id="juce_gui_extra" path="D:\Workspace\Code\VST\JUCE\modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="D:\Workspace\Code\VST\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_devices" path="D:\Workspace\Code\VST\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_formats" path="D:\Workspace\Code\VST\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="D:\Workspace\Code\VST\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_processors" path="D:\Workspace\Code\VST\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_utils" path="D:\Workspace\Code\VST\JUCE\modules"/>
+        <MODULEPATH id="juce_core" path="D:\Workspace\Code\VST\JUCE\modules"/>
+        <MODULEPATH id="juce_cryptography" path="D:\Workspace\Code\VST\JUCE\modules"/>
+        <MODULEPATH id="juce_data_structures" path="D:\Workspace\Code\VST\JUCE\modules"/>
+        <MODULEPATH id="juce_dsp" path="D:\Workspace\Code\VST\JUCE\modules"/>
+        <MODULEPATH id="juce_events" path="D:\Workspace\Code\VST\JUCE\modules"/>
+        <MODULEPATH id="juce_graphics" path="D:\Workspace\Code\VST\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_basics" path="D:\Workspace\Code\VST\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_extra" path="D:\Workspace\Code\VST\JUCE\modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
   </EXPORTFORMATS>
 </JUCERPROJECT>

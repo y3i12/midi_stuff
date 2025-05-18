@@ -38,33 +38,6 @@
     <Filter Include="midi_stuff">
       <UniqueIdentifier>{A0234179-D0EC-E2EF-19BE-F29A0153D9B7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="JUCE Modules\foleys_gui_magic\Editor">
-      <UniqueIdentifier>{40399094-E8DD-BF0B-DB17-065FDD61E368}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JUCE Modules\foleys_gui_magic\General">
-      <UniqueIdentifier>{B11A9F1E-C13F-8525-C10D-8F375011B382}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JUCE Modules\foleys_gui_magic\Helpers">
-      <UniqueIdentifier>{DC96A383-4D0C-ABD3-8AF0-D6B5F45E297E}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JUCE Modules\foleys_gui_magic\Layout">
-      <UniqueIdentifier>{108CEC83-387C-7CBD-AD19-0FE2C8075C0F}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JUCE Modules\foleys_gui_magic\LookAndFeels">
-      <UniqueIdentifier>{AFCC23B9-BF88-6DD1-7177-FBD92426EA02}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JUCE Modules\foleys_gui_magic\State">
-      <UniqueIdentifier>{CCED682D-817C-EF95-0A9A-67D30C8C0FC3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JUCE Modules\foleys_gui_magic\Visualisers">
-      <UniqueIdentifier>{82122A46-F1A6-969C-05F7-CF3725A4E459}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JUCE Modules\foleys_gui_magic\Widgets">
-      <UniqueIdentifier>{BEC0FEE1-21A0-E765-6BCE-7CF16F95B6F2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="JUCE Modules\foleys_gui_magic">
-      <UniqueIdentifier>{188FBB45-2F7E-C788-A97A-9176154DD34B}</UniqueIdentifier>
-    </Filter>
     <Filter Include="JUCE Modules\juce_audio_basics\audio_play_head">
       <UniqueIdentifier>{EB58F05A-A968-CEBE-40C4-107CDD8F240F}</UniqueIdentifier>
     </Filter>
@@ -760,140 +733,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\midi_stuff_plugin_processor.cpp">
+    <ClCompile Include="..\..\Source\midi_stuff\midi_stuff.cpp">
+      <Filter>midi_stuff\Source\midi_stuff</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\midi_stuff_juce_plugin.cpp">
       <Filter>midi_stuff\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\plugin_processor.cpp">
       <Filter>midi_stuff\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_GUITreeEditor.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_MultiListPropertyComponent.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_Palette.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_PropertiesEditor.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleBoolPropertyComponent.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleChoicePropertyComponent.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleColourPropertyComponent.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleGradientPropertyComponent.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StylePropertyComponent.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleTextPropertyComponent.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Editor\foleys_ToolBox.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_ApplicationSettings.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_MagicGUIBuilder.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_MagicJUCEFactories.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_MagicPluginEditor.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_MagicProcessor.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\General\foleys_Resources.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Helpers\foleys_DefaultGuiTrees.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_Container.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_Decorator.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_GradientBackground.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_GuiItem.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_RootItem.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Layout\foleys_Stylesheet.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_JuceLookAndFeels.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\LookAndFeels</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_LookAndFeel.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\LookAndFeels</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_Skeuomorphic.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\LookAndFeels</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_MagicGUIState.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_MagicProcessorState.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_MidiParameterMapper.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_ParameterManager.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\State\foleys_RadioButtonManager.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicAnalyser.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicFilterPlot.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicLevelSource.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicOscilloscope.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_FileBrowserDialog.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_MagicLevelMeter.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_MagicPlotComponent.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_MidiDrumpadComponent.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_MidiLearnComponent.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\Widgets\foleys_XYDragComponent.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\foleys_gui_magic\foleys_gui_magic.cpp">
-      <Filter>JUCE Modules\foleys_gui_magic</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.cpp">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>
@@ -3832,9 +3679,6 @@
     <ClCompile Include="..\..\JuceLibraryCode\BinaryData.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\JuceLibraryCode\include_foleys_gui_magic.cpp">
-      <Filter>JUCE Library Code</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_audio_basics.cpp">
       <Filter>JUCE Library Code</Filter>
     </ClCompile>
@@ -4971,170 +4815,17 @@
     <ClInclude Include="..\..\Source\midi_stuff\tests.hpp">
       <Filter>midi_stuff\Source\midi_stuff</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\midi_stuff_plugin_processor.h">
+    <ClInclude Include="..\..\Source\midi_stuff_juce_plugin.h">
+      <Filter>midi_stuff\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff_processor.h">
+      <Filter>midi_stuff\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff_receiver.h">
       <Filter>midi_stuff\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\plugin_processor.h">
       <Filter>midi_stuff\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_GUITreeEditor.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_MultiListPropertyComponent.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_Palette.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_PropertiesEditor.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleBoolPropertyComponent.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleChoicePropertyComponent.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleColourPropertyComponent.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleGradientPropertyComponent.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StylePropertyComponent.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_StyleTextPropertyComponent.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Editor\foleys_ToolBox.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_ApplicationSettings.h">
-      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_MagicGUIBuilder.h">
-      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_MagicPluginEditor.h">
-      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_MagicProcessor.h">
-      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_Resources.h">
-      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_SettableProperties.h">
-      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\General\foleys_StringDefinitions.h">
-      <Filter>JUCE Modules\foleys_gui_magic\General</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_AtomicValueAttachment.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_Conversions.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_DefaultGuiTrees.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_MouseLambdas.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_ParameterAttachment.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_PopupMenuHelper.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Helpers\foleys_ScopedInterProcessLock.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_BoxModel.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_Container.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_Decorator.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_GradientBackground.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_GuiItem.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_RootItem.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Layout\foleys_Stylesheet.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Layout</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_JuceLookAndFeels.h">
-      <Filter>JUCE Modules\foleys_gui_magic\LookAndFeels</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_LookAndFeel.h">
-      <Filter>JUCE Modules\foleys_gui_magic\LookAndFeels</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\LookAndFeels\foleys_Skeuomorphic.h">
-      <Filter>JUCE Modules\foleys_gui_magic\LookAndFeels</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_MagicGUIState.h">
-      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_MagicProcessorState.h">
-      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_MidiParameterMapper.h">
-      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_ParameterManager.h">
-      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\State\foleys_RadioButtonManager.h">
-      <Filter>JUCE Modules\foleys_gui_magic\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicAnalyser.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicFilterPlot.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicLevelSource.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicOscilloscope.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Visualisers\foleys_MagicPlotSource.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Visualisers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_AutoOrientationSlider.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_FileBrowserDialog.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_MagicLevelMeter.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_MagicPlotComponent.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_MidiDrumpadComponent.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_MidiLearnComponent.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\Widgets\foleys_XYDragComponent.h">
-      <Filter>JUCE Modules\foleys_gui_magic\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\foleys_gui_magic\foleys_gui_magic.h">
-      <Filter>JUCE Modules\foleys_gui_magic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>
@@ -9200,13 +8891,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Source\midi_stuff.xml">
-      <Filter>midi_stuff\Source</Filter>
-    </None>
     <None Include="..\..\LICENSE">
-      <Filter>midi_stuff\Source</Filter>
-    </None>
-    <None Include="..\..\README.md">
       <Filter>midi_stuff\Source</Filter>
     </None>
     <None Include="..\..\Source\midi_stuff\etl\experimental\mid_point flt (typo abs(a) should be abs(b).png">
@@ -9247,6 +8932,9 @@
     </None>
     <None Include="..\..\Source\midi_stuff\etl\generators\generate_variant_pool.bat">
       <Filter>midi_stuff\Source\midi_stuff\etl\generators</Filter>
+    </None>
+    <None Include="..\..\README.md">
+      <Filter>midi_stuff\Source</Filter>
     </None>
     <None Include="..\..\..\..\JUCE\modules\juce_audio_devices\native\oboe\src\common\README.md">
       <Filter>JUCE Modules\juce_audio_devices\native\oboe\src\common</Filter>

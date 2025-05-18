@@ -13,7 +13,7 @@
 //==============================================================================
 /**
 */
-class plugin_processor  : public foleys::MagicProcessor
+class plugin_processor : public juce::AudioProcessor
 {
 public:
     //==============================================================================
@@ -40,6 +40,13 @@ public:
     bool producesMidi() const override;
     bool isMidiEffect() const override;
     double getTailLengthSeconds() const override;
+
+
+    virtual bool hasEditor( ) const override { return true; }
+    virtual juce::AudioProcessorEditor* createEditor( void ) = 0;
+
+    virtual void getStateInformation( juce::MemoryBlock& destData ) override = 0;
+    virtual void setStateInformation( const void* data, int sizeInBytes ) override = 0;
 
     //==============================================================================
     int getNumPrograms() override;

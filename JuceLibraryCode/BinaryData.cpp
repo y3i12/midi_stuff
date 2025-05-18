@@ -9,51 +9,8 @@
 namespace BinaryData
 {
 
-//================== midi_stuff.xml ==================
-static const unsigned char temp_binary_data_0[] =
-"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-"\r\n"
-"<magic>\r\n"
-"  <Styles>\r\n"
-"    <Style name=\"default\">\r\n"
-"      <Nodes/>\r\n"
-"      <Classes>\r\n"
-"        <plot-view border=\"2\" background-color=\"black\" border-color=\"silver\" display=\"contents\"/>\r\n"
-"        <nomargin margin=\"0\" padding=\"0\" border=\"0\"/>\r\n"
-"        <group margin=\"5\" padding=\"5\" border=\"2\" flex-direction=\"column\"/>\r\n"
-"        <transparent background-color=\"transparentblack\"/>\r\n"
-"      </Classes>\r\n"
-"      <Types>\r\n"
-"        <Slider border=\"0\" slider-textbox=\"textbox-below\"/>\r\n"
-"        <ToggleButton border=\"0\" max-height=\"50\" caption-size=\"0\" text=\"Active\"/>\r\n"
-"        <TextButton border=\"0\" max-height=\"50\" caption-size=\"0\"/>\r\n"
-"        <ComboBox border=\"0\" max-height=\"50\" caption-size=\"0\"/>\r\n"
-"        <Plot border=\"0\" margin=\"0\" padding=\"0\" background-color=\"00000000\"\r\n"
-"              radius=\"0\"/>\r\n"
-"        <XYDragComponent border=\"0\" margin=\"0\" padding=\"0\" background-color=\"00000000\"\r\n"
-"                         radius=\"0\"/>\r\n"
-"      </Types>\r\n"
-"      <Palettes>\r\n"
-"        <default/>\r\n"
-"      </Palettes>\r\n"
-"    </Style>\r\n"
-"  </Styles>\r\n"
-"  <View id=\"root\" resizable=\"1\" resize-corner=\"1\">\r\n"
-"    <View class=\"parameters nomargin\">\r\n"
-"      <Slider caption=\"Lowest\" parameter=\"lowest\" slider-type=\"linear-vertical\"\r\n"
-"              interval=\"1\" max-value=\"12\" min-value=\"0\"/>\r\n"
-"      <Slider caption=\"Highest\" parameter=\"highest\" slider-type=\"linear-vertical\"\r\n"
-"              interval=\"1\" min-value=\"0\" max-value=\"12\"/>\r\n"
-"      <Slider caption=\"Lowest 2\" parameter=\"lowest_2\" slider-type=\"linear-vertical\"\r\n"
-"              min-value=\"0\" max-value=\"12\" interval=\"1\"/>\r\n"
-"    </View>\r\n"
-"  </View>\r\n"
-"</magic>\r\n";
-
-const char* midi_stuff_xml = (const char*) temp_binary_data_0;
-
 //================== LICENSE ==================
-static const unsigned char temp_binary_data_1[] =
+static const unsigned char temp_binary_data_0[] =
 "This is free and unencumbered software released into the public domain.\r\n"
 "\r\n"
 "Anyone is free to copy, modify, publish, use, compile, sell, or\r\n"
@@ -79,17 +36,10 @@ static const unsigned char temp_binary_data_1[] =
 "\r\n"
 "For more information, please refer to <https://unlicense.org>\r\n";
 
-const char* LICENSE = (const char*) temp_binary_data_1;
-
-//================== README.md ==================
-static const unsigned char temp_binary_data_2[] =
-"# midi_stuff\n"
-" midi processing stuff vst\n";
-
-const char* README_md = (const char*) temp_binary_data_2;
+const char* LICENSE = (const char*) temp_binary_data_0;
 
 //================== mid_point flt (typo abs(a) should be abs(b).png ==================
-static const unsigned char temp_binary_data_3[] =
+static const unsigned char temp_binary_data_1[] =
 { 137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,8,83,0,0,3,105,8,6,0,0,0,205,120,228,19,0,0,0,1,115,82,71,66,0,174,206,28,233,0,0,0,4,103,65,77,65,0,0,177,143,11,252,97,5,0,0,0,9,112,72,89,115,0,0,22,37,0,0,22,37,1,73,82,36,240,0,0,255,165,73,68,65,
 84,120,94,236,253,135,154,36,57,142,37,10,195,181,14,173,35,51,43,75,87,207,244,204,222,251,125,123,159,111,230,5,255,189,119,103,123,90,149,200,204,208,218,85,132,107,241,159,3,24,221,204,61,60,82,149,232,170,106,156,40,56,105,102,52,18,36,1,90,150,
 1,6,166,198,211,241,84,126,118,76,241,247,97,72,69,169,195,225,112,56,28,14,135,195,225,112,56,28,14,135,195,225,112,56,28,14,135,195,225,112,56,126,111,248,41,44,194,31,90,199,47,96,26,119,252,3,144,148,131,148,30,133,153,158,128,152,39,221,63,60,200,
@@ -13308,10 +13258,10 @@ static const unsigned char temp_binary_data_3[] =
 207,88,144,23,215,132,57,66,21,66,8,33,132,16,66,8,33,132,16,66,8,33,132,16,66,136,27,143,132,41,132,184,112,180,8,127,99,24,88,93,134,92,133,170,85,8,33,132,16,66,8,33,132,16,66,8,33,132,16,66,136,247,6,9,83,8,113,81,248,130,123,44,190,67,151,186,222,
 202,107,213,128,161,177,8,33,132,16,66,8,33,132,16,66,8,33,132,16,66,136,11,66,43,48,226,234,146,210,255,15,201,118,77,134,200,53,71,149,0,0,0,0,73,69,78,68,174,66,96,130,0,0 };
 
-const char* mid_point_flt_typo_absa_should_be_absb_png = (const char*) temp_binary_data_3;
+const char* mid_point_flt_typo_absa_should_be_absb_png = (const char*) temp_binary_data_1;
 
 //================== mid_point ptr.png ==================
-static const unsigned char temp_binary_data_4[] =
+static const unsigned char temp_binary_data_2[] =
 { 137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,8,98,0,0,2,142,8,6,0,0,0,231,127,45,155,0,0,0,1,115,82,71,66,0,174,206,28,233,0,0,0,4,103,65,77,65,0,0,177,143,11,252,97,5,0,0,0,9,112,72,89,115,0,0,22,37,0,0,22,37,1,73,82,36,240,0,0,255,165,73,68,65,
 84,120,94,236,253,7,155,28,201,145,165,11,91,106,85,90,160,10,186,155,100,147,156,157,217,253,137,179,243,3,191,123,159,59,187,67,14,201,150,208,40,173,43,117,230,119,142,89,120,102,100,162,10,40,116,163,154,93,192,121,11,150,33,50,194,165,185,123,34,
 204,194,189,48,24,15,198,38,132,16,66,8,33,132,16,66,8,33,132,16,66,8,33,132,16,66,8,33,126,1,99,255,87,204,142,132,16,66,8,33,132,16,66,8,33,132,16,66,8,33,132,16,66,8,33,196,207,166,224,255,228,136,33,132,16,66,8,33,132,16,66,8,33,132,16,66,8,33,132,
@@ -17946,10 +17896,10 @@ static const unsigned char temp_binary_data_4[] =
 162,107,18,0,0,0,0,0,0,0,128,59,9,159,4,49,0,0,0,0,0,0,0,0,110,22,98,251,235,229,47,65,12,0,0,0,0,0,0,0,128,155,85,187,125,59,7,0,0,0,0,0,0,0,192,213,170,102,184,40,136,209,148,208,40,26,0,0,0,0,0,0,0,0,157,217,65,140,177,224,133,48,6,0,0,0,0,0,0,0,64,
 182,219,253,31,219,230,175,41,193,204,75,91,0,0,0,0,73,69,78,68,174,66,96,130,0,0 };
 
-const char* mid_point_ptr_png = (const char*) temp_binary_data_4;
+const char* mid_point_ptr_png = (const char*) temp_binary_data_2;
 
 //================== mid_point.png ==================
-static const unsigned char temp_binary_data_5[] =
+static const unsigned char temp_binary_data_3[] =
 { 137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,7,251,0,0,3,217,8,6,0,0,0,254,197,73,133,0,0,0,1,115,82,71,66,0,174,206,28,233,0,0,0,4,103,65,77,65,0,0,177,143,11,252,97,5,0,0,0,9,112,72,89,115,0,0,22,37,0,0,22,37,1,73,82,36,240,0,0,255,165,73,68,65,
 84,120,94,236,253,7,183,29,55,146,166,11,111,122,111,68,137,78,148,40,87,190,215,220,187,166,122,173,59,247,207,125,61,253,3,239,244,76,87,119,117,85,117,151,44,41,71,74,164,232,61,249,197,243,190,8,0,153,59,247,57,251,144,60,135,20,149,239,222,200,68,
 34,97,2,1,32,16,48,153,185,235,241,179,199,207,22,51,102,204,216,50,118,149,243,50,86,223,153,49,227,213,98,22,247,51,102,204,120,181,152,165,208,140,151,9,107,92,111,162,222,245,226,45,101,110,107,51,102,204,152,49,99,198,171,199,155,171,171,204,152,
@@ -25114,10 +25064,10 @@ static const unsigned char temp_binary_data_5[] =
 231,207,219,212,85,135,174,140,163,133,243,102,134,206,146,171,110,131,99,25,222,178,216,43,197,115,154,21,15,99,92,230,180,205,11,250,181,45,130,74,44,35,151,205,252,54,245,67,98,58,230,108,105,63,91,173,116,251,242,109,247,233,234,224,227,214,185,65,
 59,174,173,180,140,165,207,146,6,125,16,203,14,178,207,164,127,48,175,56,131,62,76,17,233,217,109,206,45,253,3,81,241,173,12,209,185,169,147,8,119,204,47,219,39,165,255,31,230,68,167,209,203,47,55,21,0,0,0,0,73,69,78,68,174,66,96,130,0,0 };
 
-const char* mid_point_png = (const char*) temp_binary_data_5;
+const char* mid_point_png = (const char*) temp_binary_data_3;
 
 //================== generate.bat ==================
-static const unsigned char temp_binary_data_6[] =
+static const unsigned char temp_binary_data_4[] =
 "python -m cogapp -d -e -o../fsm.h -DHandlers=16 fsm_generator.h \r\n"
 "python -m cogapp -d -e -o../message_router.h -DHandlers=16 message_router_generator.h \r\n"
 "python -m cogapp -d -e -o../largest.h -DNTypes=16 largest_generator.h\r\n"
@@ -25128,61 +25078,61 @@ static const unsigned char temp_binary_data_6[] =
 "python -m cogapp -d -e -o../message_packet.h -DHandlers=16 message_packet_generator.h\r\n"
 "python -m cogapp -d -e -o../variant_pool.h -DNTypes=16 variant_pool_generator.h\r\n";
 
-const char* generate_bat = (const char*) temp_binary_data_6;
+const char* generate_bat = (const char*) temp_binary_data_4;
 
 //================== generate_fsm.bat ==================
-static const unsigned char temp_binary_data_7[] =
+static const unsigned char temp_binary_data_5[] =
 "python -m cogapp -d -e -o../fsm.h -DHandlers=16 fsm_generator.h \r\n";
 
-const char* generate_fsm_bat = (const char*) temp_binary_data_7;
+const char* generate_fsm_bat = (const char*) temp_binary_data_5;
 
 //================== generate_largest.bat ==================
-static const unsigned char temp_binary_data_8[] =
+static const unsigned char temp_binary_data_6[] =
 "python -m cogapp -d -e -o../largest.h -DNTypes=16 largest_generator.h\r\n";
 
-const char* generate_largest_bat = (const char*) temp_binary_data_8;
+const char* generate_largest_bat = (const char*) temp_binary_data_6;
 
 //================== generate_message_packet.bat ==================
-static const unsigned char temp_binary_data_9[] =
+static const unsigned char temp_binary_data_7[] =
 "python -m cogapp -d -e -o../message_packet.h -DHandlers=16 message_packet_generator.h \r\n";
 
-const char* generate_message_packet_bat = (const char*) temp_binary_data_9;
+const char* generate_message_packet_bat = (const char*) temp_binary_data_7;
 
 //================== generate_message_router.bat ==================
-static const unsigned char temp_binary_data_10[] =
+static const unsigned char temp_binary_data_8[] =
 "python -m cogapp -d -e -o../message_router.h -DHandlers=16 message_router_generator.h \r\n";
 
-const char* generate_message_router_bat = (const char*) temp_binary_data_10;
+const char* generate_message_router_bat = (const char*) temp_binary_data_8;
 
 //================== generate_smallest.bat ==================
-static const unsigned char temp_binary_data_11[] =
+static const unsigned char temp_binary_data_9[] =
 "python -m cogapp -d -e -o../smallest.h -DNTypes=16 smallest_generator.h\r\n";
 
-const char* generate_smallest_bat = (const char*) temp_binary_data_11;
+const char* generate_smallest_bat = (const char*) temp_binary_data_9;
 
 //================== generate_type_lookup.bat ==================
-static const unsigned char temp_binary_data_12[] =
+static const unsigned char temp_binary_data_10[] =
 "python -m cogapp -d -e -o../type_lookup.h -DNTypes=16 type_lookup_generator.h\r\n";
 
-const char* generate_type_lookup_bat = (const char*) temp_binary_data_12;
+const char* generate_type_lookup_bat = (const char*) temp_binary_data_10;
 
 //================== generate_type_select.bat ==================
-static const unsigned char temp_binary_data_13[] =
+static const unsigned char temp_binary_data_11[] =
 "python -m cogapp -d -e -o../type_select.h -DNTypes=16 type_select_generator.h\r\n";
 
-const char* generate_type_select_bat = (const char*) temp_binary_data_13;
+const char* generate_type_select_bat = (const char*) temp_binary_data_11;
 
 //================== generate_type_traits.bat ==================
-static const unsigned char temp_binary_data_14[] =
+static const unsigned char temp_binary_data_12[] =
 "python -m cogapp -d -e -o../type_traits.h -DIsOneOf=16 type_traits_generator.h\r\n";
 
-const char* generate_type_traits_bat = (const char*) temp_binary_data_14;
+const char* generate_type_traits_bat = (const char*) temp_binary_data_12;
 
 //================== generate_variant_pool.bat ==================
-static const unsigned char temp_binary_data_15[] =
+static const unsigned char temp_binary_data_13[] =
 "python -m cogapp -d -e -o../variant_pool.h -DNTypes=16 variant_pool_generator.h\r\n";
 
-const char* generate_variant_pool_bat = (const char*) temp_binary_data_15;
+const char* generate_variant_pool_bat = (const char*) temp_binary_data_13;
 
 
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes);
@@ -25196,9 +25146,7 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
 
     switch (hash)
     {
-        case 0x47775bae:  numBytes = 1607; return midi_stuff_xml;
         case 0x34bc1021:  numBytes = 1235; return LICENSE;
-        case 0x64791dc8:  numBytes = 40; return README_md;
         case 0xcd63ec76:  numBytes = 926107; return mid_point_flt_typo_absa_should_be_absb_png;
         case 0x2d91b3f2:  numBytes = 325251; return mid_point_ptr_png;
         case 0xe38355c3:  numBytes = 501223; return mid_point_png;
@@ -25221,9 +25169,7 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
 
 const char* namedResourceList[] =
 {
-    "midi_stuff_xml",
     "LICENSE",
-    "README_md",
     "mid_point_flt_typo_absa_should_be_absb_png",
     "mid_point_ptr_png",
     "mid_point_png",
@@ -25241,9 +25187,7 @@ const char* namedResourceList[] =
 
 const char* originalFilenames[] =
 {
-    "midi_stuff.xml",
     "LICENSE",
-    "README.md",
     "mid_point flt (typo abs(a) should be abs(b).png",
     "mid_point ptr.png",
     "mid_point.png",
