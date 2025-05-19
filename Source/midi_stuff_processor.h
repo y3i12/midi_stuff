@@ -61,7 +61,7 @@ public:
         }
     }
 
-protected:
+public:
    // midi_stuff
     midi_stuff::processors::midi_channel_note_input     input;
     midi_stuff::processors::midi_channel_split          split;

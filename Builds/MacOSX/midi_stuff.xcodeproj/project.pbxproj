@@ -329,6 +329,7 @@
 		95F704BDAEEBA834AA44F9F1 /* parameter_type.h */ /* parameter_type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = parameter_type.h; path = ../../Source/midi_stuff/etl/parameter_type.h; sourceTree = SOURCE_ROOT; };
 		969EDB38DD2A43F24155773F /* io_port.h */ /* io_port.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = io_port.h; path = ../../Source/midi_stuff/etl/io_port.h; sourceTree = SOURCE_ROOT; };
 		974E58B815BD02495AD51567 /* frame_check_sequence.h */ /* frame_check_sequence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = frame_check_sequence.h; path = ../../Source/midi_stuff/etl/frame_check_sequence.h; sourceTree = SOURCE_ROOT; };
+		97F1194340237B5972B4397F /* juce_stuff.h */ /* juce_stuff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_stuff.h; path = ../../Source/midi_stuff/juce_stuff.h; sourceTree = SOURCE_ROOT; };
 		991BA1F013C03EA7A28D6024 /* function.h */ /* function.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = function.h; path = ../../Source/midi_stuff/etl/function.h; sourceTree = SOURCE_ROOT; };
 		9A6468CC5E3E6585FAEAFE7B /* juce_cryptography */ /* juce_cryptography */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_cryptography; path = "~/JUCE/modules/juce_cryptography"; sourceTree = "<absolute>"; };
 		9BA2D721A256A957B8F2E99D /* addressof.h */ /* addressof.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = addressof.h; path = ../../Source/midi_stuff/etl/private/addressof.h; sourceTree = SOURCE_ROOT; };
@@ -1126,6 +1127,7 @@
 			children = (
 				BD11EF92758EE997C71AEEE9,
 				AD93092B0A35746BB05381D8,
+				97F1194340237B5972B4397F,
 				45A789C52C92598C59D3A2DB,
 				4BAD102924B552A0A9867AFD,
 				30AB4E939D2EAB8710F69A51,

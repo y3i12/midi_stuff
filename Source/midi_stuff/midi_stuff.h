@@ -168,7 +168,7 @@ struct read_write_lock {
     };
 
     void read_start( void ) {
-        writing.wait( false );
+        if ( writing.load( ) ) writing.wait( false );
         ++reading;
     }
 
@@ -194,7 +194,7 @@ struct read_write_lock {
         write_mutex.lock( );
         writing.store( true );
 
-        reading.wait( 0 );
+        if ( reading.load( ) > 0 ) reading.wait( 0 );
     }
 
     void write_end( void ) {
@@ -2329,12 +2329,16 @@ public:
 
                 bool should_update = false;
                 // if it is flushing the input, uptates the output, based on the input
-                if ( !strip.needs_input_flush ) {
+                if ( strip.needs_input_flush ) {
                     strip.needs_input_flush = false;
                     strip.buffered_input.flush( );
                     should_update = true;
                 } else {
                     should_update = strip.buffered_input.read( );
+                }
+
+                if ( !should_update ) {
+                    return;
                 }
 
                 utils::symmetric_difference_apply(

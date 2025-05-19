@@ -12,16 +12,15 @@ midi_stuff_plugin_processor::midi_stuff_plugin_processor( void ) :
         nullptr,
         juce::Identifier( "midi_stuff" ),
         {
-            std::make_unique< juce::AudioParameterFloat >(
+            std::make_unique< juce::AudioParameterBool >(
                 juce::ParameterID( parameter_id::receiver, 1 ),
                 "Receiver",
-                juce::NormalisableRange<float>( 0.0f, 1.0f, 1.0f ),
-                0.0f
+                false
             )
         }
     ) {
 
-    is_receiver = dynamic_cast< juce::AudioParameterFloat* >( parameters.getParameter( parameter_id::receiver ) );
+    is_receiver = dynamic_cast< juce::AudioParameterBool* >( parameters.getParameter( parameter_id::receiver ) );
 
     // ui
     // magicState.setGuiValueTree( BinaryData::midi_stuff_xml, BinaryData::midi_stuff_xmlSize );
@@ -34,7 +33,7 @@ midi_stuff_plugin_processor::~midi_stuff_plugin_processor( void ) {
 void midi_stuff_plugin_processor::process_midi( juce::MidiBuffer& midi_buffer ) {
     auto should_recveive = is_receiver->get();
 
-    if ( should_recveive > 0.0f ) {
+    if ( should_recveive ) {
         receiver.process_midi( midi_buffer );
     } else {
         processor.process_midi( midi_buffer );
@@ -87,6 +86,7 @@ midi_stuff_plugin_editor::midi_stuff_plugin_editor( midi_stuff_plugin_processor&
     // editor's size to whatever you need it to be.
     setSize( 400, 300 );
     startTimerHz( 30 );
+    addAndMakeVisible( tabs );
 }
 
 midi_stuff_plugin_editor::~midi_stuff_plugin_editor( ) {
@@ -95,6 +95,7 @@ midi_stuff_plugin_editor::~midi_stuff_plugin_editor( ) {
 
 //==============================================================================
 void midi_stuff_plugin_editor::paint( juce::Graphics& g ) {
+    g.fillAll( getLookAndFeel( ).findColour( juce::ResizableWindow::backgroundColourId ) );
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     //g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
 
@@ -102,15 +103,15 @@ void midi_stuff_plugin_editor::paint( juce::Graphics& g ) {
     //g.setFont (juce::FontOptions (15.0f));
 
      // fill the whole window white
-    g.fillAll( juce::Colours::white );
+    //g.fillAll( juce::Colours::white );
 
-    // set the current drawing colour to black
-    g.setColour( juce::Colours::black );
+    //// set the current drawing colour to black
+    //g.setColour( juce::Colours::black );
 
-    // set the font size and draw text to the screen
-    g.setFont( 15.0f );
+    //// set the font size and draw text to the screen
+    //g.setFont( 15.0f );
 
-    g.drawFittedText( "Yo Modafacka", getLocalBounds( ), juce::Justification::centred, 10 );
+    //g.drawFittedText( "Yo Modafacka", getLocalBounds( ), juce::Justification::centred, 10 );
 }
 
 void midi_stuff_plugin_editor::timerCallback( void ) {
@@ -122,6 +123,5 @@ void midi_stuff_plugin_editor::timerCallback( void ) {
 }
 
 void midi_stuff_plugin_editor::resized( void ) {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+    tabs.setBounds( getLocalBounds( ).reduced( 4 ) );
 }

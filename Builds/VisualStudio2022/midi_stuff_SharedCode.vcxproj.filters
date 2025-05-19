@@ -4809,6 +4809,9 @@
     <ClInclude Include="..\..\Source\midi_stuff\tinyevents\tinyevents.h">
       <Filter>midi_stuff\Source\midi_stuff\tinyevents</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\midi_stuff\juce_stuff.h">
+      <Filter>midi_stuff\Source\midi_stuff</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\midi_stuff\midi_stuff.h">
       <Filter>midi_stuff\Source\midi_stuff</Filter>
     </ClInclude>

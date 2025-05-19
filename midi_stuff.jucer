@@ -532,6 +532,7 @@
         <GROUP id="{6F33A8C1-C07E-5AD6-6763-5841B98F8DBE}" name="tinyevents">
           <FILE id="X3oECV" name="tinyevents.h" compile="0" resource="0" file="Source/midi_stuff/tinyevents/tinyevents.h"/>
         </GROUP>
+        <FILE id="u0jlvK" name="juce_stuff.h" compile="0" resource="0" file="Source/midi_stuff/juce_stuff.h"/>
         <FILE id="Gx1Bll" name="midi_stuff.cpp" compile="1" resource="0" file="Source/midi_stuff/midi_stuff.cpp"/>
         <FILE id="nrzVEN" name="midi_stuff.h" compile="0" resource="0" file="Source/midi_stuff/midi_stuff.h"/>
         <FILE id="fEAgIo" name="tests.hpp" compile="0" resource="0" file="Source/midi_stuff/tests.hpp"/>

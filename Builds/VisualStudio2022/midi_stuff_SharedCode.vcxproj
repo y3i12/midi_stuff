@@ -3318,6 +3318,7 @@
     <ClInclude Include="..\..\Source\midi_stuff\etl\wstring.h"/>
     <ClInclude Include="..\..\Source\midi_stuff\etl\wstring_stream.h"/>
     <ClInclude Include="..\..\Source\midi_stuff\tinyevents\tinyevents.h"/>
+    <ClInclude Include="..\..\Source\midi_stuff\juce_stuff.h"/>
     <ClInclude Include="..\..\Source\midi_stuff\midi_stuff.h"/>
     <ClInclude Include="..\..\Source\midi_stuff\tests.hpp"/>
     <ClInclude Include="..\..\Source\midi_stuff_juce_plugin.h"/>

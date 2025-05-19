@@ -11,15 +11,18 @@ public:
 
         binder bind_it(
             {
-                { &wormhole,           "channel_1",                 &join,                     "channel_1"       },
-                { &wormhole,           "channel_2",                 &join,                     "channel_2"       },
-                { &wormhole,           "channel_3",                 &join,                     "channel_3"       },
+                { &wormhole, "channel_1",     &filter, "channel_1" },
+                { &wormhole, "channel_2",     &filter, "channel_2" },
+                { &wormhole, "channel_3",     &filter, "channel_3" },
 
-                { &join,               "channel_notes",             &output,                   "notes"           }
+                { &filter,   "channel_1",     &join,   "channel_1" },
+                { &filter,   "channel_2",     &join,   "channel_2" },
+                { &filter,   "channel_3",     &join,   "channel_3" },
+
+                { &join,     "channel_notes", &output, "notes"     }
             }
         );
     }
-
 
     void process_midi( juce::MidiBuffer& midi_buffer ) {
         output.set_output_midi_buffer( midi_buffer );
@@ -27,8 +30,9 @@ public:
         output.backtrack_process( );
     }
 
-protected:
+public:
     midi_stuff::processors::midi_note_wormhole          wormhole;
+    midi_stuff::processors::midi_channel_filter         filter;
     midi_stuff::processors::midi_channel_join           join;
     midi_stuff::processors::midi_channel_note_output    output;
 };
