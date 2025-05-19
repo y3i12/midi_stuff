@@ -58,7 +58,28 @@ private:
         {
             "Processor",
             findColour( juce::ResizableWindow::backgroundColourId ),
-            juce_stuff::components::factory::build< label >( "processor_tab", "Processor" ),
+            juce_stuff::components::factory::build_and_lambda< juce_stuff::components::with_grid< > >(
+                [ & ] ( juce_stuff::components::with_grid< >& component ) {
+                    using Track = juce::Grid::TrackInfo;
+
+                    juce::Grid& grid     = component.grid;
+
+                    grid.rowGap          = 20_px;
+                    grid.columnGap       = 20_px;
+
+                    grid.templateRows    = { Track( 1_fr ), Track( 1_fr ), Track( 1_fr ), Track( 1_fr ) };
+                    grid.templateColumns = { Track( 1_fr ) };
+                    grid.autoColumns     = Track( 1_fr );
+                    grid.autoRows        = Track( 1_fr );
+                    grid.autoFlow        = juce::Grid::AutoFlow::column;
+                },
+                {
+                    juce_stuff::components::factory::build< label >( "root_note_label",      "Root note Channel 1"     ),
+                    juce_stuff::components::factory::build< label >( "chord_notes_label",    "Sequence note Channel 2" ),
+                    juce_stuff::components::factory::build< label >( "pattern_notes_label",  "Pattern note Channel 3"  ),
+                    juce_stuff::components::factory::build< label >( "sequence_notes_label", "Sequence note Channel 4" )
+                }
+            ),
             true,
             [ & ] ( juce::TabBarButton* button ) {
                 button->onClick = [ & ] {
