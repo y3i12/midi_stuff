@@ -30,7 +30,6 @@
 #include <variant>
 #include <vector>
 
-#include "tinyevents/tinyevents.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // midi stuff
@@ -916,15 +915,26 @@ struct value_change : public value_change_event_t {
 
 namespace processors {
 
-using dispatcher        = tinyevents::Dispatcher;
-using dispatcher_handle = dispatcher::ListenerHandle;
-
 enum parameter_type {
     k_midi_note,
     k_midi_channel_note,
     k_value,
     k_invalid,
 };
+
+// which port type carries an event type - emitting an event on a port of another type is a bug
+template < typename event_t >
+constexpr parameter_type port_type_of( void ) {
+    if constexpr ( std::is_same_v< event_t, events::note_on > || std::is_same_v< event_t, events::note_off > ) {
+        return k_midi_note;
+    } else if constexpr ( std::is_same_v< event_t, events::channel_note_on > || std::is_same_v< event_t, events::channel_note_off > ) {
+        return k_midi_channel_note;
+    } else if constexpr ( std::is_same_v< event_t, events::value_change > ) {
+        return k_value;
+    } else {
+        static_assert( sizeof( event_t ) == 0, "not an event type" );
+    }
+}
 
 class base_processor; // FWD decl
 
@@ -936,11 +946,9 @@ struct parameter_port {
     using extra_t = std::variant< void*, int32_t > ;
 
     parameter_port( base_processor* the_owner, const std::string& the_name, parameter_type the_type, extra_t the_extra = 0 ) :
-        owner( the_owner ), 
-        name( the_name ), 
-        dispatcher( nullptr ),
+        owner( the_owner ),
         provider_port( nullptr ),
-        name_hash( std::hash< std::string >{}( name ) ),
+        name( the_name ),
         type( the_type ),
         extra( the_extra ) {
     }
@@ -951,26 +959,26 @@ struct parameter_port {
 
     bool operator  < ( const parameter_port& rhs ) { return name  < rhs.name; }
     bool operator == ( const parameter_port& rhs ) { return name == rhs.name; }
-    
-    struct hash {
-        std::size_t operator()( const midi_stuff::processors::parameter_port* p ) const noexcept {
-            return std::hash< std::string >{}( p->name );
-        }
-    };
 
-    base_processor*       owner;
-    tinyevents::Dispatcher* dispatcher; // allocated always in the output owner - spelled out: a member can't reuse the name of the type `dispatcher`
-    parameter_port*       provider_port; // for inputs, it points to the output port
+    base_processor*                 owner;
+    parameter_port*                 provider_port; // inputs: the output port feeding it
+    std::vector< parameter_port* >  consumers;     // outputs: the input ports it feeds - only grows while binding
 
-    const std::string     name;
-    const size_t          name_hash;
-    parameter_type        type;
+    const std::string               name;
+    parameter_type                  type;
 
-    extra_t               extra;
+    extra_t                         extra;
 };
 
 //---------------------------------------------------------------------------------------------------------------------------
 // midi stuff :: processors :: base_processor
+//
+// events are delivered immediately: emit( ) calls process_event( ) on every bound consumer before returning. so:
+// - process_event( ) may emit ( that is how forwarders - split, filter, join, dedup - work ), the event travels the chain
+// - the graph has no cycles ( checked when binding )
+// - process_event( ) never calls process( ): it updates state, or forwards
+//
+// backtrack_process( ) pulls: every provider runs its process( ) - once per pass - before its consumers.
 //---------------------------------------------------------------------------------------------------------------------------
 
 class base_processor {
@@ -980,11 +988,18 @@ protected:
 
     std::vector< parameter_port >                               output_ports;
     std::unordered_map< std::string, parameter_port* >          named_output_ports;
-    std::vector< dispatcher >                                   otput_dispatchers;
-    std::unordered_set< parameter_port* >                       output_consumers;
 
-    std::unordered_set< parameter_port*, parameter_port::hash > provided_inputs;
-    bool                                                        has_processed;
+private:
+    // identifies a pull: which processor started it, and its count. a processor runs once per pass
+    struct pass_token {
+        const base_processor* root  = nullptr;
+        uint32_t              count = 0;
+
+        bool operator == ( const pass_token& ) const = default;
+    };
+
+    pass_token                                                  last_pass;
+    uint32_t                                                    pass_count = 0; // passes started by this processor
 
 public:
     using parameter_initializer_list =  std::initializer_list< std::tuple< std::string, parameter_type, parameter_port::extra_t > >;
@@ -1018,9 +1033,8 @@ public:
             auto* input_port =    to_bind.to.processor->get_input( to_bind.to.name    );
 
             // TODO: improve errors telling I/O
-            jassert( nullptr != output_port             );
-            jassert( nullptr != output_port->dispatcher );
-            jassert( nullptr != input_port              );
+            jassert( nullptr != output_port );
+            jassert( nullptr != input_port  );
 
             to_bind.from.processor->bind_output( *output_port, *input_port );
         }
@@ -1037,7 +1051,7 @@ public:
     };
 
 public:
-    // ports keep `this` and point into the port/dispatcher vectors: copying or moving would leave them dangling
+    // ports keep `this` and point into the port vectors: copying or moving would leave them dangling
     base_processor(             const base_processor& ) = delete;
     base_processor(                   base_processor&& ) = delete;
     base_processor& operator = ( const base_processor& ) = delete;
@@ -1046,7 +1060,7 @@ public:
     virtual ~base_processor( void ) = default;
 
     base_processor( parameter_initializer_list inputs,
-                    parameter_initializer_list outputs ) : has_processed( false ) {
+                    parameter_initializer_list outputs ) {
 
         input_ports.reserve( inputs.size( ) );
         for ( auto port_decl : inputs ) {
@@ -1056,66 +1070,34 @@ public:
             named_input_ports.insert( std::pair< std::string, parameter_port* >( port_added.name, &port_added ) );
         }
 
-        output_ports.reserve(      outputs.size( ) );
-        otput_dispatchers.reserve( outputs.size( ) );
-
+        output_ports.reserve( outputs.size( ) );
         for ( auto port_decl : outputs ) {
             auto [ name, type, extra ] = port_decl;
             output_ports.push_back( parameter_port( this, name, type, extra ) );
             auto& port_added = output_ports[ output_ports.size( ) - 1 ];
             named_output_ports.insert( std::pair< std::string, parameter_port* >( port_added.name, &port_added ) );
-
-            otput_dispatchers.push_back( dispatcher() );
-            port_added.dispatcher = &otput_dispatchers[ otput_dispatchers.size( ) - 1 ];
         }
     }
 
     void bind_output( parameter_port& from, parameter_port& to ) {
-        jassert( from.type == to.type );
-        jassert( nullptr   == to.dispatcher );
+        jassert( from.owner == this );
+        jassert( from.type  == to.type );
+        jassert( nullptr    == to.provider_port );                              // an input has a single provider
+        jassert( to.owner   != this && !depends_on( to.owner ) );                // no cycles
 
-        to.dispatcher    = from.dispatcher;
         to.provider_port = &from;
-        output_consumers.insert( &to );
+        from.consumers.push_back( &to );
+    }
 
-        // TODO: check for double listens and overriden bindings
-        // TODO: store handles and make things unbindable
-        switch ( to.type ) {
-            case k_midi_note:
-                from.dispatcher->listen< events::note_on >(
-                    [ & ] ( const events::note_on& event ) {
-                        to.owner->process_event( event, from, to );
-                    }
-                );
-                from.dispatcher->listen< events::note_off >(
-                    [ & ] ( const events::note_off& event ) {
-                        to.owner->process_event( event, from, to );
-                    }
-                );
-                break;
-            case k_midi_channel_note:
-                from.dispatcher->listen< events::channel_note_on >(
-                    [ & ] ( const events::channel_note_on& event ) {
-                        to.owner->process_event( event, from, to );
-                    }
-                );
-                from.dispatcher->listen< events::channel_note_off >(
-                    [ & ] ( const events::channel_note_off& event ) {
-                        to.owner->process_event( event, from, to );
-                    }
-                );
-                break;
-            case k_value:
-                from.dispatcher->listen< events::value_change >(
-                    [ & ] ( const events::value_change& event ) {
-                        to.owner->process_event( event, from, to );
-                    }
-                );
-            break;
-            case k_invalid:
-            default:
-            jassert( false );
+    // true if `processor` is upstream of this one
+    bool depends_on( const base_processor* processor ) const {
+        for ( const auto& input_port : input_ports ) {
+            if ( input_port.provider_port ) {
+                const base_processor* provider = input_port.provider_port->owner;
+                if ( provider == processor || provider->depends_on( processor ) ) return true;
+            }
         }
+        return false;
     }
 
     parameter_port* get_output( const std::string& port_name ) {
@@ -1134,14 +1116,21 @@ public:
     virtual void process_event( const events::channel_note_off&, parameter_port&, parameter_port& ) { };
     virtual void process_event( const events::value_change&,     parameter_port&, parameter_port& ) { };
 
-    template < class T, class U, class V >
-    bool enqueue_event( parameter_port& output_port, events::event_type_enum event_type, T channel, U note, V velocity ) {
-        jassert( nullptr                                                         != output_port.dispatcher    );
-        jassert( named_output_ports.find( output_port.name )                     != named_output_ports.end( ) );
-        jassert( named_output_ports.find( output_port.name )->second->dispatcher == output_port.dispatcher    );
+    // delivers the event to every input bound to output_port, right now
+    template < typename event_t >
+    void emit( parameter_port& output_port, const event_t& event ) {
+        jassert( output_port.owner == this );
+        jassert( output_port.type  == port_type_of< event_t >( ) );
 
+        for ( parameter_port* consumer : output_port.consumers ) {
+            consumer->owner->process_event( event, output_port, *consumer );
+        }
+    }
+
+    template < class T, class U, class V >
+    bool emit( parameter_port& output_port, events::event_type_enum event_type, T channel, U note, V velocity ) {
         if ( events::k_note_on == event_type ) {
-            enqueue_event(
+            emit(
                 output_port,
                 events::channel_note_on(
                     static_cast< int8_t  >( channel ),
@@ -1152,7 +1141,7 @@ public:
             return true;
 
         } else if ( events::k_note_off == event_type ) {
-            enqueue_event(
+            emit(
                 output_port,
                 events::channel_note_off(
                     static_cast< int8_t  >( channel ),
@@ -1167,13 +1156,9 @@ public:
     }
 
     template < class U, class V >
-    bool enqueue_event( parameter_port& output_port, events::event_type_enum event_type, U note, V velocity ) {
-        jassert( nullptr != output_port.dispatcher );
-        jassert( named_output_ports.find( output_port.name ) != named_output_ports.end( ) );
-        jassert( named_output_ports.find( output_port.name )->second->dispatcher == output_port.dispatcher );
-
+    bool emit( parameter_port& output_port, events::event_type_enum event_type, U note, V velocity ) {
         if ( events::k_note_on == event_type ) {
-            enqueue_event(
+            emit(
                 output_port,
                 events::note_on(
                     static_cast< int8_t  >( note ),
@@ -1183,14 +1168,13 @@ public:
             return true;
 
         } else if ( events::k_note_off == event_type ) {
-            enqueue_event(
+            emit(
                 output_port,
                 events::note_off(
                     static_cast< int8_t  >( note ),
                     static_cast< uint8_t >( velocity )
                 )
             );
-
             return true;
         }
 
@@ -1198,16 +1182,16 @@ public:
     }
 
 #ifdef JUCE_VERSION
-    bool enqueue_event( parameter_port& output_port, const juce::MidiMessage& event ) {
+    bool emit( parameter_port& output_port, const juce::MidiMessage& event ) {
         if ( event.isNoteOn( ) ) {
-            enqueue_event(
+            emit(
                 output_port,
                 events::channel_note_on( event.getChannel( ), event.getNoteNumber( ), event.getVelocity( ) )
             );
             return true;
 
         } else if ( event.isNoteOff( ) ) {
-            enqueue_event(
+            emit(
                 output_port,
                 events::channel_note_off( event.getChannel( ), event.getNoteNumber( ), event.getVelocity( ) )
             );
@@ -1218,86 +1202,28 @@ public:
     };
 #endif
 
-    template < typename T >
-    bool enqueue_event( parameter_port& output_port, const T& the_event ) {
-        jassert( nullptr != output_port.dispatcher );
-        jassert( named_output_ports.find( output_port.name ) != named_output_ports.end( ) );
-        jassert( named_output_ports.find( output_port.name )->second->dispatcher == output_port.dispatcher );
+    // pulls the graph: runs every provider upstream ( once ), then this processor
+    void backtrack_process( void ) {
+        backtrack_process( pass_token{ this, ++pass_count } );
+    }
 
-        output_port.dispatcher->queue( the_event );
+    virtual void process( void ) { }
 
-        if constexpr (
-            std::is_same_v< T, events::note_on          > ||
-            std::is_same_v< T, events::note_off         > ||
-            std::is_same_v< T, events::channel_note_on  > ||
-            std::is_same_v< T, events::channel_note_off > ||
-            std::is_same_v< T, events::value_change     >
-        ) {
-            return true;
+private:
+    void backtrack_process( pass_token pass ) {
+        if ( last_pass == pass ) {
+            return; // already ran in this pass ( a provider feeding several branches )
         }
+        last_pass = pass;
 
-        // unreachable - and it should be this way
-        // return false;
-    }
-
-    void dispatch_events( void ) {
-        std::for_each(
-            output_ports.begin( ),
-            output_ports.end( ),
-            [ & ] ( auto& output_port ) {
-                jassert( nullptr != output_port.dispatcher );
-                output_port.dispatcher->process( );
-            }
-        );
-    }
-
-    void set_provided( parameter_port* port ) {
-        jassert( nullptr != port        );
-        jassert( this    != port->owner );
-
-        provided_inputs.insert( port );
-    }
-
-    void remove_provided( parameter_port* port ) {
-        jassert( nullptr != port        );
-        jassert( this    != port->owner );
-
-        provided_inputs.erase( port );
-    }
-
-    void backtrack_process_execute( void ) {
         for ( auto& input_port : input_ports ) {
-            if ( input_port.provider_port && provided_inputs.find( input_port.provider_port ) == provided_inputs.end( ) ) {
-                input_port.provider_port->owner->backtrack_process_execute( );
+            if ( input_port.provider_port ) {
+                input_port.provider_port->owner->backtrack_process( pass );
             }
         }
 
         process( );
-        dispatch_events( );
-
-        for ( auto consumer : output_consumers ) {
-            consumer->owner->set_provided( consumer->provider_port );
-        }
     }
-
-    void backtrack_process_clear( void ) {
-        for ( auto& input_port : input_ports ) {
-            if ( input_port.provider_port && provided_inputs.find( input_port.provider_port ) != provided_inputs.end( ) ) {
-                input_port.provider_port->owner->backtrack_process_clear( );
-            }
-        }
-
-        for ( auto consumer : output_consumers ) {
-            consumer->owner->remove_provided( consumer->provider_port );
-        }
-    }
-
-    void backtrack_process( void ) {
-        backtrack_process_execute( );
-        backtrack_process_clear( );
-    }
-
-    virtual void process( void ) { }
 };
 
 //---------------------------------------------------------------------------------------------------------------------------
@@ -1316,12 +1242,12 @@ public:
 
     template < class T, class U, class V >
     void note_on( T channel, U note, V velocity ) {
-        enqueue_event( channel_notes, events::k_note_on, channel, note, velocity );
+        emit( channel_notes, events::k_note_on, channel, note, velocity );
     }
 
     template < class T, class U, class V >
     void note_off( T channel, U note, V velocity ) {
-        enqueue_event( channel_notes, events::k_note_off, channel, note, velocity );
+        emit( channel_notes, events::k_note_off, channel, note, velocity );
     }
 
 #ifdef JUCE_VERSION
@@ -1331,7 +1257,7 @@ public:
             midi_buffer.begin( ),
             midi_buffer.end( ),
             [ & ] ( juce::MidiBufferIterator::reference buffer_itr ) {
-                needs_processing |= enqueue_event( channel_notes, buffer_itr.getMessage( ) );
+                needs_processing |= emit( channel_notes, buffer_itr.getMessage( ) );
             }
         );
 
@@ -1411,7 +1337,7 @@ private:
     template < typename T >
     inline void process_event_tmpl( const T& event ) {
         jassert( event.channel > 0 && event.channel <= 16 );
-        enqueue_event( *channel_output_ports[ event.channel - 1 ], event.k_event_type, event.note, event.velocity );
+        emit( *channel_output_ports[ event.channel - 1 ], event.k_event_type, event.note, event.velocity );
     };
 };
 
@@ -1524,7 +1450,7 @@ public:
 private:
     template < typename T >
     inline void process_note_event_tmpl( const T& event, parameter_port& to ) {
-        enqueue_event( *channel_output_ports[ std::get< int32_t >( to.extra ) - 1 ], event );
+        emit( *channel_output_ports[ std::get< int32_t >( to.extra ) - 1 ], event );
     };
 };
 
@@ -1580,7 +1506,7 @@ private:
     inline void process_note_event_tmpl( const T& event, parameter_port& to ) {
         jassert( std::get< int32_t >( to.extra ) > 0 && std::get< int32_t >( to.extra ) <= 16 );
 
-        enqueue_event( channel_output, event.k_event_type, std::get< int32_t >( to.extra ), event.note, event.velocity );
+        emit( channel_output, event.k_event_type, std::get< int32_t >( to.extra ), event.note, event.velocity );
     };
 };
 
@@ -1604,7 +1530,7 @@ public:
         jassert( event.note >= 0 && event.note < 128 );
 
         if ( 1 == ++refcount[ event.note ] ) {
-            enqueue_event( output_port, event );
+            emit( output_port, event );
         }
     };
 
@@ -1614,7 +1540,7 @@ public:
         if ( 0 == refcount[ event.note ] ) return;
         
         if ( 0 == --refcount[ event.note ] ) {
-            enqueue_event( output_port, event );
+            emit( output_port, event );
         }
     };
 };
@@ -1717,8 +1643,8 @@ public:
         }
 
         container::diff( active_notes, kept,
-            [ & ] ( const midi_note& note ) { this->enqueue_event( output_port, events::k_note_off, note.note, note.velocity ); },
-            [ & ] ( const midi_note& note ) { this->enqueue_event( output_port, events::k_note_on,  note.note, note.velocity ); }
+            [ & ] ( const midi_note& note ) { this->emit( output_port, events::k_note_off, note.note, note.velocity ); },
+            [ & ] ( const midi_note& note ) { this->emit( output_port, events::k_note_on,  note.note, note.velocity ); }
         );
 
         active_notes = kept;
@@ -1818,8 +1744,8 @@ public:
 
         // based on what was outputted previous time, it can be verified what's note on and off
         container::diff( notes, active_notes,
-            [ & ] ( const midi_note& note ) { enqueue_event( output_port, events::note_off( note ) ); },
-            [ & ] ( const midi_note& note ) { enqueue_event( output_port, events::note_on(  note ) ); }
+            [ & ] ( const midi_note& note ) { emit( output_port, events::note_off( note ) ); },
+            [ & ] ( const midi_note& note ) { emit( output_port, events::note_on(  note ) ); }
         );
 
         // new notes are now old
@@ -1928,12 +1854,12 @@ public:
     }
 
     void all_notes_off( void ) {
-        // enqueue offs for whatever is on the output port
+        // note offs for whatever is on the output port
         std::for_each(
             chord_notes_output.begin( ),
             chord_notes_output.end( ),
             [ & ] ( const midi_note& note ) { // in notes (output) but not in active_notes (freshly computed) - note off
-                enqueue_event( chord_notes_output_port, events::note_off( note ) );
+                emit( chord_notes_output_port, events::note_off( note ) );
             }
         );
         chord_notes_output.clear( );
@@ -1942,14 +1868,14 @@ public:
             pattern_degrees_output.begin( ),
             pattern_degrees_output.end( ),
             [ & ] ( const midi_note& note ) { // in notes (output) but not in active_notes (freshly computed) - note off
-                enqueue_event( pattern_degrees_output_port, events::note_off( note ) );
+                emit( pattern_degrees_output_port, events::note_off( note ) );
             }
         );
         pattern_degrees_output.clear( );
 
         scale_code.reset( );
         scale_code_output.value = static_cast< uint16_t >( 0 );
-        enqueue_event( scale_code_output_port, scale_code_output );
+        emit( scale_code_output_port, scale_code_output );
     }
 
     virtual void process( void ) override {
@@ -1985,7 +1911,7 @@ public:
         // dispatch the scale code value change
         scale_code              = chosen_chord->scale_code;
         scale_code_output.value = static_cast< uint16_t >( scale_code.to_ulong( ) );
-        enqueue_event( scale_code_output_port, scale_code_output );
+        emit( scale_code_output_port, scale_code_output );
 
         // ------- chord_notes output ------- //
         // and dispatch the note on/off events required to make the output to be equal to the new scale
@@ -1997,11 +1923,11 @@ public:
         container::diff( chord_notes_output, active_notes,
             // in chord_notes_output (output) but not in active_notes (freshly computed) - note off
             [ & ] ( const midi_note& note ) {
-                enqueue_event( chord_notes_output_port, events::note_off( note ) );
+                emit( chord_notes_output_port, events::note_off( note ) );
             },
             // in active_notes (freshly computed) but not in chord_notes_output - note on
             [ & ] ( const midi_note& note ) {
-                enqueue_event( chord_notes_output_port, events::note_on( note ) );
+                emit( chord_notes_output_port, events::note_on( note ) );
             }
         );
 
@@ -2050,11 +1976,11 @@ public:
         container::diff( pattern_degrees_output, active_notes,
             // in pattern_degrees_output (output) but not in active_notes (freshly computed) - note off
             [ & ] ( const midi_note& note ) {
-                enqueue_event( pattern_degrees_output_port, events::note_off( note ) );
+                emit( pattern_degrees_output_port, events::note_off( note ) );
             },
             // in active_notes (freshly computed) but not in pattern_degrees_output - note on
             [ & ] ( const midi_note& note ) {
-                enqueue_event( pattern_degrees_output_port, events::note_on( note ) );
+                emit( pattern_degrees_output_port, events::note_on( note ) );
             }
         );
 
@@ -2262,10 +2188,10 @@ public:
                     strip.output,
                     strip.buffered_input.buffer,
                     [ & ] ( const midi_note& note ) {
-                        enqueue_event( strip.output_port, events::note_off( note ) );
+                        emit( strip.output_port, events::note_off( note ) );
                     },
                     [ & ] ( const midi_note& note ) {
-                        enqueue_event( strip.output_port, events::note_on( note ) );
+                        emit( strip.output_port, events::note_on( note ) );
                     }
                 );
 

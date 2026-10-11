@@ -55,11 +55,18 @@ public:
 
 
     void process_midi( juce::MidiBuffer& midi_buffer ) {
-        if ( input.generate_events( midi_buffer, true ) ) {
-            output.set_output_midi_buffer( midi_buffer );
-            output.backtrack_process( );
-        }
+        // events are delivered immediately, so the output may be written while the input is still being read:
+        // move the input aside first, then the host buffer only receives output
+        incoming_midi_buffer.swapWith( midi_buffer );
+        midi_buffer.clear( );
+        output.set_output_midi_buffer( midi_buffer );
+
+        input.generate_events( incoming_midi_buffer, true );
+        output.backtrack_process( );
     }
+
+private:
+    juce::MidiBuffer                                    incoming_midi_buffer;
 
 public:
    // midi_stuff

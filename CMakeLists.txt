@@ -19,10 +19,7 @@ include( FetchContent )
 add_library( midi_stuff_core INTERFACE )
 add_library( midi_stuff::core ALIAS midi_stuff_core )
 
-target_include_directories( midi_stuff_core INTERFACE
-    ${CMAKE_CURRENT_SOURCE_DIR}/Source
-    ${CMAKE_CURRENT_SOURCE_DIR}/Source/midi_stuff
-)
+target_include_directories( midi_stuff_core INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/Source )
 
 if( MSVC )
     target_compile_options( midi_stuff_core INTERFACE /utf-8 /permissive- /Zc:__cplusplus )
@@ -120,18 +117,26 @@ if( MIDI_STUFF_BUILD_TESTS )
 
     enable_testing( )
 
-    add_executable( midi_stuff_tests
+    set( MIDI_STUFF_TEST_SOURCES
         tests/main.cpp
+        tests/allocation_tests.cpp
         tests/chord_guesser_tests.cpp
-        tests/processor_tests.cpp
         tests/note_set_tests.cpp
+        tests/processor_tests.cpp
     )
 
+    add_executable( midi_stuff_tests ${MIDI_STUFF_TEST_SOURCES} )
     target_link_libraries( midi_stuff_tests PRIVATE midi_stuff::core doctest::doctest )
+    add_test( NAME midi_stuff_tests COMMAND midi_stuff_tests )
 
     if( NOT MSVC )
         target_compile_options( midi_stuff_tests PRIVATE -Wall -Wextra )
-    endif( )
 
-    add_test( NAME midi_stuff_tests COMMAND midi_stuff_tests )
+        # the same tests built like firmware ( Teensy ): no exceptions, no RTTI
+        add_executable( midi_stuff_tests_embedded ${MIDI_STUFF_TEST_SOURCES} )
+        target_link_libraries( midi_stuff_tests_embedded PRIVATE midi_stuff::core doctest::doctest )
+        target_compile_options( midi_stuff_tests_embedded PRIVATE -Wall -Wextra -fno-exceptions -fno-rtti )
+        target_compile_definitions( midi_stuff_tests_embedded PRIVATE DOCTEST_CONFIG_NO_EXCEPTIONS_BUT_WITH_ALL_ASSERTS )
+        add_test( NAME midi_stuff_tests_embedded COMMAND midi_stuff_tests_embedded )
+    endif( )
 endif( )
