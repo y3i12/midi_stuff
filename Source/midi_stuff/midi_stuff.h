@@ -19,8 +19,8 @@
 #include <initializer_list>
 #include <limits>
 #include <list>
-#include <mutex>
 #include <optional>
+#include <shared_mutex>
 #include <string>
 #include <type_traits>
 #include <thread>
@@ -150,15 +150,10 @@ void do_loop_while_condition( auto loop, auto condition ) {
 
 namespace threads {
 
+// many readers or one writer. backed by std::shared_mutex: it blocks, so keep the critical sections short.
+// TODO: the audio thread shouldn't block at all - consider a lock-free double buffer / seqlock
 struct read_write_lock {
-    std::mutex          write_mutex;
-    std::atomic_bool    writing;
-    std::atomic_int32_t reading;
-
-    read_write_lock ( void ) :
-        writing( false ),
-        reading( 0 ) {
-    }
+    std::shared_mutex   mutex;
 
     struct read_guard {
         read_write_lock& lock;
@@ -176,41 +171,10 @@ struct read_write_lock {
         ~write_guard( void )                                  { lock.write_end(   ); }
     };
 
-    void read_start( void ) {
-        if ( writing.load( ) ) writing.wait( false );
-        ++reading;
-    }
-
-    void read_end( void ) {
-        int32_t current_readers = reading.load( );
-        
-        if ( current_readers < 0 ) {
-            reading.store( 0 );
-            reading.notify_all( );
-            return;
-        }
-
-        if ( current_readers == 0 ) {
-            return;
-        }
-
-        if ( 0 == --reading ) {
-            reading.notify_all( );
-        }
-    }
-
-    void write_start( void ) {
-        write_mutex.lock( );
-        writing.store( true );
-
-        if ( reading.load( ) > 0 ) reading.wait( 0 );
-    }
-
-    void write_end( void ) {
-        writing = false;
-        writing.notify_all( );
-        write_mutex.unlock( );
-    }
+    void read_start(  void ) { mutex.lock_shared(   ); }
+    void read_end(    void ) { mutex.unlock_shared( ); }
+    void write_start( void ) { mutex.lock(          ); }
+    void write_end(   void ) { mutex.unlock(        ); }
 };
 
 template < typename object_t >
@@ -377,7 +341,7 @@ struct midi_note {
     }
 
     operator uint16_t( ) const {
-        return static_cast< uint16_t >( ( note << 8 ) & velocity );
+        return static_cast< uint16_t >( ( note << 8 ) | velocity );
     }
 
     operator note_t( ) const {
@@ -600,17 +564,17 @@ struct midi_stuff_chord_guesser {
         const named_noteset* best_fitting_named_noteset = &chord_descriptors.back( ); // set it to guard, always returning a valid hypothesis
         int32_t              max_score                  = std::numeric_limits< int32_t >::min( );
 
-        auto discard_itr = std::find_if(
+        std::find_if(
             chord_descriptors.begin( ),
             chord_descriptors.end( ),
             [ & ]( const named_noteset& hypothesis_chord ) {
-                int32_t distance_score = static_cast< int32_t >( ( input_scale_code & ~hypothesis_chord.scale_code ).count( ) ); // Unmatching input scale notes
-
                 // short circuit on a perfect match
-                if ( 0 == distance_score ) {
+                if ( input_scale_code == hypothesis_chord.scale_code ) {
+                    best_fitting_named_noteset = &hypothesis_chord;
                     return true;
                 }
 
+                int32_t distance_score = static_cast< int32_t >( ( input_scale_code & ~hypothesis_chord.scale_code ).count( ) ); // Unmatching input scale notes
                 int32_t ms_score = static_cast< int32_t >( ( input_scale_code &  hypothesis_chord.ms_notes_code ).count( ) ); // matching MSn
                 int32_t ls_score = static_cast< int32_t >( ( input_scale_code &  hypothesis_chord.ls_notes_code ).count( ) ); // matching LSn
                 int32_t score    = math::pow< 3 >( ms_score ) + math::pow< 2 >( ls_score ) - distance_score;
@@ -1055,6 +1019,14 @@ public:
     };
 
 public:
+    // ports keep `this` and point into the port/dispatcher vectors: copying or moving would leave them dangling
+    base_processor(             const base_processor& ) = delete;
+    base_processor(                   base_processor&& ) = delete;
+    base_processor& operator = ( const base_processor& ) = delete;
+    base_processor& operator = (       base_processor&& ) = delete;
+
+    virtual ~base_processor( void ) = default;
+
     base_processor( parameter_initializer_list inputs,
                     parameter_initializer_list outputs ) : has_processed( false ) {
 
@@ -1276,9 +1248,8 @@ public:
     }
 
     void backtrack_process_execute( void ) {
-        // TODO: avoid processing same node 2 times
         for ( auto& input_port : input_ports ) {
-            if ( input_port.provider_port && provided_inputs.find( &input_port ) == provided_inputs.end( ) ) {
+            if ( input_port.provider_port && provided_inputs.find( input_port.provider_port ) == provided_inputs.end( ) ) {
                 input_port.provider_port->owner->backtrack_process_execute( );
             }
         }
@@ -1293,7 +1264,7 @@ public:
 
     void backtrack_process_clear( void ) {
         for ( auto& input_port : input_ports ) {
-            if ( input_port.provider_port && provided_inputs.find( &input_port ) != provided_inputs.end( ) ) {
+            if ( input_port.provider_port && provided_inputs.find( input_port.provider_port ) != provided_inputs.end( ) ) {
                 input_port.provider_port->owner->backtrack_process_clear( );
             }
         }
@@ -1342,7 +1313,7 @@ public:
             midi_buffer.begin( ),
             midi_buffer.end( ),
             [ & ] ( juce::MidiBufferIterator::reference buffer_itr ) {
-                needs_processing = enqueue_event( channel_notes, buffer_itr.getMessage( ) );
+                needs_processing |= enqueue_event( channel_notes, buffer_itr.getMessage( ) );
             }
         );
 
@@ -1522,10 +1493,11 @@ public:
         process_note_event_tmpl( event, to );
     };
 
-    virtual void process_event( const events::value_change& event, parameter_port&, parameter_port& to ) {
+    virtual void process_event( const events::value_change& event, parameter_port&, parameter_port& to ) override {
         if ( k_channel_mute == std::get< int32_t >( to.extra ) ) {
-            jassert( std::get< int32_t >( event.value ) <= k_last_channel );
-            channel_mute[ std::get< int32_t >( event.value ) ] = !channel_mute[ std::get< int32_t >( event.value ) ];
+            const int32_t channel = std::get< int32_t >( event.value ); // 1-based, like the ports
+            jassert( channel > 0 && channel <= k_last_channel );
+            channel_mute[ channel - 1 ] = !channel_mute[ channel - 1 ];
         } else if ( k_mute_all == std::get< int32_t >( to.extra ) ) {
             mute_all = !mute_all;
         }
@@ -1825,8 +1797,8 @@ public:
             {
                 { "chord_notes",       k_midi_note, k_chord_notes_input    },
                 { "sequence_notes",    k_midi_note, k_sequence_notes_input },
-                { "input_floor_note",  k_midi_note, k_input_floor_note     },
-                { "output_floor_note", k_midi_note, k_output_floor_note    }
+                { "input_floor_note",  k_value,     k_input_floor_note     }, // value ports: they receive value_change, not notes
+                { "output_floor_note", k_value,     k_output_floor_note    }
             },
             {
                 { "notes",             k_midi_note, k_notes_output         }
@@ -1836,8 +1808,8 @@ public:
         sequence_notes( ),
         input_floor_note( 0 ),
         output_floor_note( 0 ),
-        im_a_dirty_object( false ),
-        output_port( *this->get_output( "notes" ) ) { }
+        output_port( *this->get_output( "notes" ) ),
+        im_a_dirty_object( false ) { }
 
     virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& to ) override {
         jassert( event.note >= 0 && event.note < 128 );
@@ -1894,15 +1866,14 @@ public:
                     auto index         =   static_cast< int >( sequence_note.note ) % chord_notes_vector.size( );
                     auto octave_shift  = ( static_cast< int >( sequence_note.note ) / chord_notes_vector.size( ) ) * 12;
 
-                    int8_t note_value  = static_cast< int8_t >( chord_notes_vector[ index ].get( ).note );
-                    note_value        += static_cast< int8_t >( octave_shift );
+                    int note_value     = static_cast< int >( chord_notes_vector[ index ].get( ).note ) + static_cast< int >( octave_shift );
 
-                    // if the arp generate a note out of range, it is folded back into range
-                    if ( note_value > 127 ) {
-                        note_value -= ( note_value / 120 ) * 120;
+                    // if the arp generate a note out of range, it is folded back into range, an octave at a time (keeps the pitch class)
+                    while ( note_value > 127 ) {
+                        note_value -= 12;
                     }
 
-                    midi_note new_note( note_value, sequence_note.velocity );
+                    midi_note new_note( static_cast< int8_t >( note_value ), sequence_note.velocity );
                     active_notes.insert( new_note );
                 }
             );
@@ -2007,7 +1978,7 @@ public:
 
         switch ( std::get< int32_t >( to.extra ) ) {
             case k_root_note_input:        {           root_note = static_cast< note_t >( abs_note );      im_a_dirty_object = true; } break;
-            case k_chord_notes_input:   if (   chord_notes.insert( static_cast< note_t >( abs_note ) ) ) { im_a_dirty_object = true; } break;
+            case k_chord_notes_input:   if (   chord_notes.insert(                        event      ) ) { im_a_dirty_object = true; } break; // keeps the octave: the lowest note is the fallback root
             case k_pattern_notes_input: if ( pattern_notes.insert(                        event      ) ) { im_a_dirty_object = true; } break;
             default: jassert( 0 );
         }
@@ -2018,7 +1989,7 @@ public:
 
         switch ( std::get< int32_t >( to.extra ) ) {
             case k_root_note_input:     if ( root_note && root_note.value( ).note == abs_note   ) { root_note = std::nullopt; im_a_dirty_object = true; } break;
-            case k_chord_notes_input:   if ( chord_notes.erase(                      abs_note ) ) {                           im_a_dirty_object = true; } break;
+            case k_chord_notes_input:   if ( chord_notes.erase(                      event    ) ) {                           im_a_dirty_object = true; } break;
             case k_pattern_notes_input: if ( pattern_notes.erase(                    event    ) ) {                           im_a_dirty_object = true; } break;
             default: jassert( 0 );
         }
@@ -2070,7 +2041,7 @@ public:
         if ( root_note ) { // if not provided in channel 1, use lowest
             root_shift = root_note.value( ).note;
         } else {
-            root_shift = chord_notes.front( ).note;
+            root_shift = static_cast< note_t >( chord_notes.front( ).note % 12 );
         }
 
         // refresh internal scale_code and check if the notes changed the output
@@ -2122,8 +2093,8 @@ public:
                         chord_notes_output.end( ),
                         [ & ] ( const midi_note& chord_note ) {
                             ++note_degree;
-                            // lower bound degree
-                            return abs_note <= chord_note.note;
+                            // lower bound degree - chord_notes_output holds root_shift + interval, compare intervals
+                            return abs_note <= chord_note.note - root_shift;
                         }
                     ) == chord_notes_output.end( ) ) {
                     // when not found, it means that the pattern note is an accident upper bound
@@ -2151,6 +2122,8 @@ public:
                 enqueue_event( pattern_degrees_output_port, events::note_off( note ) );
             }
         );
+
+        pattern_degrees_output.notes = active_notes.notes;
 
         im_a_dirty_object = false; // yeessss.... yes... excellent...
     }

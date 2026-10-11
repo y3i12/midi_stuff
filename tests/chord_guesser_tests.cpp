@@ -5,8 +5,8 @@
 #include <string>
 #include <vector>
 
-// Known bugs are marked with `doctest::should_fail( )`: the suite stays green while they're broken,
-// and a test flips to "unexpectedly passed" as soon as its bug is fixed - then drop the decorator.
+// Pin known bugs with `* doctest::should_fail( )`: the suite stays green while they're broken,
+// and the test flips to "unexpectedly passed" as soon as the bug is fixed - then drop the decorator.
 
 namespace {
 
@@ -37,22 +37,21 @@ TEST_CASE( "set_scale_code is relative to the root and skips it" ) {
     CHECK( code.count( ) == 2 );
 }
 
-// bug: the "perfect match" short circuit in get_best_fitting_named_noteset returns before recording the match
-TEST_CASE( "triads are identified" * doctest::should_fail( ) ) {
+TEST_CASE( "triads are identified" ) {
     CHECK( guess( { 0, 4, 7 }, 0 ) == "major" );
     CHECK( guess( { 0, 3, 7 }, 0 ) == "minor" );
     CHECK( guess( { 0, 3, 6 }, 0 ) == "dim"   );
     CHECK( guess( { 0, 4, 8 }, 0 ) == "aug"   );
 }
 
-TEST_CASE( "sevenths and extensions are identified" * doctest::should_fail( ) ) {
+TEST_CASE( "sevenths and extensions are identified" ) {
     CHECK( guess( { 0, 4, 7, 10    }, 0 ) == "7"    );
     CHECK( guess( { 0, 4, 7, 11    }, 0 ) == "maj7" );
     CHECK( guess( { 0, 3, 7, 10    }, 0 ) == "m7"   );
     CHECK( guess( { 0, 4, 7, 11, 2 }, 0 ) == "maj9" );
 }
 
-TEST_CASE( "identification is transposition invariant" * doctest::should_fail( ) ) {
+TEST_CASE( "identification is transposition invariant" ) {
     CHECK( guess( { 7, 11, 2 }, 7 ) == "major" ); // G major
     CHECK( guess( { 9, 0,  4 }, 9 ) == "minor" ); // A minor
 }
@@ -61,8 +60,7 @@ TEST_CASE( "identification is transposition invariant" * doctest::should_fail( )
 
 TEST_SUITE( "midi_note" ) {
 
-// bug: operator uint16_t combines with `&` instead of `|`
-TEST_CASE( "uint16_t packing round-trips" * doctest::should_fail( ) ) {
+TEST_CASE( "uint16_t packing round-trips" ) {
     midi_note original( 60, 100 );
     uint16_t  packed = original;
 

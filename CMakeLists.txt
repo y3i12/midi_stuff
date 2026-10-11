@@ -123,6 +123,7 @@ if( MIDI_STUFF_BUILD_TESTS )
     add_executable( midi_stuff_tests
         tests/main.cpp
         tests/chord_guesser_tests.cpp
+        tests/processor_tests.cpp
     )
 
     target_link_libraries( midi_stuff_tests PRIVATE midi_stuff::core doctest::doctest )
