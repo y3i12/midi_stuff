@@ -115,6 +115,8 @@ if( MIDI_STUFF_BUILD_TESTS )
     )
     FetchContent_MakeAvailable( doctest )
 
+    find_package( Threads REQUIRED )
+
     enable_testing( )
 
     set( MIDI_STUFF_TEST_SOURCES
@@ -123,11 +125,12 @@ if( MIDI_STUFF_BUILD_TESTS )
         tests/chord_guesser_tests.cpp
         tests/note_set_tests.cpp
         tests/processor_tests.cpp
+        tests/threads_tests.cpp
         tests/value_tests.cpp
     )
 
     add_executable( midi_stuff_tests ${MIDI_STUFF_TEST_SOURCES} )
-    target_link_libraries( midi_stuff_tests PRIVATE midi_stuff::core doctest::doctest )
+    target_link_libraries( midi_stuff_tests PRIVATE midi_stuff::core doctest::doctest Threads::Threads )
     add_test( NAME midi_stuff_tests COMMAND midi_stuff_tests )
 
     if( NOT MSVC )
@@ -135,7 +138,7 @@ if( MIDI_STUFF_BUILD_TESTS )
 
         # the same tests built like firmware ( Teensy ): no exceptions, no RTTI
         add_executable( midi_stuff_tests_embedded ${MIDI_STUFF_TEST_SOURCES} )
-        target_link_libraries( midi_stuff_tests_embedded PRIVATE midi_stuff::core doctest::doctest )
+        target_link_libraries( midi_stuff_tests_embedded PRIVATE midi_stuff::core doctest::doctest Threads::Threads )
         target_compile_options( midi_stuff_tests_embedded PRIVATE -Wall -Wextra -fno-exceptions -fno-rtti )
         target_compile_definitions( midi_stuff_tests_embedded PRIVATE DOCTEST_CONFIG_NO_EXCEPTIONS_BUT_WITH_ALL_ASSERTS )
         add_test( NAME midi_stuff_tests_embedded COMMAND midi_stuff_tests_embedded )

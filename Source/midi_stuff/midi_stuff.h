@@ -11,22 +11,18 @@
 
 #include <algorithm>
 #include <array>
-#include <bit>
 #include <atomic>
+#include <bit>
 #include <bitset>
-#include <cmath>
 #include <cstdint>
-#include <functional>
+#include <cstring>
 #include <initializer_list>
 #include <limits>
-#include <list>
 #include <optional>
-#include <shared_mutex>
 #include <string>
+#include <tuple>
 #include <type_traits>
-#include <thread>
 #include <unordered_map>
-#include <unordered_set>
 #include <variant>
 #include <vector>
 
@@ -93,121 +89,126 @@ void do_loop_while_condition( auto loop, auto condition ) {
 
 namespace threads {
 
-// many readers or one writer. backed by std::shared_mutex: it blocks, so keep the critical sections short.
-// TODO: the audio thread shouldn't block at all - consider a lock-free double buffer / seqlock
-struct read_write_lock {
-    std::shared_mutex   mutex;
-
-    struct read_guard {
-        read_write_lock& lock;
-
-        read_guard( void ) = delete;
-        read_guard( read_write_lock& _lock ) : lock( _lock ) { lock.read_start( ); }
-        ~read_guard( void )                                  { lock.read_end(   ); }
-    };
-
-    struct write_guard {
-        read_write_lock& lock;
-
-        write_guard( void ) = delete;
-        write_guard( read_write_lock& _lock ) : lock( _lock ) { lock.write_start( ); }
-        ~write_guard( void )                                  { lock.write_end(   ); }
-    };
-
-    void read_start(  void ) { mutex.lock_shared(   ); }
-    void read_end(    void ) { mutex.unlock_shared( ); }
-    void write_start( void ) { mutex.lock(          ); }
-    void write_end(   void ) { mutex.unlock(        ); }
-};
+//---------------------------------------------------------------------------------------------------------------------------
+// midi stuff :: threads :: seqlock object
+//
+// shares a trivially copyable object between threads without locks: write( ) never waits for readers, read( ) never
+// blocks a writer - it copies, and copies again if a write happened meanwhile ( a write is a few dozen stores ).
+//
+// the sequence is odd while a write is in progress. writers take the odd state with a compare-exchange, so two writers
+// can't interleave ( they'd only spin on each other - one writer per object is the intended use ). the object lives
+// in relaxed atomic words ordered by fences ( Boehm, "Can seqlocks get along with programming language memory models?" ),
+// so concurrent reads and writes are not data races. 32 bit words: lock-free on 32 bit MCUs as well.
+//
+// caveat for single core systems: a reader that preempts a writer ( an ISR reading what the main loop writes ) would
+// spin forever. read from the preempted side, or use an SPSC queue there.
+//---------------------------------------------------------------------------------------------------------------------------
 
 template < typename object_t >
-struct concurrent_object {
+class seqlock_object {
+public:
+    using object_type   = object_t;
+    using sequence_type = uint32_t;
+
 private:
-    read_write_lock     lock;
-    object_t            object;
-    std::atomic_uint8_t revision;
+    static_assert( std::is_trivially_copyable_v< object_type >, "seqlock_object copies the object as raw words" );
+
+    using word_t = uint32_t;
+    static_assert( std::atomic< word_t        >::is_always_lock_free );
+    static_assert( std::atomic< sequence_type >::is_always_lock_free );
+
+    static constexpr size_t k_words = ( sizeof( object_type ) + sizeof( word_t ) - 1 ) / sizeof( word_t );
+
+    std::atomic< sequence_type >                 sequence{ 0 };
+    std::array< std::atomic< word_t >, k_words > words{ };   // all zero: an object of all zero bytes
 
 public:
-    void read_visit( auto func ) {
-        read_write_lock::read_guard guard( lock );
-        func( object );
+    // returns the sequence of the stored object ( even )
+    sequence_type write( const object_type& object ) {
+        std::array< word_t, k_words > raw{ };
+        std::memcpy( raw.data( ), &object, sizeof( object_type ) );
+
+        sequence_type current = sequence.load( std::memory_order_relaxed );
+        do {
+            current &= ~sequence_type( 1 ); // only start from an even ( idle ) sequence
+        } while ( !sequence.compare_exchange_weak( current, current + 1, std::memory_order_relaxed ) );
+
+        std::atomic_thread_fence( std::memory_order_release ); // the odd sequence is visible before any word changes
+
+        for ( size_t i = 0; i < k_words; ++i ) {
+            words[ i ].store( raw[ i ], std::memory_order_relaxed );
+        }
+
+        sequence.store( current + 2, std::memory_order_release ); // the words are visible before the even sequence
+        return current + 2;
     }
 
-    void write_visit( auto func ) {
-        read_write_lock::write_guard guard( lock );
-        func( object );
-        ++revision;
+    // copies a consistent snapshot into `object`, returns its sequence ( even )
+    sequence_type read( object_type& object ) const {
+        std::array< word_t, k_words > raw;
+
+        while ( true ) {
+            const sequence_type before = sequence.load( std::memory_order_acquire );
+
+            if ( before & 1 ) {
+                continue; // a write is in progress
+            }
+
+            for ( size_t i = 0; i < k_words; ++i ) {
+                raw[ i ] = words[ i ].load( std::memory_order_relaxed );
+            }
+
+            std::atomic_thread_fence( std::memory_order_acquire ); // the words are read before the sequence is checked again
+
+            if ( sequence.load( std::memory_order_relaxed ) == before ) {
+                std::memcpy( &object, raw.data( ), sizeof( object_type ) );
+                return before;
+            }
+        }
     }
 
-    uint8_t get_revision( void ) { return revision; }
-
+    // changes with every write: compare with what read( ) / write( ) returned to know if there's something new
+    sequence_type version( void ) const {
+        return sequence.load( std::memory_order_acquire );
+    }
 };
 
-template < typename object_t >
+//---------------------------------------------------------------------------------------------------------------------------
+// midi stuff :: threads :: buffered object
+//
+// a local copy ( buffer ) of an object shared by every buffered_object< object_t, uuid > in the process. edit the buffer
+// and flush( ) it, or read( ) to refresh the buffer when someone else flushed.
+//---------------------------------------------------------------------------------------------------------------------------
+
+template < typename object_t, uint32_t _uuid >
 struct buffered_object {
 public:
-    using object_type             = object_t;
-    using concurrent_object_type  = midi_stuff::threads::concurrent_object< object_type >;
+    using object_type = object_t;
+    using shared_type = seqlock_object< object_type >;
+
+    static constexpr uint32_t uuid = _uuid;
+
+    object_type buffer{ };
+
+private:
+    typename shared_type::sequence_type seen_version = 0; // the shared object starts zeroed - same as a fresh buffer
+
+    inline static shared_type shared; // one per ( object_t, uuid ), shared by every instance in the process
 
 public:
-    object_type buffer;
-
-protected:
-    uint8_t     revision;
-
-public:
-    buffered_object( void ) : revision( std::numeric_limits< uint8_t >::max( ) ) { }
-
     void flush( void ) {
-        get_concurrent_object( ).write_visit(
-            [ & ] ( object_type& write_locked_object ) {
-                write_locked_object = buffer;
-            }
-        );
-        sync_revision( );
+        seen_version = shared.write( buffer );
     }
 
+    // returns true if the buffer changed
     bool read( void ) {
-        concurrent_object_type& concurrent_object( get_concurrent_object( ) );
-        const uint8_t concurrent_object_revision = concurrent_object.get_revision( );
-
-        if ( concurrent_object_revision == revision ) {
+        if ( shared.version( ) == seen_version ) {
             return false;
         }
 
-        concurrent_object.read_visit(
-            [ & ] ( object_type& write_locked_object ) {
-                buffer = write_locked_object;
-            }
-        );
-
-        sync_revision( );
-
+        seen_version = shared.read( buffer );
         return true;
     }
-
-    void sync_revision( void ) {
-        revision = get_concurrent_object( ).get_revision( );
-    }
-
-protected:
-    virtual concurrent_object_type& get_concurrent_object( void ) = 0;
-};
-
-template < typename object_t, uint32_t _uuid >
-struct buffered_object_instance : buffered_object< object_t > {
-public:
-    using            object_type                         = object_t;
-    using            parent_type                         = buffered_object< object_type >;
-    using            concurrent_object_type              = parent_type::concurrent_object_type;
-
-    static constexpr uint32_t uuid                       = _uuid;
-
-protected:
-    virtual concurrent_object_type& get_concurrent_object( void ) override { return concurrent_object; }
-
-private:
-    inline static concurrent_object_type concurrent_object; // one per (object_t, uuid), shared by every instance in the process
 };
 
 } // namespace threads
@@ -2024,7 +2025,7 @@ public:
     using container              = midi_stuff::containers::note_set;
 
     template < uint32_t _uuid >
-    using buffered_container     = midi_stuff::threads::buffered_object_instance< container, _uuid >;
+    using buffered_container     = midi_stuff::threads::buffered_object< container, _uuid >;
 
     template < uint32_t _uuid >
     struct input_output_strip {
