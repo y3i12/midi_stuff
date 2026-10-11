@@ -38,3 +38,9 @@
 
 # ffguy autosaves
 /Source/magic.sav*
+# CMake builds
+/build*/
+/out/
+
+# Nisaba
+.nisaba

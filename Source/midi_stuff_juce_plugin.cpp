@@ -1,5 +1,4 @@
 #include "midi_stuff_juce_plugin.h"
-#include "BinaryData.h"
 
 namespace parameter_id {
 static juce::String receiver{ "receiver" };

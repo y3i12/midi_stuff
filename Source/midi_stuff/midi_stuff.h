@@ -1,17 +1,31 @@
 #pragma once
 
-#include <JuceHeader.h>
+#ifdef MIDI_STUFF_WITH_JUCE
+    #include <JuceHeader.h>
+#endif
+
+#ifndef jassert
+    #include <cassert>
+    #define jassert( expression ) assert( expression )
+#endif
 
 #include <algorithm>
+#include <array>
 #include <bitset>
+#include <cmath>
 #include <cstdint>
 #include <functional>
 #include <initializer_list>
+#include <limits>
 #include <list>
 #include <optional>
+#include <string>
 #include <type_traits>
 #include <thread>
+#include <unordered_map>
 #include <unordered_set>
+#include <variant>
+#include <vector>
 
 #include "etl/atomic.h"
 #include "etl/bitset.h"
@@ -34,7 +48,7 @@ using channel_t  = int8_t;
 
 // FWD Decl
 namespace containers {
-    template < typename type_t, typename comparator_t, typename container_t = std::list< typename type_t > > class sorted_list;
+    template < typename type_t, typename comparator_t, typename container_t = std::list< type_t > > class sorted_list;
 }
 
 struct midi_note;
@@ -58,7 +72,7 @@ namespace utils {
 // criteria and that container has bool container::comparator_type( )( type& a, type& b )
 // implemented the results are inserted in in_a_not_in_b, in_b_not_in_a, in_both
 // and in_undefined ( which has tail that have shroedinger compare results )
-template < typename type_t, typename comparator_t, typename container_t = std::list< typename type_t >, typename const_iterator = typename container_t::const_iterator >
+template < typename type_t, typename comparator_t, typename container_t = std::list< type_t >, typename const_iterator = typename container_t::const_iterator >
 static void symmetric_difference_apply( const midi_stuff::containers::sorted_list< type_t, comparator_t, container_t >& a, const midi_stuff::containers::sorted_list< type_t, comparator_t, container_t >& b,
                                         std::optional < std::function< void( const midi_note& ) > > if_in_a_not_in_b,
                                         std::optional < std::function< void( const midi_note& ) > > if_in_b_not_in_a,
@@ -107,7 +121,7 @@ static void symmetric_difference_apply( const midi_stuff::containers::sorted_lis
     }
 }
 
-// Brian Kernighan’s Algorithm
+// Brian Kernighanâ€™s Algorithm
 template < typename T >
 uint8_t count_bits( T n ) {
     uint8_t count = 0;
@@ -291,7 +305,7 @@ protected:
     virtual concurrent_object_type& get_concurrent_object( void ) override { return concurrent_object; }
 
 private:
-    static  concurrent_object_type concurrent_object;
+    inline static concurrent_object_type concurrent_object; // one per (object_t, uuid), shared by every instance in the process
 };
 
 } // namespace threads
@@ -452,7 +466,7 @@ typedef std::vector< note_t > note_set;
 template < class _note_set_t >
 struct _named_note_set {
     using note_set_t   = _note_set_t;
-    using type         = typename _named_note_set< note_set_t >;
+    using type         = _named_note_set< note_set_t >;
 
     using scale_code_t = typename etl::bitset< 16, uint16_t >;
 
@@ -535,7 +549,7 @@ static const named_noteset_list chord_descriptors = {
     { { 3, 11, 2      }, {       7       }, "mMaj9"    },
     { { 3, 11, 5      }, { 2,    7       }, "mMaj11"   },
     { { 3, 11, 9      }, { 2, 5, 7       }, "mMaj13"   },
-    { { 3, 6, 10      }, {               }, "ø"        },
+    { { 3, 6, 10      }, {               }, "Ã¸"        },
     { { 3, 6          }, {               }, "dim"      },
     { { 3, 6, 9       }, {               }, "dim7"     },
     { { 3, 6, 2,      }, {    9          }, "dim9"     },
@@ -968,7 +982,7 @@ struct parameter_port {
     };
 
     base_processor*       owner;
-    dispatcher*           dispatcher; // allocated always in the output owner
+    tinyevents::Dispatcher* dispatcher; // allocated always in the output owner - spelled out: a member can't reuse the name of the type `dispatcher`
     parameter_port*       provider_port; // for inputs, it points to the output port
 
     const std::string     name;
@@ -1599,7 +1613,7 @@ public:
         base_processor( { { "notes", k_midi_note, 0 } },
                         { { "notes", k_midi_note, 0 } } ),
         output_port( *get_output( "notes" ) ),
-        refcount( { 0 } ) { }
+        refcount{ } { }
 
     virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& /*to*/ ) override {
         jassert( event.note >= 0 && event.note < 128 );
@@ -1731,13 +1745,13 @@ public:
                 active_notes_itr != this->active_notes->end( ) &&
                 notes_itr != this->notes->end( ) ) {
 
-            if ( container::comparator_type( )( *active_notes_itr, *notes_itr ) ) {
+            if ( typename container::comparator_type{ }( *active_notes_itr, *notes_itr ) ) {
                 // A < B -> the lowest note in this is lower than in midi_note_source,
                 // then it is not present on the new notes: note_off
                 this->enqueue_event( output_port, events::k_note_off, active_notes_itr->note, active_notes_itr->velocity );
                 active_notes_itr = this->active_notes->erase( active_notes_itr );
 
-            } else if ( container::comparator_type( )( *notes_itr, *active_notes_itr ) ) {
+            } else if ( typename container::comparator_type{ }( *notes_itr, *active_notes_itr ) ) {
                 // B < A -> the lowest note in midi_note_source is lower than in this,
                 // then it is a new note to be added
                 this->active_notes->insert( active_notes_itr, *notes_itr );
@@ -2464,5 +2478,3 @@ typedef midi_note_output_tmpl< juce::MidiBuffer, juce_midi_buffer_note_adder, k_
 } // namespace note_processor
 
 } // namespace midi_stuff
-
-#include "midi_stuff/tests.hpp"

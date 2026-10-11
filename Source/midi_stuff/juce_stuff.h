@@ -87,8 +87,8 @@ public:
         );
     }
 
-    template < typename T >
-    T* add_sub_component( T* the_component ) {
+    template < typename component_t >
+    component_t* add_sub_component( component_t* the_component ) {
         sub_components.add( the_component );
         this->addAndMakeVisible( the_component );
         return the_component;
@@ -105,12 +105,12 @@ public:
     static inline const char* name         = _name;
     static inline const char* hint         = _hint;
     using                     parent_type  = T;
-    using                     type         = with_hint_label< name, hint, T >;
+    using                     type         = with_hint_label< _name, _hint, T >;
 
     juce::Label hint_label{ name, hint };
 
     with_hint_label( void ) {
-        hint_label.set_bounds( this->getBounds( ) );
+        hint_label.setBounds( this->getBounds( ) );
         this->addAndMakeVisible( hint_label );
     }
 };
