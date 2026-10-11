@@ -123,6 +123,7 @@ if( MIDI_STUFF_BUILD_TESTS )
         tests/chord_guesser_tests.cpp
         tests/note_set_tests.cpp
         tests/processor_tests.cpp
+        tests/value_tests.cpp
     )
 
     add_executable( midi_stuff_tests ${MIDI_STUFF_TEST_SOURCES} )

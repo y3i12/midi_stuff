@@ -807,24 +807,40 @@ struct parameter_port;
 struct note_on_event_t      { typedef note_on_event_t      type; static constexpr event_type_enum k_event_type = k_note_on;      };
 struct note_off_event_t     { typedef note_off_event_t     type; static constexpr event_type_enum k_event_type = k_note_off;     };
 
+// a value is an integer ( notes, velocities, channels, counts, scale codes... ) or a real number. it is set from any
+// arithmetic type and read back as any arithmetic type - get< T >( ) converts from whatever is stored and never throws
 struct value_change_event_t {
-    using type    = value_change_event_t; 
-    using value_t = std::variant<
-        note_t,
-        velocity_t,
-        uint16_t,
-        int16_t,
-        uint32_t,
-        int32_t,
-        float_t
-    >;
+    using type    = value_change_event_t;
+    using value_t = std::variant< int32_t, float >;
 
     static constexpr event_type_enum k_event_type = k_value_change;
 
     template < typename T >
-    value_change_event_t( T _value ) : value( static_cast< T >( _value ) ) { }
+    value_change_event_t( T _value ) { set( _value ); }
 
-    value_change_event_t( const value_change_event_t& other ) : value( other.value ) { }
+    template < typename T >
+    void set( T _value ) {
+        static_assert( std::is_arithmetic_v< T >, "a value is a number" );
+
+        if constexpr ( std::is_floating_point_v< T > ) {
+            value = static_cast< float   >( _value );
+        } else {
+            value = static_cast< int32_t >( _value );
+        }
+    }
+
+    template < typename T >
+    T get( void ) const {
+        static_assert( std::is_arithmetic_v< T >, "a value is a number" );
+
+        if ( const int32_t* integer = std::get_if< int32_t >( &value ) ) {
+            return static_cast< T >( *integer );
+        }
+
+        return static_cast< T >( *std::get_if< float >( &value ) );
+    }
+
+    bool is_integer( void ) const { return std::holds_alternative< int32_t >( value ); }
 
     value_t value;
  };
@@ -900,7 +916,7 @@ struct value_change : public value_change_event_t {
     static constexpr event_type_enum k_event_type = event_type::k_event_type;
 
     value_change( void ) :
-        value_change_event_t( static_cast< uint32_t >( 0 ) ) { }
+        value_change_event_t( static_cast< int32_t >( 0 ) ) { }
 
     value_change( const value_change_event_t& other ) :
         value_change_event_t( other ) { }
@@ -918,7 +934,8 @@ namespace processors {
 enum parameter_type {
     k_midi_note,
     k_midi_channel_note,
-    k_value,
+    k_integer_value,
+    k_real_value,
     k_invalid,
 };
 
@@ -930,7 +947,7 @@ constexpr parameter_type port_type_of( void ) {
     } else if constexpr ( std::is_same_v< event_t, events::channel_note_on > || std::is_same_v< event_t, events::channel_note_off > ) {
         return k_midi_channel_note;
     } else if constexpr ( std::is_same_v< event_t, events::value_change > ) {
-        return k_value;
+        return k_integer_value; // or k_real_value: value ports are checked against the value itself, see emit( )
     } else {
         static_assert( sizeof( event_t ) == 0, "not an event type" );
     }
@@ -943,7 +960,7 @@ class base_processor; // FWD decl
 //---------------------------------------------------------------------------------------------------------------------------
 
 struct parameter_port {
-    using extra_t = std::variant< void*, int32_t > ;
+    using extra_t = int32_t; // per-port tag the owner chooses ( channel number, input id... )
 
     parameter_port( base_processor* the_owner, const std::string& the_name, parameter_type the_type, extra_t the_extra = 0 ) :
         owner( the_owner ),
@@ -1120,7 +1137,12 @@ public:
     template < typename event_t >
     void emit( parameter_port& output_port, const event_t& event ) {
         jassert( output_port.owner == this );
-        jassert( output_port.type  == port_type_of< event_t >( ) );
+
+        if constexpr ( std::is_same_v< event_t, events::value_change > ) {
+            jassert( output_port.type == ( event.is_integer( ) ? k_integer_value : k_real_value ) );
+        } else {
+            jassert( output_port.type == port_type_of< event_t >( ) );
+        }
 
         for ( parameter_port* consumer : output_port.consumers ) {
             consumer->owner->process_event( event, output_port, *consumer );
@@ -1376,8 +1398,8 @@ public:
                 { "channel_14",    k_midi_note, 14             },
                 { "channel_15",    k_midi_note, 15             },
                 { "channel_16",    k_midi_note, 16             },
-                { "channel_mute",  k_value,     k_channel_mute },
-                { "mute_all",      k_value,     k_mute_all     },
+                { "channel_mute",  k_integer_value,     k_channel_mute },
+                { "mute_all",      k_integer_value,     k_mute_all     },
             },
             {
                 { "channel_1",     k_midi_note,  1 },
@@ -1423,9 +1445,9 @@ public:
         }
 
     virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& to ) override {
-        jassert( std::get< int32_t >( to.extra ) > 0 && std::get< int32_t >( to.extra ) <= 16 );
+        jassert( to.extra > 0 && to.extra <= 16 );
 
-        if ( mute_all || channel_mute[ std::get< int32_t >( to.extra ) - 1 ] ) {
+        if ( mute_all || channel_mute[ to.extra - 1 ] ) {
             return;
         }
 
@@ -1433,16 +1455,16 @@ public:
     };
 
     virtual void process_event( const events::note_off& event, parameter_port& /*from*/, parameter_port& to ) override {
-        jassert( std::get< int32_t >( to.extra ) > 0 && std::get< int32_t >( to.extra ) <= 16 );
+        jassert( to.extra > 0 && to.extra <= 16 );
         process_note_event_tmpl( event, to );
     };
 
     virtual void process_event( const events::value_change& event, parameter_port&, parameter_port& to ) override {
-        if ( k_channel_mute == std::get< int32_t >( to.extra ) ) {
-            const int32_t channel = std::get< int32_t >( event.value ); // 1-based, like the ports
+        if ( k_channel_mute == to.extra ) {
+            const int32_t channel = event.get< int32_t >( ); // 1-based, like the ports
             jassert( channel > 0 && channel <= k_last_channel );
             channel_mute[ channel - 1 ] = !channel_mute[ channel - 1 ];
-        } else if ( k_mute_all == std::get< int32_t >( to.extra ) ) {
+        } else if ( k_mute_all == to.extra ) {
             mute_all = !mute_all;
         }
     };
@@ -1450,7 +1472,7 @@ public:
 private:
     template < typename T >
     inline void process_note_event_tmpl( const T& event, parameter_port& to ) {
-        emit( *channel_output_ports[ std::get< int32_t >( to.extra ) - 1 ], event );
+        emit( *channel_output_ports[ to.extra - 1 ], event );
     };
 };
 
@@ -1504,9 +1526,9 @@ public:
 private:
     template < typename T >
     inline void process_note_event_tmpl( const T& event, parameter_port& to ) {
-        jassert( std::get< int32_t >( to.extra ) > 0 && std::get< int32_t >( to.extra ) <= 16 );
+        jassert( to.extra > 0 && to.extra <= 16 );
 
-        emit( channel_output, event.k_event_type, std::get< int32_t >( to.extra ), event.note, event.velocity );
+        emit( channel_output, event.k_event_type, to.extra, event.note, event.velocity );
     };
 };
 
@@ -1605,7 +1627,7 @@ public:
         midi_note_store(
             {
                 { "notes",        k_midi_note, k_note_input         },
-                { "number_notes", k_value,     k_number_notes_input }
+                { "number_notes", k_integer_value,     k_number_notes_input }
             },
             {
                 { "notes",        k_midi_note, k_note_output        }
@@ -1619,8 +1641,8 @@ public:
     using midi_note_store::process_event;
 
     virtual void process_event( const events::value_change& event, parameter_port&, parameter_port& to ) override {
-        if ( std::get< int32_t >( to.extra ) == k_number_notes_input ) {
-            number_notes_kept = std::get< uint32_t >( event.value );
+        if ( to.extra == k_number_notes_input ) {
+            number_notes_kept = event.get< uint32_t >( );
         }
     };
 
@@ -1696,7 +1718,7 @@ public:
 
     virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& to ) override {
         jassert( event.note >= 0 && event.note < 128 );
-        switch ( std::get< int32_t >( to.extra ) ) {
+        switch ( to.extra ) {
             case k_chord_notes_input:    if ( chord_notes.insert(    event ) ) { im_a_dirty_object = true; } break;
             case k_sequence_notes_input: if ( sequence_notes.insert( event ) ) { im_a_dirty_object = true; } break;
             default: jassert( 0 );
@@ -1706,7 +1728,7 @@ public:
     virtual void process_event( const events::note_off& event, parameter_port& /*from*/, parameter_port& to ) override {
         jassert( event.note >= 0 && event.note < 128 );
 
-        switch ( std::get< int32_t >( to.extra ) ) {
+        switch ( to.extra ) {
             case k_chord_notes_input:    if ( chord_notes.erase(    event ) ) { im_a_dirty_object = true; } break;
             case k_sequence_notes_input: if ( sequence_notes.erase( event ) ) { im_a_dirty_object = true; } break;
             default: jassert( 0 );
@@ -1812,7 +1834,7 @@ public:
             },
             {
                 { "chord_notes",     k_midi_note, k_chord_notes_output     },
-                { "scale_code",      k_value,     k_scale_code_output      },
+                { "scale_code",      k_integer_value,     k_scale_code_output      },
                 { "pattern_degrees", k_midi_note, k_pattern_degrees_output }
             }
         ),
@@ -1827,14 +1849,14 @@ public:
         pattern_degrees_output( ),
         chosen_chord( 0 ),
         im_a_dirty_object( false ) {
-        scale_code_output.value = static_cast< uint16_t >( 0 );
+        scale_code_output.set( 0 );
     }
 
 
     virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& to ) override {
         note_t abs_note = static_cast< note_t >( event.note % 12 );
 
-        switch ( std::get< int32_t >( to.extra ) ) {
+        switch ( to.extra ) {
             case k_root_note_input:        {           root_note = static_cast< note_t >( abs_note );      im_a_dirty_object = true; } break;
             case k_chord_notes_input:   if (   chord_notes.insert(                        event      ) ) { im_a_dirty_object = true; } break; // keeps the octave: the lowest note is the fallback root
             case k_pattern_notes_input: if ( pattern_notes.insert(                        event      ) ) { im_a_dirty_object = true; } break;
@@ -1845,7 +1867,7 @@ public:
     virtual void process_event( const events::note_off& event, parameter_port& /*from*/, parameter_port& to ) override {
         note_t abs_note = static_cast< note_t >( event.note % 12 );
 
-        switch ( std::get< int32_t >( to.extra ) ) {
+        switch ( to.extra ) {
             case k_root_note_input:     if ( root_note && root_note.value( ).note == abs_note   ) { root_note = std::nullopt; im_a_dirty_object = true; } break;
             case k_chord_notes_input:   if ( chord_notes.erase(                      event    ) ) {                           im_a_dirty_object = true; } break;
             case k_pattern_notes_input: if ( pattern_notes.erase(                    event    ) ) {                           im_a_dirty_object = true; } break;
@@ -1874,7 +1896,7 @@ public:
         pattern_degrees_output.clear( );
 
         scale_code.reset( );
-        scale_code_output.value = static_cast< uint16_t >( 0 );
+        scale_code_output.set( 0 );
         emit( scale_code_output_port, scale_code_output );
     }
 
@@ -1910,7 +1932,7 @@ public:
         // if the execution reached this point, it means that the output is going to change
         // dispatch the scale code value change
         scale_code              = chosen_chord->scale_code;
-        scale_code_output.value = static_cast< uint16_t >( scale_code.to_ulong( ) );
+        scale_code_output.set( scale_code.to_ulong( ) );
         emit( scale_code_output_port, scale_code_output );
 
         // ------- chord_notes output ------- //
@@ -2130,10 +2152,10 @@ public:
     }
 
     virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& to ) override {
-        jassert( std::get< int32_t >( to.extra ) <= 16 && std::get< int32_t >( to.extra ) > 0 );
+        jassert( to.extra <= 16 && to.extra > 0 );
 
         do_with_strip(
-            std::get< int32_t >( to.extra ),
+            to.extra,
             [ & ]( auto& strip ){
                 if ( strip.buffered_input.buffer.insert( event ) ) {
                     strip.needs_input_flush = true;
@@ -2143,10 +2165,10 @@ public:
     }
 
     virtual void process_event( const events::note_off& event, parameter_port& /*from*/, parameter_port& to ) override {
-        jassert( std::get< int32_t >( to.extra ) <= 16 && std::get< int32_t >( to.extra ) > 0 );
+        jassert( to.extra <= 16 && to.extra > 0 );
 
         do_with_strip(
-            std::get< int32_t >( to.extra ),
+            to.extra,
             [ & ] ( auto& strip ) {
                 if ( strip.buffered_input.buffer.erase( event ) ) {
                     strip.needs_input_flush = true;
