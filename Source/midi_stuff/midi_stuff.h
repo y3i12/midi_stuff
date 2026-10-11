@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <array>
+#include <atomic>
 #include <bitset>
 #include <cmath>
 #include <cstdint>
@@ -18,6 +19,7 @@
 #include <initializer_list>
 #include <limits>
 #include <list>
+#include <mutex>
 #include <optional>
 #include <string>
 #include <type_traits>
@@ -27,13 +29,6 @@
 #include <variant>
 #include <vector>
 
-#include "etl/atomic.h"
-#include "etl/bitset.h"
-#include "etl/delegate.h"
-#include "etl/mutex.h"
-#include "etl/nullptr.h"
-#include "etl/optional.h"
-#include "etl/utility.h" // use this to replace tiny events?
 #include "tinyevents/tinyevents.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,9 +151,9 @@ void do_loop_while_condition( auto loop, auto condition ) {
 namespace threads {
 
 struct read_write_lock {
-    etl::mutex          write_mutex;
-    etl::atomic_bool    writing;
-    etl::atomic_int32_t reading;
+    std::mutex          write_mutex;
+    std::atomic_bool    writing;
+    std::atomic_int32_t reading;
 
     read_write_lock ( void ) :
         writing( false ),
@@ -223,7 +218,7 @@ struct concurrent_object {
 private:
     read_write_lock     lock;
     object_t            object;
-    etl::atomic_uint8_t revision;
+    std::atomic_uint8_t revision;
 
 public:
     void read_visit( auto func ) {
@@ -254,7 +249,7 @@ protected:
     uint8_t     revision;
 
 public:
-    buffered_object( void ) : revision( etl::integral_limits< uint8_t >::max ) { }
+    buffered_object( void ) : revision( std::numeric_limits< uint8_t >::max( ) ) { }
 
     void flush( void ) {
         get_concurrent_object( ).write_visit(
@@ -468,7 +463,7 @@ struct _named_note_set {
     using note_set_t   = _note_set_t;
     using type         = _named_note_set< note_set_t >;
 
-    using scale_code_t = typename etl::bitset< 16, uint16_t >;
+    using scale_code_t = std::bitset< 16 >;
 
     std::string        name;
     note_set_t         notes;
