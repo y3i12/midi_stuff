@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <array>
+#include <bit>
 #include <atomic>
 #include <bitset>
 #include <cmath>
@@ -42,10 +43,6 @@ using velocity_t = uint8_t;
 using channel_t  = int8_t;
 
 // FWD Decl
-namespace containers {
-    template < typename type_t, typename comparator_t, typename container_t = std::list< type_t > > class sorted_list;
-}
-
 struct midi_note;
 
 namespace chord_data {
@@ -62,59 +59,6 @@ static const std::array< std::string, 12 > compound_tones = { "octave", "b9",  "
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 namespace utils {
-
-// diff range first-last from a with first-last from b - expects both to be ordered in the same
-// criteria and that container has bool container::comparator_type( )( type& a, type& b )
-// implemented the results are inserted in in_a_not_in_b, in_b_not_in_a, in_both
-// and in_undefined ( which has tail that have shroedinger compare results )
-template < typename type_t, typename comparator_t, typename container_t = std::list< type_t >, typename const_iterator = typename container_t::const_iterator >
-static void symmetric_difference_apply( const midi_stuff::containers::sorted_list< type_t, comparator_t, container_t >& a, const midi_stuff::containers::sorted_list< type_t, comparator_t, container_t >& b,
-                                        std::optional < std::function< void( const midi_note& ) > > if_in_a_not_in_b,
-                                        std::optional < std::function< void( const midi_note& ) > > if_in_b_not_in_a,
-                                        std::optional < std::function< void( const midi_note& ) > > if_in_both      = std::nullopt,
-                                        std::optional < std::function< void( const midi_note& ) > > if_in_undefined = std::nullopt ) {
-
-    const_iterator first_a = a.notes.begin( );
-    const_iterator last_a  = a.notes.end( );
-    const_iterator first_b = b.notes.begin( );
-    const_iterator last_b  = b.notes.end( );
-
-    jassert( if_in_a_not_in_b || if_in_both || if_in_b_not_in_a );
-
-    while ( first_a != last_a && first_b != last_b ) {
-        if ( comparator_t( )( *first_a, *first_b ) ) {
-            if ( auto callback = if_in_a_not_in_b ) ( *callback )( *first_a );
-            ++first_a;
-
-        } else if ( comparator_t( )( *first_b, *first_a ) ) {
-            if ( auto callback = if_in_b_not_in_a ) ( *callback )( *first_b );
-            ++first_b;
-
-        } else {
-            if ( auto callback = if_in_both ) ( *callback )( *first_a );
-            ++first_a;
-            ++first_b;
-        }
-    }
-
-    // Additional checks for completing and removing the tail of the iterables
-    // if the output for in_b_not_in_a is passed as param and first_a is at its final stage
-    // copy range b into in_b_not_in_a
-    if ( first_a == last_a ) {
-        if ( auto callback = if_in_b_not_in_a ) std::for_each( first_b, last_b, *callback );
-
-    // repeat the other side: if the output for in_a_not_in_b is passed as param and first_b is at its final stage
-    // copy range a into in_a_not_in_b
-    } else if ( first_b == last_b ) {
-        if ( auto callback = if_in_a_not_in_b ) std::for_each( first_a, last_a, *callback );
-
-    // if execution reaches this point, there are two tails to be copied, which doesn't makes sense,
-    // regardless the rest is copied into in_undefined, if provided. first a, then b
-    } else if ( auto callback = if_in_undefined ) {
-        std::for_each( first_a, last_a, *callback );
-        std::for_each( first_b, last_b, *callback );
-    }
-}
 
 // Brian Kernighan’s Algorithm
 template < typename T >
@@ -367,10 +311,8 @@ struct midi_note {
         velocity( 0 ) {
     }
     
-    midi_note( const midi_note& other) :
-        note(     other.note     ),
-        velocity( other.velocity ) {
-    }
+    midi_note( const midi_note& ) = default;
+    midi_note& operator=( const midi_note& ) = default;
 
     midi_note( int8_t the_note, uint8_t the_velocity = 100 ) :
         note(     the_note     ),
@@ -401,10 +343,8 @@ struct midi_channel_note : public midi_note {
         channel( 0 ) {
     }
 
-    midi_channel_note( const midi_channel_note& other ) :
-        midi_note( other.note, other.velocity ),
-        channel( other.channel ) {
-    }
+    midi_channel_note( const midi_channel_note& ) = default;
+    midi_channel_note& operator=( const midi_channel_note& ) = default;
     
     template < class T, class U, class V > 
     midi_channel_note( T channel, U note, V velocity ) :
@@ -642,122 +582,200 @@ static const chord_data::named_noteset_list scale = {
 namespace containers {
 
 //---------------------------------------------------------------------------------------------------------------------------
-// midi stuff :: containers :: sorted list
+// midi stuff :: containers :: note set
+//
+// the notes ( 0 - 127 ) that are on, with their velocities. fixed size, trivially copyable and never allocates:
+// insert / erase / contains are O( 1 ), iteration is a bit scan ( ascending, or descending through descending( ) ),
+// and diff( ) - the note offs and note ons that turn one set into another - is a couple of masks.
+//
+// velocities of absent notes are kept at 0, so two sets compare equal when they hold the same notes and velocities.
 //---------------------------------------------------------------------------------------------------------------------------
 
-template < typename type_t, typename comparator_t, typename container_t /* = std::list< typename type_t > */ >
-class sorted_list {
+class note_set {
 public:
-    //using type                     = type_t;
-    using comparator_type          = comparator_t;
-    using container                = container_t;
-    using iterator                 = container_t::iterator;
-    using const_iterator           = container_t::const_iterator;
-    using class_type               = sorted_list< type_t, comparator_type, container >;
+    static constexpr size_t k_capacity  = 128;
+    static constexpr int    k_end       = -1;
 
-    container                      notes;
+private:
+    using word_t = uint64_t;
 
-    sorted_list( void ) { }
+    static constexpr size_t k_word_bits = 64;
+    static constexpr size_t k_words     = k_capacity / k_word_bits;
 
-          container& operator  * ( void )       { return  notes; }
-    const container& operator  * ( void ) const { return  notes; }
-          container* operator -> ( void )       { return &notes; }
-    const container* operator -> ( void ) const { return &notes; }
+    std::array< word_t,     k_words    > words{ };
+    std::array< velocity_t, k_capacity > velocities{ };
 
-    std::pair< iterator, bool > find_if_compare( const midi_note& note ) {
-        auto itr = std::find_if(
-            notes.begin( ),
-            notes.end( ),
-            [ & ] ( auto existing_note ) {
-                return !comparator_type( )( existing_note, note );
+public:
+    class const_iterator {
+    public:
+        using iterator_category = std::input_iterator_tag; // dereferences to a value, not a reference
+        using value_type        = midi_note;
+        using difference_type   = std::ptrdiff_t;
+        using pointer           = void;
+        using reference         = midi_note;
+
+        const_iterator( void ) = default;
+        const_iterator( const note_set* the_set, int the_position, bool is_ascending ) :
+            set( the_set ), position( the_position ), ascending( is_ascending ) { }
+
+        midi_note operator * ( void ) const { return set->at( static_cast< note_t >( position ) ); }
+
+        const_iterator& operator ++ ( void ) {
+            position = ascending ? set->first_from( position + 1 ) : set->last_from( position - 1 );
+            return *this;
+        }
+
+        const_iterator operator ++ ( int ) { const_iterator previous = *this; ++( *this ); return previous; }
+
+        bool operator == ( const const_iterator& other ) const { return position == other.position; }
+        bool operator != ( const const_iterator& other ) const { return position != other.position; }
+
+    private:
+        const note_set* set       = nullptr;
+        int             position  = k_end;
+        bool            ascending = true;
+    };
+
+    struct descending_view {
+        const note_set& set;
+
+        const_iterator begin( void ) const { return const_iterator( &set, set.last_from( k_capacity - 1 ), false ); }
+        const_iterator end(   void ) const { return const_iterator( &set, k_end,                           false ); }
+    };
+
+    // returns false if the note is already there ( its velocity is kept ) or out of range
+    bool insert( const midi_note& note ) {
+        if ( note.note >= k_capacity ) {
+            jassert( false ); // a note above 127 is a bug upstream; release builds drop it
+            return false;
+        }
+
+        if ( contains( note.note ) ) {
+            return false;
+        }
+
+        word_of( note.note ) |= bit_of( note.note );
+        velocities[ note.note ] = note.velocity;
+        return true;
+    }
+
+    // returns false if the note wasn't there
+    bool erase( const midi_note& note ) {
+        if ( !contains( note.note ) ) {
+            return false;
+        }
+
+        word_of( note.note ) &= ~bit_of( note.note );
+        velocities[ note.note ] = 0;
+        return true;
+    }
+
+    bool contains( note_t note ) const {
+        return note < k_capacity && ( word_of( note ) & bit_of( note ) ) != 0;
+    }
+
+    velocity_t velocity( note_t note ) const {
+        return contains( note ) ? velocities[ note ] : 0;
+    }
+
+    midi_note at( note_t note ) const {
+        return midi_note( static_cast< int8_t >( note ), velocity( note ) );
+    }
+
+    void clear( void ) {
+        words.fill( 0 );
+        velocities.fill( 0 );
+    }
+
+    size_t size( void ) const {
+        size_t count = 0;
+        for ( word_t word : words ) count += static_cast< size_t >( std::popcount( word ) );
+        return count;
+    }
+
+    bool empty( void ) const {
+        return std::all_of( words.begin( ), words.end( ), [ ] ( word_t word ) { return word == 0; } );
+    }
+
+    // lowest / highest note - the set must not be empty
+    midi_note front( void ) const { jassert( !empty( ) ); return at( static_cast< note_t >( first_from( 0 ) ) );              }
+    midi_note back(  void ) const { jassert( !empty( ) ); return at( static_cast< note_t >( last_from( k_capacity - 1 ) ) ); }
+
+    const_iterator  begin(      void ) const { return const_iterator( this, first_from( 0 ), true ); }
+    const_iterator  end(        void ) const { return const_iterator( this, k_end,           true ); }
+    descending_view descending( void ) const { return descending_view{ *this }; }
+
+    bool operator == ( const note_set& other ) const = default;
+
+    // lowest note >= from, or k_end
+    int first_from( int from ) const {
+        if ( from < 0 ) from = 0;
+
+        for ( size_t word_index = static_cast< size_t >( from ) / k_word_bits; word_index < k_words; ++word_index ) {
+            word_t bits = words[ word_index ];
+
+            if ( word_index == static_cast< size_t >( from ) / k_word_bits ) {
+                bits &= ~word_t( 0 ) << ( static_cast< size_t >( from ) % k_word_bits ); // drop the notes below `from`
             }
-        );
 
-        return std::pair< iterator, bool >(
-            itr,
-            ( itr != notes.end( ) ) && !comparator_type( )( note, *itr )
-        );
-    }
-
-    bool insert( const type_t& note ) {
-        auto iterator_and_is_equal = find_if_compare( note );
-
-        if ( !iterator_and_is_equal.second ) { // note wasn't found
-            notes.insert( iterator_and_is_equal.first, note );
+            if ( bits ) {
+                return static_cast< int >( word_index * k_word_bits + static_cast< size_t >( std::countr_zero( bits ) ) );
+            }
         }
 
-        return !iterator_and_is_equal.second;
-    };
+        return k_end;
+    }
 
-    bool erase( const type_t& note ) {
-        auto iterator_and_is_equal = find_if_compare( note );
+    // highest note <= from, or k_end
+    int last_from( int from ) const {
+        if ( from < 0 ) return k_end; // past the lowest note ( -1 / 64 would truncate to word 0 )
+        if ( from >= static_cast< int >( k_capacity ) ) from = k_capacity - 1;
 
-        if ( iterator_and_is_equal.second ) { // note was found
-            notes.erase( iterator_and_is_equal.first );
+        for ( int word_index = from / static_cast< int >( k_word_bits ); word_index >= 0; --word_index ) {
+            word_t bits = words[ static_cast< size_t >( word_index ) ];
+
+            if ( word_index == from / static_cast< int >( k_word_bits ) ) {
+                const size_t keep = static_cast< size_t >( from ) % k_word_bits + 1; // drop the notes above `from`
+                if ( keep < k_word_bits ) bits &= ( word_t( 1 ) << keep ) - 1;
+            }
+
+            if ( bits ) {
+                return word_index * static_cast< int >( k_word_bits ) + static_cast< int >( k_word_bits - 1 ) - std::countl_zero( bits );
+            }
         }
 
-        return iterator_and_is_equal.second;
-    };
-
-    inline void clear( void ) {
-        notes.clear( );
+        return k_end;
     }
 
-    type_t& front( void ) noexcept {
-        return notes.front( );
+    // what turns `from` into `to`: on_removed( note ) for each note only in `from` ( with its `from` velocity ),
+    // then on_added( note ) for each note only in `to` ( with its `to` velocity ). note offs first, both ascending.
+    template < typename on_removed_t, typename on_added_t >
+    static void diff( const note_set& from, const note_set& to, on_removed_t&& on_removed, on_added_t&& on_added ) {
+        for ( size_t word_index = 0; word_index < k_words; ++word_index ) {
+            for_each_bit( from.words[ word_index ] & ~to.words[ word_index ], word_index, [ & ] ( note_t note ) { on_removed( from.at( note ) ); } );
+        }
+
+        for ( size_t word_index = 0; word_index < k_words; ++word_index ) {
+            for_each_bit( to.words[ word_index ] & ~from.words[ word_index ], word_index, [ & ] ( note_t note ) { on_added( to.at( note ) ); } );
+        }
     }
 
-    const type_t& front( void ) const noexcept {
-        return notes.front( );
-    }
+private:
+          word_t& word_of( note_t note )       { return words[ note / k_word_bits ]; }
+    const word_t& word_of( note_t note ) const { return words[ note / k_word_bits ]; }
 
-    type_t& back( void ) noexcept {
-        return notes.back( );
-    }
+    static word_t bit_of( note_t note ) { return word_t( 1 ) << ( note % k_word_bits ); }
 
-    const type_t& back( void ) const noexcept {
-        return notes.back( );
-    }
-
-    inline size_t size( void ) const {
-        return notes.size( );
-    }
-
-    inline bool empty( void ) const {
-        return notes.empty( );
-    }
-
-    inline iterator begin( void ) {
-        return notes.begin( );
-    }
-
-    inline iterator end( void ) {
-        return notes.end( );
-    }
-
-    inline const const_iterator begin( void ) const {
-        return notes.begin( );
-    }
-
-    inline const_iterator end( void ) const {
-        return notes.end( );
-    }
-
-    inline const_iterator cbegin( void ) const {
-        return notes.cbegin( );
-    }
-
-    inline const_iterator cend( void ) const {
-        return notes.cend( );
+    template < typename callback_t >
+    static void for_each_bit( word_t bits, size_t word_index, callback_t&& callback ) {
+        while ( bits ) {
+            callback( static_cast< note_t >( word_index * k_word_bits + static_cast< size_t >( std::countr_zero( bits ) ) ) );
+            bits &= bits - 1; // Kernighan: clear the lowest set bit
+        }
     }
 };
 
-//---------------------------------------------------------------------------------------------------------------------------
-// basic list types
-//---------------------------------------------------------------------------------------------------------------------------
-
-typedef sorted_list< midi_note, midi_note::lt_t > ascending_midi_note_list;
-typedef sorted_list< midi_note, midi_note::gt_t > descending_midi_note_list;
+static_assert( std::is_trivially_copyable_v< note_set >, "note_set must stay trivially copyable ( shared across threads, Teensy )" );
 
 }; // namespace containers
 
@@ -1602,24 +1620,20 @@ public:
 };
 
 //---------------------------------------------------------------------------------------------------------------------------
-// midi stuff :: processors :: midi sorted note store
+// midi stuff :: processors :: midi note store
 //---------------------------------------------------------------------------------------------------------------------------
 
-template < typename container_t >
-class midi_sorted_note_store : public base_processor {
+class midi_note_store : public base_processor {
 public:
-    typedef               container_t          container;
-
-    typedef midi_sorted_note_store< container_t > type;
-
-    typedef base_processor::parameter_initializer_list parameter_initializer_list;
+    using container                  = containers::note_set;
+    using parameter_initializer_list = base_processor::parameter_initializer_list;
 
 public:
     container       notes;
 
 public:
-    midi_sorted_note_store( parameter_initializer_list inputs,
-                            parameter_initializer_list outputs ) : base_processor( inputs, outputs ) { }
+    midi_note_store( parameter_initializer_list inputs,
+                     parameter_initializer_list outputs ) : base_processor( inputs, outputs ) { }
 
     virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& /*to*/ ) override {
         jassert( event.note >= 0 && event.note < 128 );
@@ -1646,14 +1660,9 @@ public:
 // midi stuff :: processors :: midi lowest and highest notes
 //---------------------------------------------------------------------------------------------------------------------------
 
-template < typename container_t >
-class midi_first_n_notes_of_container : public midi_sorted_note_store< container_t > {
+template < bool keep_lowest >
+class midi_first_n_notes : public midi_note_store {
 public:
-    typedef container_t                                  container;
-    typedef midi_sorted_note_store< container >          base_type;
-    typedef midi_first_n_notes_of_container< base_type > type;
-    typedef base_type::parameter_initializer_list        parameter_initializer_list;
-
     static constexpr int32_t k_note_input         = 0;
     static constexpr int32_t k_number_notes_input = 1;
 
@@ -1666,8 +1675,8 @@ public:
     parameter_port& output_port;
 
 public:
-    midi_first_n_notes_of_container( uint8_t the_number_notes_kept = 128 ) :
-        midi_sorted_note_store< container_t >(
+    midi_first_n_notes( uint8_t the_number_notes_kept = 128 ) :
+        midi_note_store(
             {
                 { "notes",        k_midi_note, k_note_input         },
                 { "number_notes", k_value,     k_number_notes_input }
@@ -1681,6 +1690,8 @@ public:
         output_port( *this->get_output( "notes" ) ) {
     }
 
+    using midi_note_store::process_event;
+
     virtual void process_event( const events::value_change& event, parameter_port&, parameter_port& to ) override {
         if ( std::get< int32_t >( to.extra ) == k_number_notes_input ) {
             number_notes_kept = std::get< uint32_t >( event.value );
@@ -1688,104 +1699,52 @@ public:
     };
 
     virtual void process( void ) override {
-        auto  active_notes_itr       = this->active_notes->begin( );
-        auto  notes_itr              = this->notes->begin( );
+        // the first number_notes_kept notes, from the bottom ( lowest ) or from the top ( highest )
+        container kept;
+        uint32_t  kept_count = 0;
 
-        uint8_t current_note_num      = 0;
-
-        // merge the n lowest elements of the two ordered lists of notes present in this->notes and midi_note_source->notes
-        // into this->notes. What is present in this->notes and not in midi_note_source->notes is removed, and what 
-        // is in midi_note_source->notes and not in this->notes is added.
-        // 
-        // Move two iterators from the start comparing elements, random example for number_notes_kept=4:
-        //
-        //                      r  k  a  r  k   a  i
-        //       current notes 60 63    67 70
-        // other current notes    63 65    70  73 75 
-        //           note kept     1  2     3   4
-        // 
-        // where r: remove
-        //       k: keep
-        //       a: add
-        //       i: ignore
-        while ( current_note_num         <  number_notes_kept &&
-                active_notes_itr != this->active_notes->end( ) &&
-                notes_itr != this->notes->end( ) ) {
-
-            if ( typename container::comparator_type{ }( *active_notes_itr, *notes_itr ) ) {
-                // A < B -> the lowest note in this is lower than in midi_note_source,
-                // then it is not present on the new notes: note_off
-                this->enqueue_event( output_port, events::k_note_off, active_notes_itr->note, active_notes_itr->velocity );
-                active_notes_itr = this->active_notes->erase( active_notes_itr );
-
-            } else if ( typename container::comparator_type{ }( *notes_itr, *active_notes_itr ) ) {
-                // B < A -> the lowest note in midi_note_source is lower than in this,
-                // then it is a new note to be added
-                this->active_notes->insert( active_notes_itr, *notes_itr );
-
-                this->enqueue_event( output_port, events::k_note_on, notes_itr->note, notes_itr->velocity );
-                ++notes_itr;
-                ++current_note_num;
-
-            } else {
-                // equals - they're in both. it is cool, nothing to be done
-                ++active_notes_itr;
-                ++notes_itr;
-                ++current_note_num;
+        auto keep_first = [ & ] ( const auto& ordered_notes ) {
+            for ( const midi_note& note : ordered_notes ) {
+                if ( kept_count++ >= number_notes_kept ) break;
+                kept.insert( note );
             }
+        };
+
+        if constexpr ( keep_lowest ) {
+            keep_first( notes );
+        } else {
+            keep_first( notes.descending( ) );
         }
 
-        // Additional checks for completing and removing the tail of current notes
-        if ( active_notes_itr == this->active_notes->end( ) ) { // complete
-            // If all pre-existing notes were iterated through, it means that there might be additional tail notes to note_on
-            // Tries to fill the current notes with the notes from midi_note_source till number_notes_kept notes are on
-            while ( current_note_num    <  number_notes_kept          && 
-                    notes_itr           != this->notes->end( ) ) {
-                this->active_notes->push_back( *notes_itr );
-                this->enqueue_event( output_port, events::k_note_on, notes_itr->note, notes_itr->velocity );
-                ++current_note_num;
-                ++notes_itr;
-            }
-        } else if ( ( current_note_num == number_notes_kept ) || ( notes_itr == this->notes->end( ) ) ) { // remove tail
-            // if the iterator isn't pointing at the end and the desired number of notes were collected, note_off the tail of the list
-            while ( active_notes_itr != this->active_notes->end( ) ) {
-                this->enqueue_event( output_port, events::k_note_off, active_notes_itr->note, active_notes_itr->velocity );
-                active_notes_itr = this->active_notes->erase( active_notes_itr );
-            }
-        }
+        container::diff( active_notes, kept,
+            [ & ] ( const midi_note& note ) { this->enqueue_event( output_port, events::k_note_off, note.note, note.velocity ); },
+            [ & ] ( const midi_note& note ) { this->enqueue_event( output_port, events::k_note_on,  note.note, note.velocity ); }
+        );
+
+        active_notes = kept;
     };
 };
 
-typedef midi_first_n_notes_of_container< containers::ascending_midi_note_list  > midi_lowest_notes;
-typedef midi_first_n_notes_of_container< containers::descending_midi_note_list > midi_highest_notes;
+using midi_lowest_notes  = midi_first_n_notes< true  >;
+using midi_highest_notes = midi_first_n_notes< false >;
 
 //---------------------------------------------------------------------------------------------------------------------------
 // midi stuff :: processors :: midi note arpeggiator
 //---------------------------------------------------------------------------------------------------------------------------
 
-class midi_note_arpeggiator : public midi_sorted_note_store< containers::ascending_midi_note_list > {
+class midi_note_arpeggiator : public midi_note_store {
 public:
-    using container                     = containers::ascending_midi_note_list;
-    using container_type                = container::container;
-    using base_type                     = midi_sorted_note_store< container >;
-    using parameter_initializer_list    = base_type::parameter_initializer_list;
-
-    template < class... Ts >
-    struct overloaded : Ts... { using Ts::operator( )...; };
+    using base_type                     = midi_note_store;
 
 public:
     static constexpr int32_t        k_chord_notes_input    = 0;
     static constexpr int32_t        k_sequence_notes_input = 1;
-    static constexpr int32_t        k_input_floor_note     = 2;
-    static constexpr int32_t        k_output_floor_note    = 3;
 
     static constexpr int32_t        k_notes_output         = 0;
 
     container                       chord_notes;
     container                       sequence_notes;
-    note_t                          input_floor_note;
-    note_t                          output_floor_note;
-    
+
     parameter_port&                 output_port; // this->notes is treated as output as it has a generic name
 
     bool                            im_a_dirty_object;
@@ -1796,9 +1755,7 @@ public:
         base_type(
             {
                 { "chord_notes",       k_midi_note, k_chord_notes_input    },
-                { "sequence_notes",    k_midi_note, k_sequence_notes_input },
-                { "input_floor_note",  k_value,     k_input_floor_note     }, // value ports: they receive value_change, not notes
-                { "output_floor_note", k_value,     k_output_floor_note    }
+                { "sequence_notes",    k_midi_note, k_sequence_notes_input }
             },
             {
                 { "notes",             k_midi_note, k_notes_output         }
@@ -1806,10 +1763,10 @@ public:
         ),
         chord_notes( ),
         sequence_notes( ),
-        input_floor_note( 0 ),
-        output_floor_note( 0 ),
         output_port( *this->get_output( "notes" ) ),
         im_a_dirty_object( false ) { }
+
+    using base_type::process_event;
 
     virtual void process_event( const events::note_on& event, parameter_port& /*from*/, parameter_port& to ) override {
         jassert( event.note >= 0 && event.note < 128 );
@@ -1819,7 +1776,7 @@ public:
             default: jassert( 0 );
         }
     };
-    
+
     virtual void process_event( const events::note_off& event, parameter_port& /*from*/, parameter_port& to ) override {
         jassert( event.note >= 0 && event.note < 128 );
 
@@ -1829,69 +1786,45 @@ public:
             default: jassert( 0 );
         }
     };
-    
-    virtual void process_event( const events::value_change& event, parameter_port& /*from*/, parameter_port& to ) override {
-        // TODO: change floor notes while playing will most certainly break things - fix it!
-        switch ( std::get< int32_t >( to.extra ) ) {
-            case k_input_floor_note:  input_floor_note  = static_cast< note_t >( std::get< uint32_t >( event.value ) ); break;
-            case k_output_floor_note: output_floor_note = static_cast< note_t >( std::get< uint32_t >( event.value ) ); break;
-            default: jassert( 0 );
-        }
-    };
 
     virtual void process( void ) override {
-        if ( im_a_dirty_object ) {
-            if ( chord_notes.notes.empty( ) || sequence_notes.notes.empty( ) ) {
-                // enqueue offs for whatever is on the output port
-                std::for_each(
-                    notes.notes.begin( ),
-                    notes.notes.end(   ),
-                    [ & ] ( const midi_note& note ) { // in notes (output) but not in active_notes (freshly computed) - note off
-                        enqueue_event( output_port, events::note_off( note ) );
-                    } 
-                );
-                notes.notes.clear( );
-                im_a_dirty_object = false;
-                return;
+        if ( !im_a_dirty_object ) return;
+
+        container active_notes; // stays empty - all notes off - without both chord and sequence notes
+
+        if ( !chord_notes.empty( ) && !sequence_notes.empty( ) ) {
+            std::array< midi_note, container::k_capacity > chord_tones; // indexable copy of the chord, lowest first
+            size_t                                         chord_size = 0;
+
+            for ( const midi_note& note : chord_notes ) {
+                chord_tones[ chord_size++ ] = note;
             }
 
-            std::vector< std::reference_wrapper< midi_note > > chord_notes_vector( chord_notes.notes.begin( ), chord_notes.notes.end( ) );
-            container active_notes;
-
             // arp loop, computes sequence_notes X chord_notes into active_notes
-            std::for_each(
-                sequence_notes.notes.begin( ),
-                sequence_notes.notes.end( ),
-                [ & ] ( const midi_note& sequence_note ) {
-                    auto index         =   static_cast< int >( sequence_note.note ) % chord_notes_vector.size( );
-                    auto octave_shift  = ( static_cast< int >( sequence_note.note ) / chord_notes_vector.size( ) ) * 12;
+            for ( const midi_note& sequence_note : sequence_notes ) {
+                const size_t index        =   static_cast< size_t >( sequence_note.note ) % chord_size;
+                const size_t octave_shift = ( static_cast< size_t >( sequence_note.note ) / chord_size ) * 12;
 
-                    int note_value     = static_cast< int >( chord_notes_vector[ index ].get( ).note ) + static_cast< int >( octave_shift );
+                int note_value = static_cast< int >( chord_tones[ index ].note ) + static_cast< int >( octave_shift );
 
-                    // if the arp generate a note out of range, it is folded back into range, an octave at a time (keeps the pitch class)
-                    while ( note_value > 127 ) {
-                        note_value -= 12;
-                    }
-
-                    midi_note new_note( static_cast< int8_t >( note_value ), sequence_note.velocity );
-                    active_notes.insert( new_note );
+                // if the arp generate a note out of range, it is folded back into range, an octave at a time (keeps the pitch class)
+                while ( note_value > 127 ) {
+                    note_value -= 12;
                 }
-            );
 
-            // based on what was outputted previous time, it can be verified what's note on and off
-            utils::symmetric_difference_apply( active_notes, notes,
-                [ & ] ( const midi_note& note ) { // in active_notes (freshly computed) but not  - note on
-                    enqueue_event( output_port, events::note_on( note ) );
-                },
-                [ & ] ( const midi_note& note ) { // in notes (output) but not in active_notes (freshly computed) - note off
-                    enqueue_event( output_port, events::note_off( note ) );
-                }
-            );
-
-            // new notes are now old
-            notes.notes       = active_notes.notes;
-            im_a_dirty_object = false; // good boi
+                active_notes.insert( midi_note( static_cast< int8_t >( note_value ), sequence_note.velocity ) );
+            }
         }
+
+        // based on what was outputted previous time, it can be verified what's note on and off
+        container::diff( notes, active_notes,
+            [ & ] ( const midi_note& note ) { enqueue_event( output_port, events::note_off( note ) ); },
+            [ & ] ( const midi_note& note ) { enqueue_event( output_port, events::note_on(  note ) ); }
+        );
+
+        // new notes are now old
+        notes             = active_notes;
+        im_a_dirty_object = false; // good boi
     }
 };
 
@@ -1905,8 +1838,7 @@ public:
 
 class midi_chord_intervals : public base_processor {
 public:
-    using container                     = containers::ascending_midi_note_list;
-    using container_type                = container::container;
+    using container                     = containers::note_set;
     using named_noteset                 = chord_data::named_noteset;
     using scale_code_t                  = named_noteset::scale_code_t;
 
@@ -2062,19 +1994,19 @@ public:
         active_notes.insert( root_shift );
 
         // according to previous publication of note events, the new notes can be prescribed by the mutual exclution of sets A and B </blablabla>
-        utils::symmetric_difference_apply( active_notes, chord_notes_output,
-            // in active_notes (freshly computed) but not in chord_notes_output - note on
-            [ & ] ( const midi_note& note ) {
-                enqueue_event( chord_notes_output_port, events::note_on( note ) );
-            },
+        container::diff( chord_notes_output, active_notes,
             // in chord_notes_output (output) but not in active_notes (freshly computed) - note off
             [ & ] ( const midi_note& note ) {
                 enqueue_event( chord_notes_output_port, events::note_off( note ) );
+            },
+            // in active_notes (freshly computed) but not in chord_notes_output - note on
+            [ & ] ( const midi_note& note ) {
+                enqueue_event( chord_notes_output_port, events::note_on( note ) );
             }
         );
 
         // new notes are now part of music history
-        chord_notes_output.notes = active_notes.notes;
+        chord_notes_output = active_notes;
 
         // ------- pattern_degrees output ------- //
         active_notes.clear( );
@@ -2105,25 +2037,28 @@ public:
                     note_degree = 0;
                 }
 
-                note_t new_note = static_cast< note_t >( note_degree + ( ( ( note.note + 12 ) - root_shift ) / 12 - 1 ) * chord_notes_output.size( ) );
-                active_notes.insert( new_note );
+                const int new_note = static_cast< int >( note_degree ) + ( ( ( note.note + 12 ) - root_shift ) / 12 - 1 ) * static_cast< int >( chord_notes_output.size( ) );
+
+                if ( new_note >= 0 && new_note < 128 ) { // pattern notes below the lowest root ( midi notes < root_shift ) have no degree
+                    active_notes.insert( static_cast< note_t >( new_note ) );
+                }
             }
         );
 
         // once again, loudly blaber the words cibtained in the ancient scrolls of union theory, 
         // commanding events for mutually exclusive existing notes
-        utils::symmetric_difference_apply( active_notes, pattern_degrees_output,
-            // in active_notes (freshly computed) but not in chord_notes_output - note on
-            [ & ] ( const midi_note& note ) {
-                enqueue_event( pattern_degrees_output_port, events::note_on( note ) );
-            },
-            // in chord_notes_output (output) but not in active_notes (freshly computed) - note off
+        container::diff( pattern_degrees_output, active_notes,
+            // in pattern_degrees_output (output) but not in active_notes (freshly computed) - note off
             [ & ] ( const midi_note& note ) {
                 enqueue_event( pattern_degrees_output_port, events::note_off( note ) );
+            },
+            // in active_notes (freshly computed) but not in pattern_degrees_output - note on
+            [ & ] ( const midi_note& note ) {
+                enqueue_event( pattern_degrees_output_port, events::note_on( note ) );
             }
         );
 
-        pattern_degrees_output.notes = active_notes.notes;
+        pattern_degrees_output = active_notes;
 
         im_a_dirty_object = false; // yeessss.... yes... excellent...
     }
@@ -2138,7 +2073,7 @@ public:
 
 class midi_note_wormhole : public base_processor {
 public:
-    using container              = midi_stuff::containers::ascending_midi_note_list;
+    using container              = midi_stuff::containers::note_set;
 
     template < uint32_t _uuid >
     using buffered_container     = midi_stuff::threads::buffered_object_instance< container, _uuid >;
@@ -2323,14 +2258,14 @@ public:
                     return;
                 }
 
-                utils::symmetric_difference_apply(
-                    strip.buffered_input.buffer,
+                container::diff(
                     strip.output,
-                    [ & ] ( const midi_note& note ) {
-                        enqueue_event( strip.output_port, events::note_on( note ) );
-                    },
+                    strip.buffered_input.buffer,
                     [ & ] ( const midi_note& note ) {
                         enqueue_event( strip.output_port, events::note_off( note ) );
+                    },
+                    [ & ] ( const midi_note& note ) {
+                        enqueue_event( strip.output_port, events::note_on( note ) );
                     }
                 );
 

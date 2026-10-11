@@ -124,6 +124,7 @@ if( MIDI_STUFF_BUILD_TESTS )
         tests/main.cpp
         tests/chord_guesser_tests.cpp
         tests/processor_tests.cpp
+        tests/note_set_tests.cpp
     )
 
     target_link_libraries( midi_stuff_tests PRIVATE midi_stuff::core doctest::doctest )

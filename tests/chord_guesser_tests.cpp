@@ -13,7 +13,7 @@ namespace {
 using namespace midi_stuff;
 
 std::string guess( std::initializer_list< int > notes, int root ) {
-    containers::ascending_midi_note_list list;
+    containers::note_set list;
     for ( int note : notes ) {
         list.insert( midi_note( static_cast< int8_t >( note ) ) );
     }

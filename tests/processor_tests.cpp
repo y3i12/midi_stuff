@@ -34,7 +34,7 @@ struct counting_dedup : public midi_note_dedup {
     void process( void ) override { ++processed; }
 };
 
-std::set< int > notes_of( const containers::ascending_midi_note_list& list ) {
+std::set< int > notes_of( const containers::note_set& list ) {
     std::set< int > result;
     for ( const auto& note : list ) {
         result.insert( note.note );
